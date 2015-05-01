@@ -102,6 +102,12 @@ public class ExpressionParser extends Parser {
 		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
 		public TerminalNode RIGHT_PAREN() { return getToken(ExpressionParser.RIGHT_PAREN, 0); }
 		public TerminalNode EOF() { return getToken(ExpressionParser.EOF, 0); }
+		public List<LineContext> line() {
+			return getRuleContexts(LineContext.class);
+		}
+		public LineContext line(int i) {
+			return getRuleContext(LineContext.class,i);
+		}
 		public LineContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -119,14 +125,43 @@ public class ExpressionParser extends Parser {
 	public final LineContext line() throws RecognitionException {
 		LineContext _localctx = new LineContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_line);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(2);
 			match(LEFT_PAREN);
-			setState(3);
+			setState(6);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==LEFT_PAREN) {
+				{
+				{
+				setState(3);
+				line();
+				}
+				}
+				setState(8);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(9);
 			match(RIGHT_PAREN);
-			setState(4);
+			setState(13);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==LEFT_PAREN) {
+				{
+				{
+				setState(10);
+				line();
+				}
+				}
+				setState(15);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(16);
 			match(EOF);
 			}
 		}
@@ -142,9 +177,12 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\4\t\4\2\t\2\3\2\3"+
-		"\2\3\2\3\2\3\2\2\2\3\2\2\2\7\2\4\3\2\2\2\4\5\7\3\2\2\5\6\7\4\2\2\6\7\7"+
-		"\2\2\3\7\3\3\2\2\2\2";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\4\25\4\2\t\2\3\2"+
+		"\3\2\7\2\7\n\2\f\2\16\2\n\13\2\3\2\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2"+
+		"\3\2\3\2\2\2\3\2\2\2\25\2\4\3\2\2\2\4\b\7\3\2\2\5\7\5\2\2\2\6\5\3\2\2"+
+		"\2\7\n\3\2\2\2\b\6\3\2\2\2\b\t\3\2\2\2\t\13\3\2\2\2\n\b\3\2\2\2\13\17"+
+		"\7\4\2\2\f\16\5\2\2\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r\3\2\2\2\17\20\3\2"+
+		"\2\2\20\22\3\2\2\2\21\17\3\2\2\2\22\23\7\2\2\3\23\3\3\2\2\2\4\b\17";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
