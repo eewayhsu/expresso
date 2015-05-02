@@ -60,12 +60,12 @@ line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 
 file                  : expression? EOF;
 
-expression            : operation_expression | root_expression;
-root_expression       : token | LEFT_PAREN expression RIGHT_PAREN;
-operation_expression  : (root_expression operation)+ root_expression;
+expression            : bead | chain;
+bead                  : literal | LEFT_PAREN expression RIGHT_PAREN;
+chain                 : (bead operation)+ bead;
 
 operation             : PLUS | MULTIPLY;
-token                 : VARIABLE | CONSTANT;
+literal               : VARIABLE | CONSTANT;
 
 PLUS                  : '+';
 MULTIPLY              : '*';

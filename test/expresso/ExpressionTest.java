@@ -44,70 +44,57 @@ public class ExpressionTest {
     
     @Test
     public void testEmptyString() {
-        assert parse("");
+        parse("");
     }
     
     @Test
     public void testSinglePair() {
-        assert parse("()");
+        parse("()");
     }
     
     @Test
     public void testTwoPair() {
-        assert parse("()()");
+        parse("()()");
     }
     
     @Test
     public void testThreeBalancedSequence() {
-        assert parse("()(((())))(())");
+        parse("()(((())))(())");
     }
     
-    @Test
+    @Test(expected=RuntimeException.class)
     public void testSingleUnbalanced() {
-        assertFalse(parse("("));
+        parse("(");
     }
     
-    @Test
+    @Test(expected=RuntimeException.class)
     public void testOneAndHalfUnbalanced() {
-        assertFalse(parse("(()"));
+        parse("(()");
     }
 
-    private Boolean parse(String string) {
+    private void parse(String string) {
         CharStream stream = new ANTLRInputStream(string);
 
         // Instatiate lexer
         ExpressionLexer lexer = new ExpressionLexer(stream);
-        lexer.removeErrorListeners();
-        lexer.addErrorListener(new ThrowingErrorListener());
+        lexer.reportErrorsAsExceptions();
 
         TokenStream tokens = new CommonTokenStream(lexer);
 
         // Instatiate parser
         ExpressionParser parser = new ExpressionParser(tokens);
-        parser.removeErrorListeners();
-        parser.addErrorListener(new ThrowingErrorListener());
+        parser.reportErrorsAsExceptions();
 
-        try {
-          ParseTree tree = parser.root();
-          if (DISPLAY_GRAPHICS) {
+        ParseTree tree = parser.root();
+
+        if (DISPLAY_GRAPHICS) {
+          try {
             System.out.println(tree.toStringTree(parser));
             Future<JDialog> future = ((RuleContext)tree).inspect(parser);
             Utils.waitForClose(future.get());
+          } catch (Exception e) {
+            e.printStackTrace();
           }
-        } catch (ParseCancellationException pce) {
-          return false;
-        } catch (Exception e) {
-          e.printStackTrace();
         }
-        return true;
     }
-
-    public class ThrowingErrorListener extends BaseErrorListener {
-       @Override
-       public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
-          throws ParseCancellationException {
-             throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
-          }
-    }
-
 }

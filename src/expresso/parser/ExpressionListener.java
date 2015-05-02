@@ -61,25 +61,25 @@ public interface ExpressionListener extends ParseTreeListener {
 	 */
 	void exitExpression(ExpressionParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#root_expression}.
+	 * Enter a parse tree produced by {@link ExpressionParser#bead}.
 	 * @param ctx the parse tree
 	 */
-	void enterRoot_expression(ExpressionParser.Root_expressionContext ctx);
+	void enterBead(ExpressionParser.BeadContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#root_expression}.
+	 * Exit a parse tree produced by {@link ExpressionParser#bead}.
 	 * @param ctx the parse tree
 	 */
-	void exitRoot_expression(ExpressionParser.Root_expressionContext ctx);
+	void exitBead(ExpressionParser.BeadContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#operation_expression}.
+	 * Enter a parse tree produced by {@link ExpressionParser#chain}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperation_expression(ExpressionParser.Operation_expressionContext ctx);
+	void enterChain(ExpressionParser.ChainContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#operation_expression}.
+	 * Exit a parse tree produced by {@link ExpressionParser#chain}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperation_expression(ExpressionParser.Operation_expressionContext ctx);
+	void exitChain(ExpressionParser.ChainContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ExpressionParser#operation}.
 	 * @param ctx the parse tree
@@ -91,13 +91,13 @@ public interface ExpressionListener extends ParseTreeListener {
 	 */
 	void exitOperation(ExpressionParser.OperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#token}.
+	 * Enter a parse tree produced by {@link ExpressionParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterToken(ExpressionParser.TokenContext ctx);
+	void enterLiteral(ExpressionParser.LiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#token}.
+	 * Exit a parse tree produced by {@link ExpressionParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitToken(ExpressionParser.TokenContext ctx);
+	void exitLiteral(ExpressionParser.LiteralContext ctx);
 }

@@ -23,11 +23,10 @@ public class ExpressionParser extends Parser {
 		WHITESPACE=7;
 	public static final int
 		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_expression = 4, 
-		RULE_root_expression = 5, RULE_operation_expression = 6, RULE_operation = 7, 
-		RULE_token = 8;
+		RULE_bead = 5, RULE_chain = 6, RULE_operation = 7, RULE_literal = 8;
 	public static final String[] ruleNames = {
-		"root", "warmup", "line", "file", "expression", "root_expression", "operation_expression", 
-		"operation", "token"
+		"root", "warmup", "line", "file", "expression", "bead", "chain", "operation", 
+		"literal"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -336,11 +335,11 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public Operation_expressionContext operation_expression() {
-			return getRuleContext(Operation_expressionContext.class,0);
+		public BeadContext bead() {
+			return getRuleContext(BeadContext.class,0);
 		}
-		public Root_expressionContext root_expression() {
-			return getRuleContext(Root_expressionContext.class,0);
+		public ChainContext chain() {
+			return getRuleContext(ChainContext.class,0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -366,14 +365,14 @@ public class ExpressionParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(46);
-				operation_expression();
+				bead();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(47);
-				root_expression();
+				chain();
 				}
 				break;
 			}
@@ -389,32 +388,32 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Root_expressionContext extends ParserRuleContext {
-		public TokenContext token() {
-			return getRuleContext(TokenContext.class,0);
+	public static class BeadContext extends ParserRuleContext {
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
 		}
 		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode RIGHT_PAREN() { return getToken(ExpressionParser.RIGHT_PAREN, 0); }
-		public Root_expressionContext(ParserRuleContext parent, int invokingState) {
+		public BeadContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_root_expression; }
+		@Override public int getRuleIndex() { return RULE_bead; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterRoot_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterBead(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitRoot_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitBead(this);
 		}
 	}
 
-	public final Root_expressionContext root_expression() throws RecognitionException {
-		Root_expressionContext _localctx = new Root_expressionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_root_expression);
+	public final BeadContext bead() throws RecognitionException {
+		BeadContext _localctx = new BeadContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_bead);
 		try {
 			setState(55);
 			switch (_input.LA(1)) {
@@ -423,7 +422,7 @@ public class ExpressionParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(50);
-				token();
+				literal();
 				}
 				break;
 			case LEFT_PAREN:
@@ -452,12 +451,12 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Operation_expressionContext extends ParserRuleContext {
-		public List<Root_expressionContext> root_expression() {
-			return getRuleContexts(Root_expressionContext.class);
+	public static class ChainContext extends ParserRuleContext {
+		public List<BeadContext> bead() {
+			return getRuleContexts(BeadContext.class);
 		}
-		public Root_expressionContext root_expression(int i) {
-			return getRuleContext(Root_expressionContext.class,i);
+		public BeadContext bead(int i) {
+			return getRuleContext(BeadContext.class,i);
 		}
 		public List<OperationContext> operation() {
 			return getRuleContexts(OperationContext.class);
@@ -465,23 +464,23 @@ public class ExpressionParser extends Parser {
 		public OperationContext operation(int i) {
 			return getRuleContext(OperationContext.class,i);
 		}
-		public Operation_expressionContext(ParserRuleContext parent, int invokingState) {
+		public ChainContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_operation_expression; }
+		@Override public int getRuleIndex() { return RULE_chain; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterOperation_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterChain(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitOperation_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitChain(this);
 		}
 	}
 
-	public final Operation_expressionContext operation_expression() throws RecognitionException {
-		Operation_expressionContext _localctx = new Operation_expressionContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_operation_expression);
+	public final ChainContext chain() throws RecognitionException {
+		ChainContext _localctx = new ChainContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_chain);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
@@ -495,7 +494,7 @@ public class ExpressionParser extends Parser {
 					{
 					{
 					setState(57);
-					root_expression();
+					bead();
 					setState(58);
 					operation();
 					}
@@ -509,7 +508,7 @@ public class ExpressionParser extends Parser {
 				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			setState(64);
-			root_expression();
+			bead();
 			}
 		}
 		catch (RecognitionException re) {
@@ -567,26 +566,26 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TokenContext extends ParserRuleContext {
+	public static class LiteralContext extends ParserRuleContext {
 		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
 		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
-		public TokenContext(ParserRuleContext parent, int invokingState) {
+		public LiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_token; }
+		@Override public int getRuleIndex() { return RULE_literal; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterToken(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterLiteral(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitToken(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitLiteral(this);
 		}
 	}
 
-	public final TokenContext token() throws RecognitionException {
-		TokenContext _localctx = new TokenContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_token);
+	public final LiteralContext literal() throws RecognitionException {
+		LiteralContext _localctx = new LiteralContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_literal);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -625,7 +624,7 @@ public class ExpressionParser extends Parser {
 		"\2\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2"+
 		"$(\7\b\2\2%\'\5\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\7\3\2"+
 		"\2\2*(\3\2\2\2+-\5\n\6\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\2\2\3/\t\3"+
-		"\2\2\2\60\63\5\16\b\2\61\63\5\f\7\2\62\60\3\2\2\2\62\61\3\2\2\2\63\13"+
+		"\2\2\2\60\63\5\f\7\2\61\63\5\16\b\2\62\60\3\2\2\2\62\61\3\2\2\2\63\13"+
 		"\3\2\2\2\64:\5\22\n\2\65\66\7\7\2\2\66\67\5\n\6\2\678\7\b\2\28:\3\2\2"+
 		"\29\64\3\2\2\29\65\3\2\2\2:\r\3\2\2\2;<\5\f\7\2<=\5\20\t\2=?\3\2\2\2>"+
 		";\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\5\f\7\2C\17\3\2\2"+
