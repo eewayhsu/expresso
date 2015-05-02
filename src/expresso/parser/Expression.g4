@@ -51,6 +51,24 @@ package expresso.parser;
  * For more information, see
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
-line        : LEFT_PAREN RIGHT_PAREN EOF;
-LEFT_PAREN  : '(';
-RIGHT_PAREN : ')';
+
+warmup					: line? EOF;
+line					: LEFT_PAREN line* RIGHT_PAREN line*;
+
+file					: expression? EOF;
+
+expression				: operation_expression | root_expression;
+root_expression			: token | LEFT_PAREN expression RIGHT_PAREN;
+operation_expression	: root_expression operation root_expression;
+
+operation				: PLUS | MULTIPLY;
+token					: VARIABLE | CONSTANT;
+
+PLUS 					: '+';
+MULTIPLY				: '*';
+VARIABLE				: [a-zA-Z]+;
+CONSTANT 				: [0-9]+;
+LEFT_PAREN				: '(';
+RIGHT_PAREN				: ')';
+
+WHITESPACE 				: [ ]+ -> skip;
