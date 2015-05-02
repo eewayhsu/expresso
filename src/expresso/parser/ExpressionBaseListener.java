@@ -19,13 +19,13 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRoot(ExpressionParser.RootContext ctx) { }
+	@Override public void enterWarmup(ExpressionParser.WarmupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRoot(ExpressionParser.RootContext ctx) { }
+	@Override public void exitWarmup(ExpressionParser.WarmupContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -38,6 +38,78 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLine(ExpressionParser.LineContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFile(ExpressionParser.FileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFile(ExpressionParser.FileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpression(ExpressionParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression(ExpressionParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperation_expression(ExpressionParser.Operation_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperation_expression(ExpressionParser.Operation_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperation(ExpressionParser.OperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperation(ExpressionParser.OperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterToken(ExpressionParser.TokenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitToken(ExpressionParser.TokenContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
