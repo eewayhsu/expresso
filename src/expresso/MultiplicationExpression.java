@@ -5,11 +5,16 @@ class MultiplicationExpression implements Expression {
     private Expression left;
     private Expression right;
     
-    // Abstraction function
-    //
-    // Rep invariant
-    //
-    // Safety from rep exposure
+    /* Abstraction function
+     *      left -> the multiplicand (expression prior to '*') of a mathematical expression 
+     *      right -> the multiplier (expression post '*') of a mathematical expression
+     *      
+     * Rep invariant
+     *      left and right not null
+     *      
+     * Safety from rep exposure
+     * 
+     */
     
     /**
      * Creates a multiplication expression with given left and right expressions.
