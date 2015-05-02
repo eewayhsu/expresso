@@ -1,4 +1,4 @@
-// Generated from Expression.g4 by ANTLR 4.5
+// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -404,8 +404,11 @@ public class ExpressionParser extends Parser {
 		public Root_expressionContext root_expression(int i) {
 			return getRuleContext(Root_expressionContext.class,i);
 		}
-		public OperationContext operation() {
-			return getRuleContext(OperationContext.class,0);
+		public List<OperationContext> operation() {
+			return getRuleContexts(OperationContext.class);
+		}
+		public OperationContext operation(int i) {
+			return getRuleContext(OperationContext.class,i);
 		}
 		public Operation_expressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -425,13 +428,32 @@ public class ExpressionParser extends Parser {
 		Operation_expressionContext _localctx = new Operation_expressionContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_operation_expression);
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(51);
-			root_expression();
-			setState(52);
-			operation();
-			setState(53);
+			setState(54); 
+			_errHandler.sync(this);
+			_alt = 1;
+			do {
+				switch (_alt) {
+				case 1:
+					{
+					{
+					setState(51);
+					root_expression();
+					setState(52);
+					operation();
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				setState(56); 
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
+			setState(58);
 			root_expression();
 			}
 		}
@@ -470,7 +492,7 @@ public class ExpressionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
+			setState(60);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MULTIPLY) ) {
 			_errHandler.recoverInline(this);
@@ -514,7 +536,7 @@ public class ExpressionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(57);
+			setState(62);
 			_la = _input.LA(1);
 			if ( !(_la==VARIABLE || _la==CONSTANT) ) {
 			_errHandler.recoverInline(this);
@@ -535,22 +557,23 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t>\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tC\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\5\2\24\n\2\3\2"+
 		"\3\2\3\3\3\3\7\3\32\n\3\f\3\16\3\35\13\3\3\3\3\3\7\3!\n\3\f\3\16\3$\13"+
 		"\3\3\4\5\4\'\n\4\3\4\3\4\3\5\3\5\5\5-\n\5\3\6\3\6\3\6\3\6\3\6\5\6\64\n"+
-		"\6\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2\4\6\b\n\f\16\20\2\4\3\2"+
-		"\3\4\3\2\5\6;\2\23\3\2\2\2\4\27\3\2\2\2\6&\3\2\2\2\b,\3\2\2\2\n\63\3\2"+
-		"\2\2\f\65\3\2\2\2\169\3\2\2\2\20;\3\2\2\2\22\24\5\4\3\2\23\22\3\2\2\2"+
-		"\23\24\3\2\2\2\24\25\3\2\2\2\25\26\7\2\2\3\26\3\3\2\2\2\27\33\7\7\2\2"+
-		"\30\32\5\4\3\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2"+
-		"\34\36\3\2\2\2\35\33\3\2\2\2\36\"\7\b\2\2\37!\5\4\3\2 \37\3\2\2\2!$\3"+
-		"\2\2\2\" \3\2\2\2\"#\3\2\2\2#\5\3\2\2\2$\"\3\2\2\2%\'\5\b\5\2&%\3\2\2"+
-		"\2&\'\3\2\2\2\'(\3\2\2\2()\7\2\2\3)\7\3\2\2\2*-\5\f\7\2+-\5\n\6\2,*\3"+
-		"\2\2\2,+\3\2\2\2-\t\3\2\2\2.\64\5\20\t\2/\60\7\7\2\2\60\61\5\b\5\2\61"+
-		"\62\7\b\2\2\62\64\3\2\2\2\63.\3\2\2\2\63/\3\2\2\2\64\13\3\2\2\2\65\66"+
-		"\5\n\6\2\66\67\5\16\b\2\678\5\n\6\28\r\3\2\2\29:\t\2\2\2:\17\3\2\2\2;"+
-		"<\t\3\2\2<\21\3\2\2\2\b\23\33\"&,\63";
+		"\6\3\7\3\7\3\7\6\79\n\7\r\7\16\7:\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2"+
+		"\4\6\b\n\f\16\20\2\4\3\2\3\4\3\2\5\6A\2\23\3\2\2\2\4\27\3\2\2\2\6&\3\2"+
+		"\2\2\b,\3\2\2\2\n\63\3\2\2\2\f8\3\2\2\2\16>\3\2\2\2\20@\3\2\2\2\22\24"+
+		"\5\4\3\2\23\22\3\2\2\2\23\24\3\2\2\2\24\25\3\2\2\2\25\26\7\2\2\3\26\3"+
+		"\3\2\2\2\27\33\7\7\2\2\30\32\5\4\3\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31"+
+		"\3\2\2\2\33\34\3\2\2\2\34\36\3\2\2\2\35\33\3\2\2\2\36\"\7\b\2\2\37!\5"+
+		"\4\3\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\5\3\2\2\2$\"\3\2\2"+
+		"\2%\'\5\b\5\2&%\3\2\2\2&\'\3\2\2\2\'(\3\2\2\2()\7\2\2\3)\7\3\2\2\2*-\5"+
+		"\f\7\2+-\5\n\6\2,*\3\2\2\2,+\3\2\2\2-\t\3\2\2\2.\64\5\20\t\2/\60\7\7\2"+
+		"\2\60\61\5\b\5\2\61\62\7\b\2\2\62\64\3\2\2\2\63.\3\2\2\2\63/\3\2\2\2\64"+
+		"\13\3\2\2\2\65\66\5\n\6\2\66\67\5\16\b\2\679\3\2\2\28\65\3\2\2\29:\3\2"+
+		"\2\2:8\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\5\n\6\2=\r\3\2\2\2>?\t\2\2\2?\17"+
+		"\3\2\2\2@A\t\3\2\2A\21\3\2\2\2\t\23\33\"&,\63:";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import expresso.parser.*;
 
 import org.antlr.v4.runtime.*;
+import org.antlr.runtime.RecognitionException;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class ExpressionTest {
      *  - ( a single unbalanced pair
      *  - (() one and a half pairs
      */
+    private static final Boolean DISPLAY_GRAPHICS = false;
     
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -39,53 +41,50 @@ public class ExpressionTest {
     
     @Test
     public void testEmptyString() {
-        CharStream stream = new ANTLRInputStream("");
-        parse(stream);
+        parse("");
     }
     
     @Test
     public void testSinglePair() {
-        CharStream stream = new ANTLRInputStream("()");
-        parse(stream);
+        parse("()");
     }
     
     @Test
     public void testTwoPair() {
-        CharStream stream = new ANTLRInputStream("()()");
-        parse(stream);
+        parse("()()");
     }
     
     @Test
     public void testThreeBalancedSequence() {
-        CharStream stream = new ANTLRInputStream("()(((())))(())");
-        parse(stream);
+        parse("()(((())))(())");
     }
     
-    @Test
+    @Test(expected=RecognitionException.class)
     public void testSingleUnbalanced() {
-        CharStream stream = new ANTLRInputStream("(");
-        parse(stream);
+        parse("(");
     }
     
-    @Test
+    @Test(expected=RecognitionException.class)
     public void testOneAndHalfUnbalanced() {
-        CharStream stream = new ANTLRInputStream("(()");
-        parse(stream);
+        parse("(()");
     }
 
-    private void parse(CharStream stream) {
+    private void parse(String string) throws RecognitionException {
+        CharStream stream = new ANTLRInputStream(string);
         ExpressionLexer lexer = new ExpressionLexer(stream);
         TokenStream tokens = new CommonTokenStream(lexer);
         ExpressionParser parser = new ExpressionParser(tokens);
         ParseTree tree = parser.warmup();
         System.err.println(tree.toStringTree(parser));
-        try {
-            Future<JDialog> future = ((RuleContext)tree).inspect(parser);
-            Utils.waitForClose(future.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        if (DISPLAY_GRAPHICS) {
+          try {
+              Future<JDialog> future = ((RuleContext)tree).inspect(parser);
+              Utils.waitForClose(future.get());
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          } catch (ExecutionException e) {
+              e.printStackTrace();
+          }
         }
     }
 }
