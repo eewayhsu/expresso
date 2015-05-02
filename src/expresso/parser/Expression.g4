@@ -52,6 +52,9 @@ package expresso.parser;
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
 
+// TODO: remove root and warmup after warmup exercise
+root                  : warmup | file;
+
 warmup                : line? EOF;
 line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 

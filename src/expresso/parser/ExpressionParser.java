@@ -22,10 +22,11 @@ public class ExpressionParser extends Parser {
 		PLUS=1, MULTIPLY=2, VARIABLE=3, CONSTANT=4, LEFT_PAREN=5, RIGHT_PAREN=6, 
 		WHITESPACE=7;
 	public static final int
-		RULE_warmup = 0, RULE_line = 1, RULE_file = 2, RULE_expression = 3, RULE_root_expression = 4, 
-		RULE_operation_expression = 5, RULE_operation = 6, RULE_token = 7;
+		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_expression = 4, 
+		RULE_root_expression = 5, RULE_operation_expression = 6, RULE_operation = 7, 
+		RULE_token = 8;
 	public static final String[] ruleNames = {
-		"warmup", "line", "file", "expression", "root_expression", "operation_expression", 
+		"root", "warmup", "line", "file", "expression", "root_expression", "operation_expression", 
 		"operation", "token"
 	};
 
@@ -102,6 +103,60 @@ public class ExpressionParser extends Parser {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
+	public static class RootContext extends ParserRuleContext {
+		public WarmupContext warmup() {
+			return getRuleContext(WarmupContext.class,0);
+		}
+		public FileContext file() {
+			return getRuleContext(FileContext.class,0);
+		}
+		public RootContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_root; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterRoot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitRoot(this);
+		}
+	}
+
+	public final RootContext root() throws RecognitionException {
+		RootContext _localctx = new RootContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_root);
+		try {
+			setState(20);
+			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(18);
+				warmup();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(19);
+				file();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class WarmupContext extends ParserRuleContext {
 		public TerminalNode EOF() { return getToken(ExpressionParser.EOF, 0); }
 		public LineContext line() {
@@ -123,21 +178,21 @@ public class ExpressionParser extends Parser {
 
 	public final WarmupContext warmup() throws RecognitionException {
 		WarmupContext _localctx = new WarmupContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_warmup);
+		enterRule(_localctx, 2, RULE_warmup);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(17);
+			setState(23);
 			_la = _input.LA(1);
 			if (_la==LEFT_PAREN) {
 				{
-				setState(16);
+				setState(22);
 				line();
 				}
 			}
 
-			setState(19);
+			setState(25);
 			match(EOF);
 			}
 		}
@@ -177,45 +232,45 @@ public class ExpressionParser extends Parser {
 
 	public final LineContext line() throws RecognitionException {
 		LineContext _localctx = new LineContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_line);
+		enterRule(_localctx, 4, RULE_line);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(21);
+			setState(27);
 			match(LEFT_PAREN);
-			setState(25);
+			setState(31);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==LEFT_PAREN) {
 				{
 				{
-				setState(22);
+				setState(28);
 				line();
 				}
 				}
-				setState(27);
+				setState(33);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(28);
+			setState(34);
 			match(RIGHT_PAREN);
-			setState(32);
+			setState(38);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(29);
+					setState(35);
 					line();
 					}
 					} 
 				}
-				setState(34);
+				setState(40);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
 			}
 		}
@@ -251,21 +306,21 @@ public class ExpressionParser extends Parser {
 
 	public final FileContext file() throws RecognitionException {
 		FileContext _localctx = new FileContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_file);
+		enterRule(_localctx, 6, RULE_file);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(36);
+			setState(42);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << VARIABLE) | (1L << CONSTANT) | (1L << LEFT_PAREN))) != 0)) {
 				{
-				setState(35);
+				setState(41);
 				expression();
 				}
 			}
 
-			setState(38);
+			setState(44);
 			match(EOF);
 			}
 		}
@@ -303,21 +358,21 @@ public class ExpressionParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_expression);
+		enterRule(_localctx, 8, RULE_expression);
 		try {
-			setState(42);
-			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			setState(48);
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40);
+				setState(46);
 				operation_expression();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(41);
+				setState(47);
 				root_expression();
 				}
 				break;
@@ -359,26 +414,26 @@ public class ExpressionParser extends Parser {
 
 	public final Root_expressionContext root_expression() throws RecognitionException {
 		Root_expressionContext _localctx = new Root_expressionContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_root_expression);
+		enterRule(_localctx, 10, RULE_root_expression);
 		try {
-			setState(49);
+			setState(55);
 			switch (_input.LA(1)) {
 			case VARIABLE:
 			case CONSTANT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(44);
+				setState(50);
 				token();
 				}
 				break;
 			case LEFT_PAREN:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(45);
+				setState(51);
 				match(LEFT_PAREN);
-				setState(46);
+				setState(52);
 				expression();
-				setState(47);
+				setState(53);
 				match(RIGHT_PAREN);
 				}
 				break;
@@ -426,12 +481,12 @@ public class ExpressionParser extends Parser {
 
 	public final Operation_expressionContext operation_expression() throws RecognitionException {
 		Operation_expressionContext _localctx = new Operation_expressionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_operation_expression);
+		enterRule(_localctx, 12, RULE_operation_expression);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(54); 
+			setState(60); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -439,9 +494,9 @@ public class ExpressionParser extends Parser {
 				case 1:
 					{
 					{
-					setState(51);
+					setState(57);
 					root_expression();
-					setState(52);
+					setState(58);
 					operation();
 					}
 					}
@@ -449,11 +504,11 @@ public class ExpressionParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(56); 
+				setState(62); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-			setState(58);
+			setState(64);
 			root_expression();
 			}
 		}
@@ -487,12 +542,12 @@ public class ExpressionParser extends Parser {
 
 	public final OperationContext operation() throws RecognitionException {
 		OperationContext _localctx = new OperationContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_operation);
+		enterRule(_localctx, 14, RULE_operation);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
+			setState(66);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MULTIPLY) ) {
 			_errHandler.recoverInline(this);
@@ -531,12 +586,12 @@ public class ExpressionParser extends Parser {
 
 	public final TokenContext token() throws RecognitionException {
 		TokenContext _localctx = new TokenContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_token);
+		enterRule(_localctx, 16, RULE_token);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(62);
+			setState(68);
 			_la = _input.LA(1);
 			if ( !(_la==VARIABLE || _la==CONSTANT) ) {
 			_errHandler.recoverInline(this);
@@ -557,23 +612,24 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tC\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\5\2\24\n\2\3\2"+
-		"\3\2\3\3\3\3\7\3\32\n\3\f\3\16\3\35\13\3\3\3\3\3\7\3!\n\3\f\3\16\3$\13"+
-		"\3\3\4\5\4\'\n\4\3\4\3\4\3\5\3\5\5\5-\n\5\3\6\3\6\3\6\3\6\3\6\5\6\64\n"+
-		"\6\3\7\3\7\3\7\6\79\n\7\r\7\16\7:\3\7\3\7\3\b\3\b\3\t\3\t\3\t\2\2\n\2"+
-		"\4\6\b\n\f\16\20\2\4\3\2\3\4\3\2\5\6A\2\23\3\2\2\2\4\27\3\2\2\2\6&\3\2"+
-		"\2\2\b,\3\2\2\2\n\63\3\2\2\2\f8\3\2\2\2\16>\3\2\2\2\20@\3\2\2\2\22\24"+
-		"\5\4\3\2\23\22\3\2\2\2\23\24\3\2\2\2\24\25\3\2\2\2\25\26\7\2\2\3\26\3"+
-		"\3\2\2\2\27\33\7\7\2\2\30\32\5\4\3\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31"+
-		"\3\2\2\2\33\34\3\2\2\2\34\36\3\2\2\2\35\33\3\2\2\2\36\"\7\b\2\2\37!\5"+
-		"\4\3\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#\5\3\2\2\2$\"\3\2\2"+
-		"\2%\'\5\b\5\2&%\3\2\2\2&\'\3\2\2\2\'(\3\2\2\2()\7\2\2\3)\7\3\2\2\2*-\5"+
-		"\f\7\2+-\5\n\6\2,*\3\2\2\2,+\3\2\2\2-\t\3\2\2\2.\64\5\20\t\2/\60\7\7\2"+
-		"\2\60\61\5\b\5\2\61\62\7\b\2\2\62\64\3\2\2\2\63.\3\2\2\2\63/\3\2\2\2\64"+
-		"\13\3\2\2\2\65\66\5\n\6\2\66\67\5\16\b\2\679\3\2\2\28\65\3\2\2\29:\3\2"+
-		"\2\2:8\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\5\n\6\2=\r\3\2\2\2>?\t\2\2\2?\17"+
-		"\3\2\2\2@A\t\3\2\2A\21\3\2\2\2\t\23\33\"&,\63:";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tI\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\5\2"+
+		"\27\n\2\3\3\5\3\32\n\3\3\3\3\3\3\4\3\4\7\4 \n\4\f\4\16\4#\13\4\3\4\3\4"+
+		"\7\4\'\n\4\f\4\16\4*\13\4\3\5\5\5-\n\5\3\5\3\5\3\6\3\6\5\6\63\n\6\3\7"+
+		"\3\7\3\7\3\7\3\7\5\7:\n\7\3\b\3\b\3\b\6\b?\n\b\r\b\16\b@\3\b\3\b\3\t\3"+
+		"\t\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\4\3\2\3\4\3\2\5\6G\2\26\3"+
+		"\2\2\2\4\31\3\2\2\2\6\35\3\2\2\2\b,\3\2\2\2\n\62\3\2\2\2\f9\3\2\2\2\16"+
+		">\3\2\2\2\20D\3\2\2\2\22F\3\2\2\2\24\27\5\4\3\2\25\27\5\b\5\2\26\24\3"+
+		"\2\2\2\26\25\3\2\2\2\27\3\3\2\2\2\30\32\5\6\4\2\31\30\3\2\2\2\31\32\3"+
+		"\2\2\2\32\33\3\2\2\2\33\34\7\2\2\3\34\5\3\2\2\2\35!\7\7\2\2\36 \5\6\4"+
+		"\2\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2"+
+		"$(\7\b\2\2%\'\5\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\7\3\2"+
+		"\2\2*(\3\2\2\2+-\5\n\6\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\2\2\3/\t\3"+
+		"\2\2\2\60\63\5\16\b\2\61\63\5\f\7\2\62\60\3\2\2\2\62\61\3\2\2\2\63\13"+
+		"\3\2\2\2\64:\5\22\n\2\65\66\7\7\2\2\66\67\5\n\6\2\678\7\b\2\28:\3\2\2"+
+		"\29\64\3\2\2\29\65\3\2\2\2:\r\3\2\2\2;<\5\f\7\2<=\5\20\t\2=?\3\2\2\2>"+
+		";\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\5\f\7\2C\17\3\2\2"+
+		"\2DE\t\2\2\2E\21\3\2\2\2FG\t\3\2\2G\23\3\2\2\2\n\26\31!(,\629@";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

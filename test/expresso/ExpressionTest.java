@@ -8,10 +8,13 @@ import javax.swing.JDialog;
 import expresso.parser.*;
 
 import org.antlr.v4.runtime.*;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.v4.runtime.misc.Utils;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /*
  * This class contains tests for the language of balanced parentheses.
@@ -41,50 +44,70 @@ public class ExpressionTest {
     
     @Test
     public void testEmptyString() {
-        parse("");
+        assert parse("");
     }
     
     @Test
     public void testSinglePair() {
-        parse("()");
+        assert parse("()");
     }
     
     @Test
     public void testTwoPair() {
-        parse("()()");
+        assert parse("()()");
     }
     
     @Test
     public void testThreeBalancedSequence() {
-        parse("()(((())))(())");
+        assert parse("()(((())))(())");
     }
     
-    @Test(expected=RecognitionException.class)
+    @Test
     public void testSingleUnbalanced() {
-        parse("(");
+        assertFalse(parse("("));
     }
     
-    @Test(expected=RecognitionException.class)
+    @Test
     public void testOneAndHalfUnbalanced() {
-        parse("(()");
+        assertFalse(parse("(()"));
     }
 
-    private void parse(String string) throws RecognitionException {
+    private Boolean parse(String string) {
         CharStream stream = new ANTLRInputStream(string);
+
+        // Instatiate lexer
         ExpressionLexer lexer = new ExpressionLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(new ThrowingErrorListener());
+
         TokenStream tokens = new CommonTokenStream(lexer);
+
+        // Instatiate parser
         ExpressionParser parser = new ExpressionParser(tokens);
-        ParseTree tree = parser.warmup();
-        System.err.println(tree.toStringTree(parser));
-        if (DISPLAY_GRAPHICS) {
-          try {
-              Future<JDialog> future = ((RuleContext)tree).inspect(parser);
-              Utils.waitForClose(future.get());
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          } catch (ExecutionException e) {
-              e.printStackTrace();
+        parser.removeErrorListeners();
+        parser.addErrorListener(new ThrowingErrorListener());
+
+        try {
+          ParseTree tree = parser.root();
+          if (DISPLAY_GRAPHICS) {
+            System.out.println(tree.toStringTree(parser));
+            Future<JDialog> future = ((RuleContext)tree).inspect(parser);
+            Utils.waitForClose(future.get());
           }
+        } catch (ParseCancellationException pce) {
+          return false;
+        } catch (Exception e) {
+          e.printStackTrace();
         }
+        return true;
     }
+
+    public class ThrowingErrorListener extends BaseErrorListener {
+       @Override
+       public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e)
+          throws ParseCancellationException {
+             throw new ParseCancellationException("line " + line + ":" + charPositionInLine + " " + msg);
+          }
+    }
+
 }
