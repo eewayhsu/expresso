@@ -1,4 +1,4 @@
-// Generated from Expression.g4 by ANTLR 4.5
+// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -14,6 +14,18 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class ExpressionBaseListener implements ExpressionListener {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRoot(ExpressionParser.RootContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRoot(ExpressionParser.RootContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -67,25 +79,25 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	@Override public void enterBead(ExpressionParser.BeadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	@Override public void exitBead(ExpressionParser.BeadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperation_expression(ExpressionParser.Operation_expressionContext ctx) { }
+	@Override public void enterChain(ExpressionParser.ChainContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperation_expression(ExpressionParser.Operation_expressionContext ctx) { }
+	@Override public void exitChain(ExpressionParser.ChainContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -103,13 +115,13 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterToken(ExpressionParser.TokenContext ctx) { }
+	@Override public void enterLiteral(ExpressionParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitToken(ExpressionParser.TokenContext ctx) { }
+	@Override public void exitLiteral(ExpressionParser.LiteralContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
