@@ -52,23 +52,26 @@ package expresso.parser;
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
 
-warmup					: line? EOF;
-line					: LEFT_PAREN line* RIGHT_PAREN line*;
+// TODO: remove root and warmup after warmup exercise
+root                  : warmup | file;
 
-file					: expression? EOF;
+warmup                : line? EOF;
+line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 
-expression				: operation_expression | root_expression;
-root_expression			: token | LEFT_PAREN expression RIGHT_PAREN;
-operation_expression	: root_expression operation root_expression;
+file                  : expression? EOF;
 
-operation				: PLUS | MULTIPLY;
-token					: VARIABLE | CONSTANT;
+expression            : bead | chain;
+bead                  : literal | LEFT_PAREN expression RIGHT_PAREN;
+chain                 : (bead operation)+ bead;
 
-PLUS 					: '+';
-MULTIPLY				: '*';
-VARIABLE				: [a-zA-Z]+;
-CONSTANT 				: [0-9]+;
-LEFT_PAREN				: '(';
-RIGHT_PAREN				: ')';
+operation             : PLUS | MULTIPLY;
+literal               : VARIABLE | CONSTANT;
 
-WHITESPACE 				: [ ]+ -> skip;
+PLUS                  : '+';
+MULTIPLY              : '*';
+VARIABLE              : [a-zA-Z]+;
+CONSTANT              : [0-9]+;
+LEFT_PAREN            : '(';
+RIGHT_PAREN           : ')';
+
+WHITESPACE            : [ ]+ -> skip;
