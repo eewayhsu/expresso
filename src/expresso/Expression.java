@@ -1,12 +1,15 @@
 package expresso;
 
 /**
- * TODO Specification
+ * Expression represents a mathematical expression.
  */
 public interface Expression {
     
     // Datatype definition
-    //   TODO
+    //   Expression = Constant(value:double)
+    //                  + Variable(value:String)
+    //                  + MultiplicationExpression(left:Expression, right:Expression)
+    //                  + AdditionExpression(left:Expression, right:Expression)
     
     /**
      * Parse an expression.
@@ -18,6 +21,7 @@ public interface Expression {
         throw new RuntimeException("unimplemented");
     }
     
-    // TODO Instance methods
-    
+    // Instance methods
+    public Expression simplify();
+    public Expression differentiate();
 }
