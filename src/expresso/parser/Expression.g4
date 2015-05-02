@@ -51,6 +51,7 @@ package expresso.parser;
  * For more information, see
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
-line		: LEFT_PAREN line* RIGHT_PAREN line* EOF;
+root		: line? EOF;
+line		: LEFT_PAREN line* RIGHT_PAREN line*;
 LEFT_PAREN  : '(';
 RIGHT_PAREN : ')';
