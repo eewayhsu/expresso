@@ -35,6 +35,36 @@ public class ExpressionTest {
      *  - ( a single unbalanced pair
      *  - (() one and a half pairs
      */
+    
+    /*
+     * Test strategy for expression parser:
+     * 
+     * Partitions:
+     * - valid, invalid input
+     * - 0, 1, 2+ addition operations
+     * - 0, 1, 2+ multiplication operations
+     * - 0, 1, 2+ variables (length 1, 1+)
+     * - 0, 1, 2+ constants (integer, float)
+     * - sequence of parentheses
+     * - nested parentheses
+     * - unbalanced parentheses
+     * - missing operation
+     * - missing variable/constant
+     * - no whitespaces
+     * - begin, middle, end whitespaces
+     * 
+     * Test cases:
+     * - 3 + 2.4
+     * - 3 * x + 2.4
+     * - 3 * (x + 2.4)
+     * - ((3 + 4) * x * x)
+     * - foo + bar+baz
+     * - (2*x    )+    (    y*x    )
+     * - 4 + 3 * x + 2 * x * x + 1 * x * x * (((x)))
+     * - 3 *
+     * - ( 3
+     * - 3 x
+     */
     private static final boolean DISPLAY_GRAPHICS = true;
     
     @Test(expected=AssertionError.class)
@@ -73,18 +103,53 @@ public class ExpressionTest {
     }
     
     @Test
-    public void testExpression() {
-        parse("(3+5*6)+4*3");
+    public void testExpressionAddConstants() {
+        parse("3 + 2.4");
     }
     
     @Test
-    public void testExpressionWithTwo() {
-        parse("1+2+3");
+    public void testExpressionAddMultiplyConstantVariable() {
+        parse("3 * x + 2.4");
     }
     
     @Test
-    public void testVariableExpression() {
-        parse("abc");
+    public void testExpressionParentheses() {
+        parse("3 * (x + 2.4)");
+    }
+    
+    @Test
+    public void testExpressionNestedParentheses() {
+        parse("((3 + 4) * x * x)");
+    }
+    
+    @Test
+    public void testExpressionVariablesOnly() {
+        parse("foo + bar+baz");
+    }
+    
+    @Test
+    public void testExpressionSequenceParentheses() {
+        parse("(2*x    )+    (    y*x    )");
+    }
+    
+    @Test
+    public void testComplicatedExpression() {
+        parse("4 + 3 * x + 2 * x * x + 1 * x * x * (((x)))");
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void testExpressionMissingConstant() {
+        parse("3 *");
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void testExpressionUnbalancedParentheses() {
+        parse("( 3");
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void testExpressionMissingOperation() {
+        parse("3 x");
     }
 
     private void parse(String string) {
