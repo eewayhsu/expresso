@@ -61,11 +61,10 @@ line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 file                  : expression? EOF;
 
 expression            : bead | chain;
-bead                  : literal | LEFT_PAREN expression RIGHT_PAREN;
+bead                  : VARIABLE | CONSTANT | LEFT_PAREN expression RIGHT_PAREN;
 chain                 : (bead operation)+ bead;
 
 operation             : PLUS | MULTIPLY;
-literal               : VARIABLE | CONSTANT;
 
 PLUS                  : '+';
 MULTIPLY              : '*';

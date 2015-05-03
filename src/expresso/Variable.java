@@ -1,14 +1,22 @@
 package expresso;
 
+/**
+ * Variable is an immutable type representing a variable.
+ */
 class Variable implements Expression {
     
-    private String name;
+    private final String name;
     
-    // Abstraction function
-    //
-    // Rep invariant
-    //
-    // Safety from rep exposure
+    /* Abstraction function
+     *      name represents the name of the variable
+     *      
+     * Rep invariant
+     *      name is a string of lowercase and/or upppercase alphabet letters.
+     *      length of name is at least 1.
+     *      
+     * Safety from rep exposure
+     *      name is immutable, so there is no risk of rep exposure.
+     */
     
     /**
      * Creates a variable with given name.
@@ -30,11 +38,13 @@ class Variable implements Expression {
     
     @Override
     public Expression simplify() {
+        checkRep();
         throw new RuntimeException("Unimplemented method");
     }
 
     @Override
     public Expression differentiate() {
+        checkRep();
         return new Constant(1);
     }
     
@@ -49,6 +59,6 @@ class Variable implements Expression {
     }
     
     private void checkRep() {
-        
+        name.matches("[a-zA-Z]+");
     }
 }

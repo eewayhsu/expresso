@@ -35,7 +35,7 @@ public class ExpressionTest {
      *  - ( a single unbalanced pair
      *  - (() one and a half pairs
      */
-    private static final Boolean DISPLAY_GRAPHICS = false;
+    private static final boolean DISPLAY_GRAPHICS = true;
     
     @Test(expected=AssertionError.class)
     public void testAssertionsEnabled() {
@@ -71,17 +71,32 @@ public class ExpressionTest {
     public void testOneAndHalfUnbalanced() {
         parse("(()");
     }
+    
+    @Test
+    public void testExpression() {
+        parse("(3+5*6)+4*3");
+    }
+    
+    @Test
+    public void testExpressionWithTwo() {
+        parse("1+2+3");
+    }
+    
+    @Test
+    public void testVariableExpression() {
+        parse("abc");
+    }
 
     private void parse(String string) {
         CharStream stream = new ANTLRInputStream(string);
 
-        // Instatiate lexer
+        // Instantiate lexer
         ExpressionLexer lexer = new ExpressionLexer(stream);
         lexer.reportErrorsAsExceptions();
 
         TokenStream tokens = new CommonTokenStream(lexer);
 
-        // Instatiate parser
+        // Instantiate parser
         ExpressionParser parser = new ExpressionParser(tokens);
         parser.reportErrorsAsExceptions();
 

@@ -1,21 +1,28 @@
 package expresso;
 
+/**
+ * Constant is an immutable type representing a constant.
+ */
 class Constant implements Expression {
     
-    private int value;
+    private final double value;
     
-    // Abstraction function
-    //
-    // Rep invariant
-    //
-    // Safety from rep exposure
+    /* Abstraction function
+     *      value represents the constant value
+     *      
+     * Rep invariant
+     *      value is a nonnegative double.
+     *      
+     * Safety from rep exposure
+     *      name is immutable, so there is no risk of rep exposure.
+     */
 
     /**
      * Creates a constant with given value
      * 
      * @param value value of constant
      */
-    Constant(int value) {
+    Constant(double value) {
         this.value = value;
     }
     
@@ -24,17 +31,19 @@ class Constant implements Expression {
      * 
      * @return value of the constant
      */
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
     @Override
     public Expression simplify() {
+        checkRep();
         throw new RuntimeException("Unimplemented method");
     }
 
     @Override
     public Expression differentiate() {
+        checkRep();
         return new Constant(0);
     }
     
@@ -49,6 +58,6 @@ class Constant implements Expression {
     }
     
     private void checkRep() {
-        
+        assert value >= 0;
     }
 }

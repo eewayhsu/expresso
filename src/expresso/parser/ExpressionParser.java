@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -23,10 +23,9 @@ public class ExpressionParser extends Parser {
 		WHITESPACE=7;
 	public static final int
 		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_expression = 4, 
-		RULE_bead = 5, RULE_chain = 6, RULE_operation = 7, RULE_literal = 8;
+		RULE_bead = 5, RULE_chain = 6, RULE_operation = 7;
 	public static final String[] ruleNames = {
-		"root", "warmup", "line", "file", "expression", "bead", "chain", "operation", 
-		"literal"
+		"root", "warmup", "line", "file", "expression", "bead", "chain", "operation"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -127,19 +126,19 @@ public class ExpressionParser extends Parser {
 		RootContext _localctx = new RootContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_root);
 		try {
-			setState(20);
+			setState(18);
 			switch ( getInterpreter().adaptivePredict(_input,0,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(18);
+				setState(16);
 				warmup();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(19);
+				setState(17);
 				file();
 				}
 				break;
@@ -182,16 +181,16 @@ public class ExpressionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
+			setState(21);
 			_la = _input.LA(1);
 			if (_la==LEFT_PAREN) {
 				{
-				setState(22);
+				setState(20);
 				line();
 				}
 			}
 
-			setState(25);
+			setState(23);
 			match(EOF);
 			}
 		}
@@ -237,37 +236,37 @@ public class ExpressionParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(27);
+			setState(25);
 			match(LEFT_PAREN);
-			setState(31);
+			setState(29);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==LEFT_PAREN) {
 				{
 				{
-				setState(28);
+				setState(26);
 				line();
 				}
 				}
-				setState(33);
+				setState(31);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(34);
+			setState(32);
 			match(RIGHT_PAREN);
-			setState(38);
+			setState(36);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(35);
+					setState(33);
 					line();
 					}
 					} 
 				}
-				setState(40);
+				setState(38);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 			}
@@ -310,16 +309,16 @@ public class ExpressionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
+			setState(40);
 			_la = _input.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << VARIABLE) | (1L << CONSTANT) | (1L << LEFT_PAREN))) != 0)) {
 				{
-				setState(41);
+				setState(39);
 				expression();
 				}
 			}
 
-			setState(44);
+			setState(42);
 			match(EOF);
 			}
 		}
@@ -359,19 +358,19 @@ public class ExpressionParser extends Parser {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_expression);
 		try {
-			setState(48);
+			setState(46);
 			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
+				setState(44);
 				bead();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(47);
+				setState(45);
 				chain();
 				}
 				break;
@@ -389,9 +388,8 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static class BeadContext extends ParserRuleContext {
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
-		}
+		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
+		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
 		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -415,24 +413,30 @@ public class ExpressionParser extends Parser {
 		BeadContext _localctx = new BeadContext(_ctx, getState());
 		enterRule(_localctx, 10, RULE_bead);
 		try {
-			setState(55);
+			setState(54);
 			switch (_input.LA(1)) {
 			case VARIABLE:
-			case CONSTANT:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(50);
-				literal();
+				setState(48);
+				match(VARIABLE);
+				}
+				break;
+			case CONSTANT:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(49);
+				match(CONSTANT);
 				}
 				break;
 			case LEFT_PAREN:
-				enterOuterAlt(_localctx, 2);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(51);
+				setState(50);
 				match(LEFT_PAREN);
-				setState(52);
+				setState(51);
 				expression();
-				setState(53);
+				setState(52);
 				match(RIGHT_PAREN);
 				}
 				break;
@@ -485,7 +489,7 @@ public class ExpressionParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60); 
+			setState(59); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -493,9 +497,9 @@ public class ExpressionParser extends Parser {
 				case 1:
 					{
 					{
-					setState(57);
+					setState(56);
 					bead();
-					setState(58);
+					setState(57);
 					operation();
 					}
 					}
@@ -503,11 +507,11 @@ public class ExpressionParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(62); 
+				setState(61); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-			setState(64);
+			setState(63);
 			bead();
 			}
 		}
@@ -546,7 +550,7 @@ public class ExpressionParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66);
+			setState(65);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==MULTIPLY) ) {
 			_errHandler.recoverInline(this);
@@ -566,69 +570,25 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class LiteralContext extends ParserRuleContext {
-		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
-		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
-		public LiteralContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_literal; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterLiteral(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitLiteral(this);
-		}
-	}
-
-	public final LiteralContext literal() throws RecognitionException {
-		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_literal);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(68);
-			_la = _input.LA(1);
-			if ( !(_la==VARIABLE || _la==CONSTANT) ) {
-			_errHandler.recoverInline(this);
-			} else {
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tI\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\5\2"+
-		"\27\n\2\3\3\5\3\32\n\3\3\3\3\3\3\4\3\4\7\4 \n\4\f\4\16\4#\13\4\3\4\3\4"+
-		"\7\4\'\n\4\f\4\16\4*\13\4\3\5\5\5-\n\5\3\5\3\5\3\6\3\6\5\6\63\n\6\3\7"+
-		"\3\7\3\7\3\7\3\7\5\7:\n\7\3\b\3\b\3\b\6\b?\n\b\r\b\16\b@\3\b\3\b\3\t\3"+
-		"\t\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\4\3\2\3\4\3\2\5\6G\2\26\3"+
-		"\2\2\2\4\31\3\2\2\2\6\35\3\2\2\2\b,\3\2\2\2\n\62\3\2\2\2\f9\3\2\2\2\16"+
-		">\3\2\2\2\20D\3\2\2\2\22F\3\2\2\2\24\27\5\4\3\2\25\27\5\b\5\2\26\24\3"+
-		"\2\2\2\26\25\3\2\2\2\27\3\3\2\2\2\30\32\5\6\4\2\31\30\3\2\2\2\31\32\3"+
-		"\2\2\2\32\33\3\2\2\2\33\34\7\2\2\3\34\5\3\2\2\2\35!\7\7\2\2\36 \5\6\4"+
-		"\2\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2"+
-		"$(\7\b\2\2%\'\5\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\7\3\2"+
-		"\2\2*(\3\2\2\2+-\5\n\6\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\2\2\3/\t\3"+
-		"\2\2\2\60\63\5\f\7\2\61\63\5\16\b\2\62\60\3\2\2\2\62\61\3\2\2\2\63\13"+
-		"\3\2\2\2\64:\5\22\n\2\65\66\7\7\2\2\66\67\5\n\6\2\678\7\b\2\28:\3\2\2"+
-		"\29\64\3\2\2\29\65\3\2\2\2:\r\3\2\2\2;<\5\f\7\2<=\5\20\t\2=?\3\2\2\2>"+
-		";\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\5\f\7\2C\17\3\2\2"+
-		"\2DE\t\2\2\2E\21\3\2\2\2FG\t\3\2\2G\23\3\2\2\2\n\26\31!(,\629@";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tF\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\3\2\3\2\5\2\25\n\2"+
+		"\3\3\5\3\30\n\3\3\3\3\3\3\4\3\4\7\4\36\n\4\f\4\16\4!\13\4\3\4\3\4\7\4"+
+		"%\n\4\f\4\16\4(\13\4\3\5\5\5+\n\5\3\5\3\5\3\6\3\6\5\6\61\n\6\3\7\3\7\3"+
+		"\7\3\7\3\7\3\7\5\79\n\7\3\b\3\b\3\b\6\b>\n\b\r\b\16\b?\3\b\3\b\3\t\3\t"+
+		"\3\t\2\2\n\2\4\6\b\n\f\16\20\2\3\3\2\3\4F\2\24\3\2\2\2\4\27\3\2\2\2\6"+
+		"\33\3\2\2\2\b*\3\2\2\2\n\60\3\2\2\2\f8\3\2\2\2\16=\3\2\2\2\20C\3\2\2\2"+
+		"\22\25\5\4\3\2\23\25\5\b\5\2\24\22\3\2\2\2\24\23\3\2\2\2\25\3\3\2\2\2"+
+		"\26\30\5\6\4\2\27\26\3\2\2\2\27\30\3\2\2\2\30\31\3\2\2\2\31\32\7\2\2\3"+
+		"\32\5\3\2\2\2\33\37\7\7\2\2\34\36\5\6\4\2\35\34\3\2\2\2\36!\3\2\2\2\37"+
+		"\35\3\2\2\2\37 \3\2\2\2 \"\3\2\2\2!\37\3\2\2\2\"&\7\b\2\2#%\5\6\4\2$#"+
+		"\3\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'\7\3\2\2\2(&\3\2\2\2)+\5\n\6"+
+		"\2*)\3\2\2\2*+\3\2\2\2+,\3\2\2\2,-\7\2\2\3-\t\3\2\2\2.\61\5\f\7\2/\61"+
+		"\5\16\b\2\60.\3\2\2\2\60/\3\2\2\2\61\13\3\2\2\2\629\7\5\2\2\639\7\6\2"+
+		"\2\64\65\7\7\2\2\65\66\5\n\6\2\66\67\7\b\2\2\679\3\2\2\28\62\3\2\2\28"+
+		"\63\3\2\2\28\64\3\2\2\29\r\3\2\2\2:;\5\f\7\2;<\5\20\t\2<>\3\2\2\2=:\3"+
+		"\2\2\2>?\3\2\2\2?=\3\2\2\2?@\3\2\2\2@A\3\2\2\2AB\5\f\7\2B\17\3\2\2\2C"+
+		"D\t\2\2\2D\21\3\2\2\2\n\24\27\37&*\608?";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

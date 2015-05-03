@@ -1,9 +1,12 @@
 package expresso;
 
+/**
+ * MultiplicationExpression is an immutable type representing a multiplication expression.
+ */
 class MultiplicationExpression implements Expression {
     
-    private Expression left;
-    private Expression right;
+    private final Expression left;
+    private final Expression right;
     
     /* Abstraction function
      *      left -> the multiplicand (expression prior to '*') of a mathematical expression 
@@ -13,7 +16,7 @@ class MultiplicationExpression implements Expression {
      *      left and right not null
      *      
      * Safety from rep exposure
-     * 
+     *      left and right are both immutable, so there is no risk of rep exposure.
      */
     
     /**
@@ -47,11 +50,13 @@ class MultiplicationExpression implements Expression {
     
     @Override
     public Expression simplify() {
+        checkRep();
         throw new RuntimeException("Unimplemented method");
     }
 
     @Override
     public Expression differentiate() {
+        checkRep();
         throw new RuntimeException("Unimplemented method");
     }
     
@@ -66,6 +71,7 @@ class MultiplicationExpression implements Expression {
     }
     
     private void checkRep() {
-        
+        assert left != null;
+        assert right != null;
     }
 }

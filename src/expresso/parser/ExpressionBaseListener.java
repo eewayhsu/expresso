@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -110,18 +110,6 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperation(ExpressionParser.OperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLiteral(ExpressionParser.LiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLiteral(ExpressionParser.LiteralContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
