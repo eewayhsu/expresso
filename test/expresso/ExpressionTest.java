@@ -1,15 +1,15 @@
 package expresso;
 
+import expresso.parser.*;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-
 import javax.swing.JDialog;
-
-import expresso.parser.*;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.ParseTree;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

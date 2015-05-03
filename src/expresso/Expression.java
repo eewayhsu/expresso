@@ -1,10 +1,11 @@
 package expresso;
 
+import expresso.parser.*;
+
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
-import expresso.parser.ExpressionListener;
-import expresso.parser.ExpressionListenerExpressionCreator;
 
 /**
  * Expression represents a mathematical expression.
@@ -19,13 +20,29 @@ public interface Expression {
     
     /**
      * Parse an expression.  
-     * @param input expression to parse
-     * @return expression AST for the input
-     * @throws IllegalArgumentException if the expression is invalid
+     * @param String input              Expression to parse
+     * @return Expression expression    AST for the input
+     * @throws IllegalArgumentException If the expression is invalid
      */
-    public static Expression parse(ParseTree expressionTree) {
+    public static Expression parse(String input) {
+        CharStream stream = new ANTLRInputStream(input);
+
+        // Instantiate lexer
+        ExpressionLexer lexer = new ExpressionLexer(stream);
+        lexer.reportErrorsAsExceptions();
+
+        TokenStream tokens = new CommonTokenStream(lexer);
+
+        // Instantiate parser
+        ExpressionParser parser = new ExpressionParser(tokens);
+        parser.reportErrorsAsExceptions();
+
+        ParseTree expressionTree = parser.root();
         ParseTreeWalker walker = new ParseTreeWalker();
+
         ExpressionListener listener = new ExpressionListenerExpressionCreator();
+        walker.walk(listener, expressionTree);
+
         throw new RuntimeException("unimplemented");
     }
     
