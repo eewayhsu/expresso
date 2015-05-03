@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -51,6 +51,16 @@ public interface ExpressionListener extends ParseTreeListener {
 	 */
 	void exitFile(ExpressionParser.FileContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ExpressionParser#root_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterRoot_expression(ExpressionParser.Root_expressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ExpressionParser#root_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitRoot_expression(ExpressionParser.Root_expressionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ExpressionParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -61,43 +71,33 @@ public interface ExpressionListener extends ParseTreeListener {
 	 */
 	void exitExpression(ExpressionParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#bead}.
+	 * Enter a parse tree produced by {@link ExpressionParser#paren_expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterBead(ExpressionParser.BeadContext ctx);
+	void enterParen_expression(ExpressionParser.Paren_expressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#bead}.
+	 * Exit a parse tree produced by {@link ExpressionParser#paren_expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitBead(ExpressionParser.BeadContext ctx);
+	void exitParen_expression(ExpressionParser.Paren_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#chain}.
+	 * Enter a parse tree produced by {@link ExpressionParser#mult_expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterChain(ExpressionParser.ChainContext ctx);
+	void enterMult_expression(ExpressionParser.Mult_expressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#chain}.
+	 * Exit a parse tree produced by {@link ExpressionParser#mult_expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitChain(ExpressionParser.ChainContext ctx);
+	void exitMult_expression(ExpressionParser.Mult_expressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#operation}.
+	 * Enter a parse tree produced by {@link ExpressionParser#add_expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperation(ExpressionParser.OperationContext ctx);
+	void enterAdd_expression(ExpressionParser.Add_expressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#operation}.
+	 * Exit a parse tree produced by {@link ExpressionParser#add_expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperation(ExpressionParser.OperationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteral(ExpressionParser.LiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteral(ExpressionParser.LiteralContext ctx);
+	void exitAdd_expression(ExpressionParser.Add_expressionContext ctx);
 }

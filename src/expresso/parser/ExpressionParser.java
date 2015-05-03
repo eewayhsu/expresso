@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -22,11 +22,12 @@ public class ExpressionParser extends Parser {
 		PLUS=1, MULTIPLY=2, VARIABLE=3, CONSTANT=4, LEFT_PAREN=5, RIGHT_PAREN=6, 
 		WHITESPACE=7;
 	public static final int
-		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_expression = 4, 
-		RULE_bead = 5, RULE_chain = 6, RULE_operation = 7, RULE_literal = 8;
+		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_root_expression = 4, 
+		RULE_expression = 5, RULE_paren_expression = 6, RULE_mult_expression = 7, 
+		RULE_add_expression = 8;
 	public static final String[] ruleNames = {
-		"root", "warmup", "line", "file", "expression", "bead", "chain", "operation", 
-		"literal"
+		"root", "warmup", "line", "file", "root_expression", "expression", "paren_expression", 
+		"mult_expression", "add_expression"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -334,106 +335,51 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ExpressionContext extends ParserRuleContext {
-		public BeadContext bead() {
-			return getRuleContext(BeadContext.class,0);
+	public static class Root_expressionContext extends ParserRuleContext {
+		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
+		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
+		public Paren_expressionContext paren_expression() {
+			return getRuleContext(Paren_expressionContext.class,0);
 		}
-		public ChainContext chain() {
-			return getRuleContext(ChainContext.class,0);
-		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+		public Root_expressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override public int getRuleIndex() { return RULE_root_expression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterExpression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterRoot_expression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitExpression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitRoot_expression(this);
 		}
 	}
 
-	public final ExpressionContext expression() throws RecognitionException {
-		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_expression);
+	public final Root_expressionContext root_expression() throws RecognitionException {
+		Root_expressionContext _localctx = new Root_expressionContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_root_expression);
 		try {
-			setState(48);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
-			case 1:
+			setState(49);
+			switch (_input.LA(1)) {
+			case VARIABLE:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(46);
-				bead();
+				match(VARIABLE);
 				}
 				break;
-			case 2:
+			case CONSTANT:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(47);
-				chain();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class BeadContext extends ParserRuleContext {
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
-		}
-		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public TerminalNode RIGHT_PAREN() { return getToken(ExpressionParser.RIGHT_PAREN, 0); }
-		public BeadContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_bead; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterBead(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitBead(this);
-		}
-	}
-
-	public final BeadContext bead() throws RecognitionException {
-		BeadContext _localctx = new BeadContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_bead);
-		try {
-			setState(55);
-			switch (_input.LA(1)) {
-			case VARIABLE:
-			case CONSTANT:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(50);
-				literal();
+				match(CONSTANT);
 				}
 				break;
 			case LEFT_PAREN:
-				enterOuterAlt(_localctx, 2);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(51);
-				match(LEFT_PAREN);
-				setState(52);
-				expression();
-				setState(53);
-				match(RIGHT_PAREN);
+				setState(48);
+				paren_expression();
 				}
 				break;
 			default:
@@ -451,64 +397,57 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ChainContext extends ParserRuleContext {
-		public List<BeadContext> bead() {
-			return getRuleContexts(BeadContext.class);
+	public static class ExpressionContext extends ParserRuleContext {
+		public Root_expressionContext root_expression() {
+			return getRuleContext(Root_expressionContext.class,0);
 		}
-		public BeadContext bead(int i) {
-			return getRuleContext(BeadContext.class,i);
+		public Mult_expressionContext mult_expression() {
+			return getRuleContext(Mult_expressionContext.class,0);
 		}
-		public List<OperationContext> operation() {
-			return getRuleContexts(OperationContext.class);
+		public Add_expressionContext add_expression() {
+			return getRuleContext(Add_expressionContext.class,0);
 		}
-		public OperationContext operation(int i) {
-			return getRuleContext(OperationContext.class,i);
-		}
-		public ChainContext(ParserRuleContext parent, int invokingState) {
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_chain; }
+		@Override public int getRuleIndex() { return RULE_expression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterChain(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitChain(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitExpression(this);
 		}
 	}
 
-	public final ChainContext chain() throws RecognitionException {
-		ChainContext _localctx = new ChainContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_chain);
+	public final ExpressionContext expression() throws RecognitionException {
+		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_expression);
 		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(60); 
-			_errHandler.sync(this);
-			_alt = 1;
-			do {
-				switch (_alt) {
-				case 1:
-					{
-					{
-					setState(57);
-					bead();
-					setState(58);
-					operation();
-					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+			setState(54);
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(51);
+				root_expression();
 				}
-				setState(62); 
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-			setState(64);
-			bead();
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(52);
+				mult_expression();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(53);
+				add_expression();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -522,36 +461,100 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class OperationContext extends ParserRuleContext {
-		public TerminalNode PLUS() { return getToken(ExpressionParser.PLUS, 0); }
-		public TerminalNode MULTIPLY() { return getToken(ExpressionParser.MULTIPLY, 0); }
-		public OperationContext(ParserRuleContext parent, int invokingState) {
+	public static class Paren_expressionContext extends ParserRuleContext {
+		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public TerminalNode RIGHT_PAREN() { return getToken(ExpressionParser.RIGHT_PAREN, 0); }
+		public Paren_expressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_operation; }
+		@Override public int getRuleIndex() { return RULE_paren_expression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterOperation(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterParen_expression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitOperation(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitParen_expression(this);
 		}
 	}
 
-	public final OperationContext operation() throws RecognitionException {
-		OperationContext _localctx = new OperationContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_operation);
-		int _la;
+	public final Paren_expressionContext paren_expression() throws RecognitionException {
+		Paren_expressionContext _localctx = new Paren_expressionContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_paren_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(66);
-			_la = _input.LA(1);
-			if ( !(_la==PLUS || _la==MULTIPLY) ) {
-			_errHandler.recoverInline(this);
-			} else {
-				consume();
+			setState(56);
+			match(LEFT_PAREN);
+			setState(57);
+			expression();
+			setState(58);
+			match(RIGHT_PAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class Mult_expressionContext extends ParserRuleContext {
+		public List<Root_expressionContext> root_expression() {
+			return getRuleContexts(Root_expressionContext.class);
+		}
+		public Root_expressionContext root_expression(int i) {
+			return getRuleContext(Root_expressionContext.class,i);
+		}
+		public TerminalNode MULTIPLY() { return getToken(ExpressionParser.MULTIPLY, 0); }
+		public Mult_expressionContext mult_expression() {
+			return getRuleContext(Mult_expressionContext.class,0);
+		}
+		public Mult_expressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_mult_expression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterMult_expression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitMult_expression(this);
+		}
+	}
+
+	public final Mult_expressionContext mult_expression() throws RecognitionException {
+		Mult_expressionContext _localctx = new Mult_expressionContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_mult_expression);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(60);
+			root_expression();
+			setState(61);
+			match(MULTIPLY);
+			setState(64);
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			case 1:
+				{
+				setState(62);
+				root_expression();
+				}
+				break;
+			case 2:
+				{
+				setState(63);
+				mult_expression();
+				}
+				break;
 			}
 			}
 		}
@@ -566,36 +569,80 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class LiteralContext extends ParserRuleContext {
-		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
-		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
-		public LiteralContext(ParserRuleContext parent, int invokingState) {
+	public static class Add_expressionContext extends ParserRuleContext {
+		public TerminalNode PLUS() { return getToken(ExpressionParser.PLUS, 0); }
+		public List<Root_expressionContext> root_expression() {
+			return getRuleContexts(Root_expressionContext.class);
+		}
+		public Root_expressionContext root_expression(int i) {
+			return getRuleContext(Root_expressionContext.class,i);
+		}
+		public List<Mult_expressionContext> mult_expression() {
+			return getRuleContexts(Mult_expressionContext.class);
+		}
+		public Mult_expressionContext mult_expression(int i) {
+			return getRuleContext(Mult_expressionContext.class,i);
+		}
+		public Add_expressionContext add_expression() {
+			return getRuleContext(Add_expressionContext.class,0);
+		}
+		public Add_expressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_literal; }
+		@Override public int getRuleIndex() { return RULE_add_expression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterLiteral(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterAdd_expression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitLiteral(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitAdd_expression(this);
 		}
 	}
 
-	public final LiteralContext literal() throws RecognitionException {
-		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_literal);
-		int _la;
+	public final Add_expressionContext add_expression() throws RecognitionException {
+		Add_expressionContext _localctx = new Add_expressionContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_add_expression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(68);
-			_la = _input.LA(1);
-			if ( !(_la==VARIABLE || _la==CONSTANT) ) {
-			_errHandler.recoverInline(this);
-			} else {
-				consume();
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				{
+				setState(66);
+				root_expression();
+				}
+				break;
+			case 2:
+				{
+				setState(67);
+				mult_expression();
+				}
+				break;
+			}
+			setState(70);
+			match(PLUS);
+			setState(74);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			case 1:
+				{
+				setState(71);
+				root_expression();
+				}
+				break;
+			case 2:
+				{
+				setState(72);
+				mult_expression();
+				}
+				break;
+			case 3:
+				{
+				setState(73);
+				add_expression();
+				}
+				break;
 			}
 			}
 		}
@@ -611,24 +658,26 @@ public class ExpressionParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tI\4\2\t\2\4\3\t"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tO\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\3\2\3\2\5\2"+
 		"\27\n\2\3\3\5\3\32\n\3\3\3\3\3\3\4\3\4\7\4 \n\4\f\4\16\4#\13\4\3\4\3\4"+
-		"\7\4\'\n\4\f\4\16\4*\13\4\3\5\5\5-\n\5\3\5\3\5\3\6\3\6\5\6\63\n\6\3\7"+
-		"\3\7\3\7\3\7\3\7\5\7:\n\7\3\b\3\b\3\b\6\b?\n\b\r\b\16\b@\3\b\3\b\3\t\3"+
-		"\t\3\n\3\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\4\3\2\3\4\3\2\5\6G\2\26\3"+
-		"\2\2\2\4\31\3\2\2\2\6\35\3\2\2\2\b,\3\2\2\2\n\62\3\2\2\2\f9\3\2\2\2\16"+
-		">\3\2\2\2\20D\3\2\2\2\22F\3\2\2\2\24\27\5\4\3\2\25\27\5\b\5\2\26\24\3"+
-		"\2\2\2\26\25\3\2\2\2\27\3\3\2\2\2\30\32\5\6\4\2\31\30\3\2\2\2\31\32\3"+
-		"\2\2\2\32\33\3\2\2\2\33\34\7\2\2\3\34\5\3\2\2\2\35!\7\7\2\2\36 \5\6\4"+
-		"\2\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!\3\2\2\2"+
-		"$(\7\b\2\2%\'\5\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\7\3\2"+
-		"\2\2*(\3\2\2\2+-\5\n\6\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\2\2\3/\t\3"+
-		"\2\2\2\60\63\5\f\7\2\61\63\5\16\b\2\62\60\3\2\2\2\62\61\3\2\2\2\63\13"+
-		"\3\2\2\2\64:\5\22\n\2\65\66\7\7\2\2\66\67\5\n\6\2\678\7\b\2\28:\3\2\2"+
-		"\29\64\3\2\2\29\65\3\2\2\2:\r\3\2\2\2;<\5\f\7\2<=\5\20\t\2=?\3\2\2\2>"+
-		";\3\2\2\2?@\3\2\2\2@>\3\2\2\2@A\3\2\2\2AB\3\2\2\2BC\5\f\7\2C\17\3\2\2"+
-		"\2DE\t\2\2\2E\21\3\2\2\2FG\t\3\2\2G\23\3\2\2\2\n\26\31!(,\629@";
+		"\7\4\'\n\4\f\4\16\4*\13\4\3\5\5\5-\n\5\3\5\3\5\3\6\3\6\3\6\5\6\64\n\6"+
+		"\3\7\3\7\3\7\5\79\n\7\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\5\tC\n\t\3\n\3\n"+
+		"\5\nG\n\n\3\n\3\n\3\n\3\n\5\nM\n\n\3\n\2\2\13\2\4\6\b\n\f\16\20\22\2\2"+
+		"R\2\26\3\2\2\2\4\31\3\2\2\2\6\35\3\2\2\2\b,\3\2\2\2\n\63\3\2\2\2\f8\3"+
+		"\2\2\2\16:\3\2\2\2\20>\3\2\2\2\22F\3\2\2\2\24\27\5\4\3\2\25\27\5\b\5\2"+
+		"\26\24\3\2\2\2\26\25\3\2\2\2\27\3\3\2\2\2\30\32\5\6\4\2\31\30\3\2\2\2"+
+		"\31\32\3\2\2\2\32\33\3\2\2\2\33\34\7\2\2\3\34\5\3\2\2\2\35!\7\7\2\2\36"+
+		" \5\6\4\2\37\36\3\2\2\2 #\3\2\2\2!\37\3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#!"+
+		"\3\2\2\2$(\7\b\2\2%\'\5\6\4\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2"+
+		")\7\3\2\2\2*(\3\2\2\2+-\5\f\7\2,+\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7\2\2"+
+		"\3/\t\3\2\2\2\60\64\7\5\2\2\61\64\7\6\2\2\62\64\5\16\b\2\63\60\3\2\2\2"+
+		"\63\61\3\2\2\2\63\62\3\2\2\2\64\13\3\2\2\2\659\5\n\6\2\669\5\20\t\2\67"+
+		"9\5\22\n\28\65\3\2\2\28\66\3\2\2\28\67\3\2\2\29\r\3\2\2\2:;\7\7\2\2;<"+
+		"\5\f\7\2<=\7\b\2\2=\17\3\2\2\2>?\5\n\6\2?B\7\4\2\2@C\5\n\6\2AC\5\20\t"+
+		"\2B@\3\2\2\2BA\3\2\2\2C\21\3\2\2\2DG\5\n\6\2EG\5\20\t\2FD\3\2\2\2FE\3"+
+		"\2\2\2GH\3\2\2\2HL\7\3\2\2IM\5\n\6\2JM\5\20\t\2KM\5\22\n\2LI\3\2\2\2L"+
+		"J\3\2\2\2LK\3\2\2\2M\23\3\2\2\2\f\26\31!(,\638BFL";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

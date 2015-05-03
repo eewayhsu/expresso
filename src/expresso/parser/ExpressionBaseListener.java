@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -67,6 +67,18 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRoot_expression(ExpressionParser.Root_expressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpression(ExpressionParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -79,49 +91,37 @@ public class ExpressionBaseListener implements ExpressionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBead(ExpressionParser.BeadContext ctx) { }
+	@Override public void enterParen_expression(ExpressionParser.Paren_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBead(ExpressionParser.BeadContext ctx) { }
+	@Override public void exitParen_expression(ExpressionParser.Paren_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterChain(ExpressionParser.ChainContext ctx) { }
+	@Override public void enterMult_expression(ExpressionParser.Mult_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitChain(ExpressionParser.ChainContext ctx) { }
+	@Override public void exitMult_expression(ExpressionParser.Mult_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperation(ExpressionParser.OperationContext ctx) { }
+	@Override public void enterAdd_expression(ExpressionParser.Add_expressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperation(ExpressionParser.OperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLiteral(ExpressionParser.LiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLiteral(ExpressionParser.LiteralContext ctx) { }
+	@Override public void exitAdd_expression(ExpressionParser.Add_expressionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
