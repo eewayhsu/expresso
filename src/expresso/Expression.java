@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import expresso.parser.ExpressionListener;
+import expresso.parser.ExpressionListenerExpressionCreator;
 
 /**
  * Expression represents a mathematical expression.
@@ -24,8 +25,8 @@ public interface Expression {
      */
     public static Expression parse(ParseTree expressionTree) {
         ParseTreeWalker walker = new ParseTreeWalker();
-//        ExpressionListener listener = new ExpressionListenerPrintEverything();
-        throw new RuntimeException("Unimplemented method");
+        ExpressionListener listener = new ExpressionListenerExpressionCreator();
+        throw new RuntimeException("unimplemented");
     }
     
     // Instance methods
