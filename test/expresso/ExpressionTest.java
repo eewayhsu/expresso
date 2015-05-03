@@ -78,8 +78,24 @@ public class ExpressionTest {
     }
     
     @Test
+    public void testExpressionMultiply() {
+        parse("(3+5*6)*4*3");
+    }
+    
+    @Test
+    public void testExpressionMultiplyPlus() {
+        parse("(3+5*6)*4*3+3");
+    }
+    
+    
+    @Test
     public void testExpressionWithTwo() {
         parse("1+2+3");
+    }
+    
+    @Test
+    public void testExpressionWithDoubles() {
+        parse("1.0+2+3");
     }
     
     @Test
