@@ -2,9 +2,6 @@ package expresso.parser;
 
 import java.util.Stack;
 
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
 import expresso.*;
 import expresso.parser.ExpressionParser.*;
 
@@ -50,16 +47,17 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * @param ctx root_expression context
      */
     public void exitRootExpression(Root_expressionContext ctx) {
-        ParseTree child = ctx.getChild(0);
-        if (child.getChildCount() == 0) {
-            String token = ctx.getText();
-            if (token.matches("[a-zA-Z]+")) {
-                Expression variable = new Variable(token);
-                stack.push(variable);
-            } else {
-                Expression constant = new Constant(Double.valueOf(token));
-                stack.push(constant);
-            }
+        
+    }
+
+    public void exitLiteral(LiteralContext ctx) {
+        String token = ctx.getText();
+        if (token.matches("[a-zA-Z]+")) {
+            Expression variable = new Variable(token);
+            stack.push(variable);
+        } else {
+            Expression constant = new Constant(Double.valueOf(token));
+            stack.push(constant);
         }
     }
     
