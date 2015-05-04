@@ -3,7 +3,7 @@ package expresso;
 /**
  * Variable is an immutable type representing a variable.
  */
-class Variable implements Expression {
+public class Variable implements Expression {
     
     private final String name;
     
@@ -23,7 +23,7 @@ class Variable implements Expression {
      * 
      * @param name  name of variable
      */
-    Variable(String name) {
+    public Variable(String name) {
         this.name = name;
     }
     

@@ -60,9 +60,9 @@ line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 
 file                  : expression? EOF;
 
-literal               : VARIABLE | CONSTANT;
-root_expression       : literal | paren_expression;
 expression            : root_expression | mult_expression | add_expression; 
+root_expression       : literal | paren_expression;
+literal               : VARIABLE | CONSTANT;
 
 paren_expression      : LEFT_PAREN expression RIGHT_PAREN;
 mult_expression       : root_expression MULTIPLY (root_expression | mult_expression);
