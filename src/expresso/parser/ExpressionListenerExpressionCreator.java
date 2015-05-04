@@ -33,23 +33,14 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     }
     
     /**
-     * If the child of the root_expression is a literal, push it into the stack;
-     * this passes the literal into its ancestor Expression's constructor
-     * The method is called when exiting a root_expression node. By design, the
-     * ancestor Expression is either a MultiplicationExpression or an 
-     * AdditionExpression.
-     * If the child of the root_expression isn't a literal, then it is either a
-     * MultiplicationExpression or AdditionExpression. We can skip in this case
-     * because the listener pushes the ME or AE into the stack when it visits the
-     * corresponding node.
-     * A root expression can only have one child, by design.
-     * 
+     * If the node is a literal, push it into the stack; this passes the literal
+     * into its ancestor Expression's constructor. By design, the ancestor
+     * Expression is either a MultiplicationExpression or an AdditionExpression.
+     *
+     * This method is fired whenever the walker exits a literal node
+     *
      * @param ctx root_expression context
      */
-    public void exitRootExpression(Root_expressionContext ctx) {
-        
-    }
-
     public void exitLiteral(LiteralContext ctx) {
         String token = ctx.getText();
         if (token.matches("[a-zA-Z]+")) {
@@ -62,25 +53,11 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     }
     
     /**
-     * If the child of the paren_expression is a literal, push it into the stack;
-     * this passes the literal into its ancestor Expression's constructor
-     * The method is called when exiting a paren_expression node. By design, the
-     * ancestor Expression is either a MultiplicationExpression or an 
-     * AdditionExpression.
-     * If the child of the paren_expression isn't a literal, then it is either a
-     * MultiplicationExpression or AdditionExpression. We can skip in this case
-     * because the listener pushes the ME or AE into the stack when it visits the
-     * corresponding node.
-     * A paren expression can only have one child, by design.
+     * Passes children into MultiplicationExpression 
+     * If the node is a mult_expression, push it into the stack; this passes it
+     * into its ancestor Expression's constructor. By design, the ancestor
+     * Expression is either a MultiplicationExpression or an AdditionExpression.
      * 
-     * @param ctx paren_expression context
-     */
-    public void exitParenExpression(Paren_expressionContext ctx) {
-        
-    }
-    
-    /**
-     * Passes children into MultiplicationExpression when exiting mult_expression node.
      * Children expressions can be MultiplicationExpressions, Variables, or Constants.
      * 
      * @param ctx mult_expression context
