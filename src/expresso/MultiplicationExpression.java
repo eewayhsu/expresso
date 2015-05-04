@@ -3,7 +3,7 @@ package expresso;
 /**
  * MultiplicationExpression is an immutable type representing a multiplication expression.
  */
-class MultiplicationExpression implements Expression {
+public class MultiplicationExpression implements Expression {
     
     private final Expression left;
     private final Expression right;
@@ -25,7 +25,7 @@ class MultiplicationExpression implements Expression {
      * @param left  left expression
      * @param right right expression
      */
-    MultiplicationExpression(Expression left, Expression right) {
+    public MultiplicationExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }

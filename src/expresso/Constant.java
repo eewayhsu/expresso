@@ -3,7 +3,7 @@ package expresso;
 /**
  * Constant is an immutable type representing a constant.
  */
-class Constant implements Expression {
+public class Constant implements Expression {
     
     private final double value;
     
@@ -22,7 +22,7 @@ class Constant implements Expression {
      * 
      * @param value value of constant
      */
-    Constant(double value) {
+    public Constant(double value) {
         this.value = value;
     }
     

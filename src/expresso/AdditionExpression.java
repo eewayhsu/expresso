@@ -3,7 +3,7 @@ package expresso;
 /**
  * AdditionExpression is an immutable type representing an addition expression.
  */
-class AdditionExpression implements Expression {
+public class AdditionExpression implements Expression {
     
     private final Expression left;
     private final Expression right;
@@ -25,7 +25,7 @@ class AdditionExpression implements Expression {
      * @param left  left expression
      * @param right right expression
      */
-    AdditionExpression(Expression left, Expression right) {
+    public AdditionExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }

@@ -2,9 +2,10 @@ package expresso.parser;
 
 import java.util.Stack;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import expresso.Expression;
+import expresso.*;
 import expresso.parser.ExpressionParser.*;
 
 /**
@@ -37,7 +38,17 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * @param ctx root_expression context
      */
     public void exitRootExpression(Root_expressionContext ctx) {
-        
+        ParseTree child = ctx.getChild(0);
+        if (child.getChildCount() == 0) {
+            String token = ctx.getText();
+            if (token.matches("[a-zA-Z]+")) {
+                Expression variable = new Variable(token);
+                stack.push(variable);
+            } else {
+                Expression constant = new Constant(Double.valueOf(token));
+                stack.push(constant);
+            }
+        }
     }
     
     /**
@@ -63,7 +74,10 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * @param ctx mult_expression context
      */
     public void exitMultiplicationExpression(Mult_expressionContext ctx) {
-        
+        Expression rightExpression = stack.pop();
+        Expression leftExpression = stack.pop();
+        Expression multiplicationExpression = new MultiplicationExpression(leftExpression, rightExpression);
+        stack.push(multiplicationExpression);
     }
     
     /**
@@ -73,7 +87,10 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * @param ctx add_expression context
      */
     public void exitAdditionExpression(Add_expressionContext ctx) {
-        
+        Expression rightExpression = stack.pop();
+        Expression leftExpression = stack.pop();
+        Expression additionExpression = new AdditionExpression(leftExpression, rightExpression);
+        stack.push(additionExpression);
     }
     
     /**
