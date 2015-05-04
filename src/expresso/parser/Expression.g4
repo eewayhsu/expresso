@@ -58,9 +58,10 @@ root                  : warmup | file;
 warmup                : line? EOF;
 line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 
-file 				          : expression? EOF;
+file                  : expression? EOF;
 
-root_expression       : VARIABLE | CONSTANT | paren_expression;
+literal               : VARIABLE | CONSTANT;
+root_expression       : literal | paren_expression;
 expression            : root_expression | mult_expression | add_expression; 
 
 paren_expression      : LEFT_PAREN expression RIGHT_PAREN;
