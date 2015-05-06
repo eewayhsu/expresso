@@ -21,6 +21,7 @@ public class PolynomialTerm {
 
   /**
    * An instance of PolynomialTerm is constructed with an instance of Expression
+   *
    * Expression must only contain ME descendants
    */
   public PolynomialTerm(Expression expression) {
@@ -43,33 +44,35 @@ public class PolynomialTerm {
    * This method is called in the Expression constructor
    * Starts walking the tree rooted at node, and if any of the descendant nodes
    * rooted are literals, we record the literal in our internal rep
+   *
+   * Expression must only contain ME descendants
    */ 
   private void walkTree(Expression node) {
       switch (node.getType()) {
-      case MULTIPLICATION_EXPRESSION:
-          MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
-          walkTree(multiplyNode.getLeft());
-          walkTree(multiplyNode.getRight());
-          break;
-      case VARIABLE:
-          Variable variableNode = (Variable) node;
-          String variable = variableNode.getName();
-          int power = variables.containsKey(variable) ? variables.get(variable) : 1;
-          variables.put(variable, power);
-          break;
-      case CONSTANT:
-          Constant constantNode = (Constant) node;
-          coefficient = coefficient * constantNode.getValue();
-          break;
-      default:
-          break;
+          case MULTIPLICATION_EXPRESSION:
+              MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
+              walkTree(multiplyNode.getLeft());
+              walkTree(multiplyNode.getRight());
+              break;
+          case VARIABLE:
+              Variable variableNode = (Variable) node;
+              String variable = variableNode.getName();
+              int power = variables.containsKey(variable) ? variables.get(variable) + 1 : 1;
+              variables.put(variable, power);
+              break;
+          case CONSTANT:
+              Constant constantNode = (Constant) node;
+              coefficient = coefficient * constantNode.getValue();
+              break;
+          default:
+              throw new RuntimeException("Can't cast to PolynomialTerm");
     }
   }
 
   /**
    * This method simplifies a non-empty list of PolynomialTerms into a simplified list of
-   * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x] 
-   * will be merged into 5*x by this method.  We return a fully simplified list by lexical order.  
+   * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x, 4*x*x] 
+   * will be merged into [5*x, 4*x*x] by this method.  The list is returned in lexical order.  
    *
    * @param listOfPolynomials is a list of PolynomialTerms we want simplified
    * @return a new list of polynomials where some have been combined, then sorted in lexical order.
