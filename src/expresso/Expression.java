@@ -71,15 +71,17 @@ public interface Expression {
     
     /**
      * Returns an algebraically equivalent expression that consists of a sum of products.
+     * Expands by distributing terms first from left to right, then from right to left.
      * 
      * @return an algebraically equivalent expression that consists of a sum of products
      */
     public Expression expand();
     
     /**
-     * Returns a simplified polynomial that is algebraically equivalent.
+     * Returns a polynomial that is algebraically equivalent.
+     * TODO: strengthen specification later
      * 
-     * @return a simplified polynomial that is algebraically equivalent
+     * @return a polynomial that is algebraically equivalent
      */
     public static List<PolynomialTerm> toPolynomial(Expression expression) {
         Expression expansion = expression.expand();
@@ -89,7 +91,7 @@ public interface Expression {
     /**
      * Walks through each node of the expression and extracts polynomial terms into an array.
      * 
-     * @param expansion expression whose polynomial terms are to be extracted
+     * @param expansion fully-expanded expression whose polynomial terms are to be extracted
      * @return array of polynomial terms contained in the expression
      */
     static List<PolynomialTerm> extractPolynomialTerms(Expression expansion) {
