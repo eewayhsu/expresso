@@ -43,40 +43,32 @@ public class PolynomialTerm {
    * rooted are literals, we record the literal in our internal rep
    */ 
   private void walkTree(Expression node) {
-    // TODO, use switch instead?
-    // switch node.getType() --> need to implement this method
-    if (node instanceof MultiplicationExpression) {
-        MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
-        walkTree(multiplyNode.getLeft());
-        walkTree(multiplyNode.getRight());
-    } else if (node instanceof Variable) {
-        Variable variableNode = (Variable) node;
-        String variable = variableNode.getName();
-        int power = variables.containsKey(variable) ? variables.get(variable) : 1;
-        variables.put(variable, power);
-    } else if (node instanceof Constant) {
-        Constant constantNode = (Constant) node;
-        coefficient = coefficient * constantNode.getValue();
+      // TODO, use switch instead?
+      // switch node.getType() --> need to implement this method
+      switch (node.getType()) {
+      case ExpressionType.MULTIPLICATION_EXPRESSION:
+          MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
+          walkTree(multiplyNode.getLeft());
+          walkTree(multiplyNode.getRight());
+      case ExpressionType.VARIABLE:
+          Variable variableNode = (Variable) node;
+          String variable = variableNode.getName();
+          int power = variables.containsKey(variable) ? variables.get(variable) : 1;
+          variables.put(variable, power);
+      case ExpressionType.CONSTANT:
+          Constant constantNode = (Constant) node;
+          coefficient = coefficient * constantNode.getValue();
     }
   }
 
   /**
-   * This method combines a non-empy list of PolynomialTerms into a single
-   * PolynomialTerm by adding their coefficients, for example, [2*x, 3*x] 
+   * This method combines a non-empty list of PolynomialTerms into a simplified list of
+   * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x] 
    * will be merged into 5*x by this method.  We return a fully simplified list by lexical order.  
    *
-   * listOfPolys must contain PolynomialTerms that are equal (note that this is
-   * a pretty weak precondition)
+   * @param listOfPolynomials is a list of PolynomialTerms we want simplified
+   * @return a new list of polynomials where some have been combined, then sorted in lexical order.
    */
-  public static PolynomialTerm squish(PolynomialTerm[] listOfPolys) {
-    int newConstantTerm = 1;
-    PolynomialTerm firstTerm = listOfPolys[0];
-    for (PolynomialTerm term : listOfPolys) {
-      newConstantTerm += term.coefficient;
-    }
-    return new PolynomialTerm(newConstantTerm, firstTerm.variables);
-  }
-
   public static List<PolynomialTerm> combine(ArrayList<PolynomialTerm> listOfPolynomials){
       
       Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
