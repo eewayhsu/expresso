@@ -49,16 +49,6 @@ public class MultiplicationExpression implements Expression {
     }
     
     @Override
-    public Expression simplify() {
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate() {
-        throw new RuntimeException("Unimplemented method");
-    }
-    
-    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MultiplicationExpression) {
           MultiplicationExpression expression = (MultiplicationExpression) obj;

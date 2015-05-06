@@ -34,18 +34,6 @@ public class Constant implements Expression {
     public double getValue() {
         return value;
     }
-
-    @Override
-    public Expression simplify() {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate() {
-        checkRep();
-        return new Constant(0);
-    }
     
     @Override
     public boolean equals(Object obj) {

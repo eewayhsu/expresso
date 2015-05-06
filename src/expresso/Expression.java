@@ -55,19 +55,6 @@ public interface Expression {
     }
     
     // Instance methods
-    /**
-     * Returns simplified expression
-     * 
-     * @return simplified expression
-     */
-    public Expression simplify();
-    
-    /**
-     * Returns differentiated expression
-     * 
-     * @return differentiated expression
-     */
-    public Expression differentiate();
     
     /**
      * Returns an algebraically equivalent expression that consists of a sum of products.

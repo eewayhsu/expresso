@@ -65,6 +65,19 @@ public class ExpressionTest {
      * - ( 3
      * - 3 x
      */
+    
+    /*
+     * Test strategy for simplify:
+     * 
+     * Partitions:
+     * - constants only
+     * - variables only
+     * - addition only
+     * - multiplication only
+     * - addition and multiplication only
+     * 
+     * Test cases:
+     */
     private static final boolean DISPLAY_GRAPHICS = true;
     
     @Test(expected=AssertionError.class)

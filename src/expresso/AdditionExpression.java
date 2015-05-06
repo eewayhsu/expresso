@@ -49,16 +49,6 @@ public class AdditionExpression implements Expression {
     }
     
     @Override
-    public Expression simplify() {
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate() {
-        throw new RuntimeException("Unimplemented method");
-    }
-    
-    @Override
     public boolean equals(Object obj) {
         if (obj instanceof AdditionExpression) {
           AdditionExpression expression = (AdditionExpression) obj;
