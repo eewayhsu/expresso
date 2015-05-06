@@ -44,7 +44,7 @@ public class Variable implements Expression {
     }
 
     @Override
-    public Expression differentiate() {
+    public Expression differentiate(String variable) {
         checkRep();
         return new Constant(1);
     }

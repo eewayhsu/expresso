@@ -67,7 +67,7 @@ public interface Expression {
      * 
      * @return differentiated expression
      */
-    public Expression differentiate();
+    public Expression differentiate(String variable);
     
     /**
      * Returns an algebraically equivalent expression that consists of a sum of products.

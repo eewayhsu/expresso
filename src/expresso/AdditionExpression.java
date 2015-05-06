@@ -55,7 +55,7 @@ public class AdditionExpression implements Expression {
     }
 
     @Override
-    public Expression differentiate() {
+    public Expression differentiate(String variable) {
         checkRep();
         throw new RuntimeException("Unimplemented method");
     }

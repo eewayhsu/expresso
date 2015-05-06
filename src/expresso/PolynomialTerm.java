@@ -6,7 +6,7 @@ import expresso.Expression.ExpressionType;
 
 /**
  * PolynomialTerm is an immutable type representing a term in a polynomial
- * expresison.
+ * expression.
  *
  * Two instances of PolynomialTerm are equal iff they contain the same variables
  * that are raised to the same power. For example:
