@@ -14,7 +14,7 @@ import java.util.*;
  *  3) x*y*x != y*x
  */
 public class PolynomialTerm {
-  private int constantTerm = 1;
+  private double coefficient = 1.;
   private Map<String, Integer> variables = new HashMap<String, Integer>();
 
   /**
@@ -30,12 +30,13 @@ public class PolynomialTerm {
    * PolynomialTerm can also be constructed explicitly with the Map and Constant
    * term
    */
-  public PolynomialTerm(int constantTerm, Map<String, Integer> variables) {
-    this.constantTerm = constantTerm;
+  public PolynomialTerm(double constantTerm, Map<String, Integer> variables) {
+    this.coefficient = constantTerm;
     this.variables = variables;
     checkRep();
   }
-
+  
+  
   /**
    * This method is called in the Expression constructor
    * Starts walking the tree rooted at node, and if any of the descendant nodes
@@ -45,14 +46,17 @@ public class PolynomialTerm {
     // TODO, use switch instead?
     // switch node.getType() --> need to implement this method
     if (node instanceof MultiplicationExpression) {
-      walkTree(node.getLeft());
-      walkTree(node.getRight());
+        MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
+        walkTree(multiplyNode.getLeft());
+        walkTree(multiplyNode.getRight());
     } else if (node instanceof Variable) {
-      String variable = node.getName();
-      int power = variables.containsKey(variable) ? variables.get(variable) : 1;
-      variables.put(variable, power);
+        Variable variableNode = (Variable) node;
+        String variable = variableNode.getName();
+        int power = variables.containsKey(variable) ? variables.get(variable) : 1;
+        variables.put(variable, power);
     } else if (node instanceof Constant) {
-      constantTerm = constantTerm * node.getValue();
+        Constant constantNode = (Constant) node;
+        coefficient = coefficient * constantNode.getValue();
     }
   }
 
@@ -68,11 +72,29 @@ public class PolynomialTerm {
     int newConstantTerm = 1;
     PolynomialTerm firstTerm = listOfPolys[0];
     for (PolynomialTerm term : listOfPolys) {
-      newConstantTerm += term.constantTerm;
+      newConstantTerm += term.coefficient;
     }
     return new PolynomialTerm(newConstantTerm, firstTerm.variables);
   }
 
+  public static List<PolynomialTerm> combine(ArrayList<PolynomialTerm> listOfPolynomials){
+      
+      Map<Integer, PolynomialTerm> newPolynomialList = new HashMap<Integer, PolynomialTerm>();
+      
+      for (PolynomialTerm polynomial: listOfPolynomials){
+          if (!newPolynomialList.containsKey(polynomial.hashCode())){
+              newPolynomialList.put(polynomial.hashCode(), polynomial);
+          } else {
+              PolynomialTerm containedPolynomial = newPolynomialList.get(polynomial.hashCode());
+              PolynomialTerm combinedPolynomial = new PolynomialTerm(containedPolynomial.coefficient + polynomial.coefficient, polynomial.variables);
+          }
+      }
+      
+      return new ArrayList<PolynomialTerm>(newPolynomialList.values());
+  }
+  
+  
+  
   @Override
   public int hashCode() {
     return variables.hashCode();
