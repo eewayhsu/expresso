@@ -3,6 +3,8 @@ package expresso;
 import java.util.ArrayList;
 import java.util.List;
 
+import expresso.Expression.ExpressionType;
+
 /**
  * String-based class of the expression system.
  */
@@ -20,7 +22,7 @@ public class Expressions {
         Expression parsedExpression = Expression.parse(expression);
         
         //We could also return a list of not simplfied differentiate here.  
-        List<PolynomialTerm> listOfPolynomials = Expression.toPolynomial(parsedExpression);
+        List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
         
         String differentiatedExpression = "";
@@ -50,7 +52,7 @@ public class Expressions {
         
         Expression parsedExpression = Expression.parse(expression);
         
-        List<PolynomialTerm> listOfPolynomials = Expression.toPolynomial(parsedExpression);
+        List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
     
         String simplifiedExpression = "";
@@ -65,4 +67,40 @@ public class Expressions {
         return simplifiedExpression.substring(0, -3);        
     }
     
+    /**
+     * Returns a polynomial that is algebraically equivalent.
+     * TODO: strengthen specification later
+     * 
+     * @return a polynomial that is algebraically equivalent
+     */
+    private static List<PolynomialTerm> toPolynomial(Expression expression) {
+        Expression expansion = expression.expand();
+        return extractPolynomialTerms(expansion);
+    }
+    
+    /**
+     * Walks through each node of the expression and extracts polynomial terms into an array.
+     * 
+     * @param expansion fully-expanded expression whose polynomial terms are to be extracted
+     * @return array of polynomial terms contained in the expression
+     */
+    private static List<PolynomialTerm> extractPolynomialTerms(Expression expansion) {
+        List<PolynomialTerm> listOfPolyTerms = new ArrayList<>();
+        
+        if (expansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            
+            List<Expression> children = new ArrayList<>();
+            children.add(((AdditionExpression) expansion).getLeft());
+            children.add(((AdditionExpression) expansion).getRight());
+
+            for (Expression expression : children) {
+                listOfPolyTerms.addAll(extractPolynomialTerms(expression));
+            }
+            
+        } else {
+            listOfPolyTerms.add(new PolynomialTerm(expansion));
+        }
+        return listOfPolyTerms;
+    }
+
 }
