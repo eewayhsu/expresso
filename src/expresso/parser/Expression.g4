@@ -60,13 +60,13 @@ line                  : LEFT_PAREN line* RIGHT_PAREN line*;
 
 file                  : expression? EOF;
 
-expression            : root_expression | mult_expression | add_expression; 
-root_expression       : literal | paren_expression;
+expression            : rootExpression | multExpression | addExpression; 
+rootExpression       : literal | parenExpression;
 literal               : VARIABLE | CONSTANT;
 
-paren_expression      : LEFT_PAREN expression RIGHT_PAREN;
-mult_expression       : root_expression MULTIPLY (root_expression | mult_expression);
-add_expression        : (root_expression | mult_expression) PLUS (root_expression | mult_expression | add_expression);
+parenExpression      : LEFT_PAREN expression RIGHT_PAREN;
+multExpression       : rootExpression MULTIPLY (rootExpression | multExpression);
+addExpression        : (rootExpression | multExpression) PLUS (rootExpression | multExpression | addExpression);
 
 PLUS                  : '+';
 MULTIPLY              : '*';

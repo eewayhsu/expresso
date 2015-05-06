@@ -63,7 +63,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      *
      * @param ctx mult_expression context
      */
-    public void exitMultiplicationExpression(Mult_expressionContext ctx) {
+    public void exitMultExpression(MultExpressionContext ctx) {
         Expression rightExpression = stack.pop();
         Expression leftExpression = stack.pop();
         Expression multiplicationExpression = new MultiplicationExpression(leftExpression, rightExpression);
@@ -84,7 +84,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      *
      * @param ctx add_expression context
      */
-    public void exitAdditionExpression(Add_expressionContext ctx) {
+    public void exitAddExpression(AddExpressionContext ctx) {
         Expression rightExpression = stack.pop();
         Expression leftExpression = stack.pop();
         Expression additionExpression = new AdditionExpression(leftExpression, rightExpression);

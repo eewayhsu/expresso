@@ -160,7 +160,7 @@ public class ExpressionTest {
     
     @Test
     public void testComplicatedExpression() {
-        parse("4 + 3 * x + 2 * x * x + 1 * x * x * (((x)))");
+        Expression.parse("4 + 3 * x + 2 * x * x + 1 * x * x * (((x)))");
     }
     
     @Test(expected=RuntimeException.class)

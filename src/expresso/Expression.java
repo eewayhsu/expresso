@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
- * Expression represents a mathematical expression.
+ * Expression represents a mathematical expression.  This is a immutable recursive abstract datatype. 
  */
 public interface Expression {
     
@@ -40,10 +40,11 @@ public interface Expression {
         ParseTree expressionTree = parser.root();
         ParseTreeWalker walker = new ParseTreeWalker();
 
-        ExpressionListener listener = new ExpressionListenerExpressionCreator();
+        ExpressionListenerExpressionCreator listener = new ExpressionListenerExpressionCreator();
         walker.walk(listener, expressionTree);
+        
+        return listener.getExpression();
 
-        throw new RuntimeException("unimplemented");
     }
     
     // Instance methods
