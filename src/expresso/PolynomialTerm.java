@@ -74,7 +74,7 @@ public class PolynomialTerm {
    * @param listOfPolynomials is a list of PolynomialTerms we want simplified
    * @return a new list of polynomials where some have been combined, then sorted in lexical order.
    */
-  public static List<PolynomialTerm> simplify(ArrayList<PolynomialTerm> listOfPolynomials){
+  public static List<PolynomialTerm> simplify(List<PolynomialTerm> listOfPolynomials){
       
       Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
       
