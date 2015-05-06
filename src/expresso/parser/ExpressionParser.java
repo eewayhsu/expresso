@@ -1,4 +1,4 @@
-// Generated from src/expresso/parser/Expression.g4 by ANTLR 4.5
+// Generated from Expression.g4 by ANTLR 4.5
 
 package expresso.parser;
 
@@ -22,12 +22,12 @@ public class ExpressionParser extends Parser {
 		PLUS=1, MULTIPLY=2, VARIABLE=3, CONSTANT=4, LEFT_PAREN=5, RIGHT_PAREN=6, 
 		WHITESPACE=7;
 	public static final int
-		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_literal = 4, 
-		RULE_root_expression = 5, RULE_expression = 6, RULE_paren_expression = 7, 
-		RULE_mult_expression = 8, RULE_add_expression = 9;
+		RULE_root = 0, RULE_warmup = 1, RULE_line = 2, RULE_file = 3, RULE_expression = 4, 
+		RULE_rootExpression = 5, RULE_literal = 6, RULE_parenExpression = 7, RULE_multExpression = 8, 
+		RULE_addExpression = 9;
 	public static final String[] ruleNames = {
-		"root", "warmup", "line", "file", "literal", "root_expression", "expression", 
-		"paren_expression", "mult_expression", "add_expression"
+		"root", "warmup", "line", "file", "expression", "rootExpression", "literal", 
+		"parenExpression", "multExpression", "addExpression"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -335,6 +335,127 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
+	public static class ExpressionContext extends ParserRuleContext {
+		public RootExpressionContext rootExpression() {
+			return getRuleContext(RootExpressionContext.class,0);
+		}
+		public MultExpressionContext multExpression() {
+			return getRuleContext(MultExpressionContext.class,0);
+		}
+		public AddExpressionContext addExpression() {
+			return getRuleContext(AddExpressionContext.class,0);
+		}
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitExpression(this);
+		}
+	}
+
+	public final ExpressionContext expression() throws RecognitionException {
+		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
+		enterRule(_localctx, 8, RULE_expression);
+		try {
+			setState(51);
+			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(48);
+				rootExpression();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(49);
+				multExpression();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(50);
+				addExpression();
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class RootExpressionContext extends ParserRuleContext {
+		public LiteralContext literal() {
+			return getRuleContext(LiteralContext.class,0);
+		}
+		public ParenExpressionContext parenExpression() {
+			return getRuleContext(ParenExpressionContext.class,0);
+		}
+		public RootExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_rootExpression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterRootExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitRootExpression(this);
+		}
+	}
+
+	public final RootExpressionContext rootExpression() throws RecognitionException {
+		RootExpressionContext _localctx = new RootExpressionContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_rootExpression);
+		try {
+			setState(55);
+			switch (_input.LA(1)) {
+			case VARIABLE:
+			case CONSTANT:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(53);
+				literal();
+				}
+				break;
+			case LEFT_PAREN:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(54);
+				parenExpression();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class LiteralContext extends ParserRuleContext {
 		public TerminalNode VARIABLE() { return getToken(ExpressionParser.VARIABLE, 0); }
 		public TerminalNode CONSTANT() { return getToken(ExpressionParser.CONSTANT, 0); }
@@ -354,12 +475,12 @@ public class ExpressionParser extends Parser {
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_literal);
+		enterRule(_localctx, 12, RULE_literal);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(48);
+			setState(57);
 			_la = _input.LA(1);
 			if ( !(_la==VARIABLE || _la==CONSTANT) ) {
 			_errHandler.recoverInline(this);
@@ -379,150 +500,29 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Root_expressionContext extends ParserRuleContext {
-		public LiteralContext literal() {
-			return getRuleContext(LiteralContext.class,0);
-		}
-		public Paren_expressionContext paren_expression() {
-			return getRuleContext(Paren_expressionContext.class,0);
-		}
-		public Root_expressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_root_expression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterRoot_expression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitRoot_expression(this);
-		}
-	}
-
-	public final Root_expressionContext root_expression() throws RecognitionException {
-		Root_expressionContext _localctx = new Root_expressionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_root_expression);
-		try {
-			setState(52);
-			switch (_input.LA(1)) {
-			case VARIABLE:
-			case CONSTANT:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(50);
-				literal();
-				}
-				break;
-			case LEFT_PAREN:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(51);
-				paren_expression();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ExpressionContext extends ParserRuleContext {
-		public Root_expressionContext root_expression() {
-			return getRuleContext(Root_expressionContext.class,0);
-		}
-		public Mult_expressionContext mult_expression() {
-			return getRuleContext(Mult_expressionContext.class,0);
-		}
-		public Add_expressionContext add_expression() {
-			return getRuleContext(Add_expressionContext.class,0);
-		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitExpression(this);
-		}
-	}
-
-	public final ExpressionContext expression() throws RecognitionException {
-		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_expression);
-		try {
-			setState(57);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(54);
-				root_expression();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(55);
-				mult_expression();
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(56);
-				add_expression();
-				}
-				break;
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Paren_expressionContext extends ParserRuleContext {
+	public static class ParenExpressionContext extends ParserRuleContext {
 		public TerminalNode LEFT_PAREN() { return getToken(ExpressionParser.LEFT_PAREN, 0); }
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode RIGHT_PAREN() { return getToken(ExpressionParser.RIGHT_PAREN, 0); }
-		public Paren_expressionContext(ParserRuleContext parent, int invokingState) {
+		public ParenExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_paren_expression; }
+		@Override public int getRuleIndex() { return RULE_parenExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterParen_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterParenExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitParen_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitParenExpression(this);
 		}
 	}
 
-	public final Paren_expressionContext paren_expression() throws RecognitionException {
-		Paren_expressionContext _localctx = new Paren_expressionContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_paren_expression);
+	public final ParenExpressionContext parenExpression() throws RecognitionException {
+		ParenExpressionContext _localctx = new ParenExpressionContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_parenExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -545,39 +545,39 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Mult_expressionContext extends ParserRuleContext {
-		public List<Root_expressionContext> root_expression() {
-			return getRuleContexts(Root_expressionContext.class);
+	public static class MultExpressionContext extends ParserRuleContext {
+		public List<RootExpressionContext> rootExpression() {
+			return getRuleContexts(RootExpressionContext.class);
 		}
-		public Root_expressionContext root_expression(int i) {
-			return getRuleContext(Root_expressionContext.class,i);
+		public RootExpressionContext rootExpression(int i) {
+			return getRuleContext(RootExpressionContext.class,i);
 		}
 		public TerminalNode MULTIPLY() { return getToken(ExpressionParser.MULTIPLY, 0); }
-		public Mult_expressionContext mult_expression() {
-			return getRuleContext(Mult_expressionContext.class,0);
+		public MultExpressionContext multExpression() {
+			return getRuleContext(MultExpressionContext.class,0);
 		}
-		public Mult_expressionContext(ParserRuleContext parent, int invokingState) {
+		public MultExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_mult_expression; }
+		@Override public int getRuleIndex() { return RULE_multExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterMult_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterMultExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitMult_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitMultExpression(this);
 		}
 	}
 
-	public final Mult_expressionContext mult_expression() throws RecognitionException {
-		Mult_expressionContext _localctx = new Mult_expressionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_mult_expression);
+	public final MultExpressionContext multExpression() throws RecognitionException {
+		MultExpressionContext _localctx = new MultExpressionContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_multExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(63);
-			root_expression();
+			rootExpression();
 			setState(64);
 			match(MULTIPLY);
 			setState(67);
@@ -585,13 +585,13 @@ public class ExpressionParser extends Parser {
 			case 1:
 				{
 				setState(65);
-				root_expression();
+				rootExpression();
 				}
 				break;
 			case 2:
 				{
 				setState(66);
-				mult_expression();
+				multExpression();
 				}
 				break;
 			}
@@ -608,40 +608,40 @@ public class ExpressionParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Add_expressionContext extends ParserRuleContext {
+	public static class AddExpressionContext extends ParserRuleContext {
 		public TerminalNode PLUS() { return getToken(ExpressionParser.PLUS, 0); }
-		public List<Root_expressionContext> root_expression() {
-			return getRuleContexts(Root_expressionContext.class);
+		public List<RootExpressionContext> rootExpression() {
+			return getRuleContexts(RootExpressionContext.class);
 		}
-		public Root_expressionContext root_expression(int i) {
-			return getRuleContext(Root_expressionContext.class,i);
+		public RootExpressionContext rootExpression(int i) {
+			return getRuleContext(RootExpressionContext.class,i);
 		}
-		public List<Mult_expressionContext> mult_expression() {
-			return getRuleContexts(Mult_expressionContext.class);
+		public List<MultExpressionContext> multExpression() {
+			return getRuleContexts(MultExpressionContext.class);
 		}
-		public Mult_expressionContext mult_expression(int i) {
-			return getRuleContext(Mult_expressionContext.class,i);
+		public MultExpressionContext multExpression(int i) {
+			return getRuleContext(MultExpressionContext.class,i);
 		}
-		public Add_expressionContext add_expression() {
-			return getRuleContext(Add_expressionContext.class,0);
+		public AddExpressionContext addExpression() {
+			return getRuleContext(AddExpressionContext.class,0);
 		}
-		public Add_expressionContext(ParserRuleContext parent, int invokingState) {
+		public AddExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_add_expression; }
+		@Override public int getRuleIndex() { return RULE_addExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterAdd_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).enterAddExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitAdd_expression(this);
+			if ( listener instanceof ExpressionListener ) ((ExpressionListener)listener).exitAddExpression(this);
 		}
 	}
 
-	public final Add_expressionContext add_expression() throws RecognitionException {
-		Add_expressionContext _localctx = new Add_expressionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_add_expression);
+	public final AddExpressionContext addExpression() throws RecognitionException {
+		AddExpressionContext _localctx = new AddExpressionContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_addExpression);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -650,13 +650,13 @@ public class ExpressionParser extends Parser {
 			case 1:
 				{
 				setState(69);
-				root_expression();
+				rootExpression();
 				}
 				break;
 			case 2:
 				{
 				setState(70);
-				mult_expression();
+				multExpression();
 				}
 				break;
 			}
@@ -667,19 +667,19 @@ public class ExpressionParser extends Parser {
 			case 1:
 				{
 				setState(74);
-				root_expression();
+				rootExpression();
 				}
 				break;
 			case 2:
 				{
 				setState(75);
-				mult_expression();
+				multExpression();
 				}
 				break;
 			case 3:
 				{
 				setState(76);
-				add_expression();
+				addExpression();
 				}
 				break;
 			}
@@ -700,24 +700,24 @@ public class ExpressionParser extends Parser {
 		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\tR\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
 		"\2\3\2\5\2\31\n\2\3\3\5\3\34\n\3\3\3\3\3\3\4\3\4\7\4\"\n\4\f\4\16\4%\13"+
-		"\4\3\4\3\4\7\4)\n\4\f\4\16\4,\13\4\3\5\5\5/\n\5\3\5\3\5\3\6\3\6\3\7\3"+
-		"\7\5\7\67\n\7\3\b\3\b\3\b\5\b<\n\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\5\n"+
+		"\4\3\4\3\4\7\4)\n\4\f\4\16\4,\13\4\3\5\5\5/\n\5\3\5\3\5\3\6\3\6\3\6\5"+
+		"\6\66\n\6\3\7\3\7\5\7:\n\7\3\b\3\b\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\5\n"+
 		"F\n\n\3\13\3\13\5\13J\n\13\3\13\3\13\3\13\3\13\5\13P\n\13\3\13\2\2\f\2"+
 		"\4\6\b\n\f\16\20\22\24\2\3\3\2\5\6S\2\30\3\2\2\2\4\33\3\2\2\2\6\37\3\2"+
-		"\2\2\b.\3\2\2\2\n\62\3\2\2\2\f\66\3\2\2\2\16;\3\2\2\2\20=\3\2\2\2\22A"+
-		"\3\2\2\2\24I\3\2\2\2\26\31\5\4\3\2\27\31\5\b\5\2\30\26\3\2\2\2\30\27\3"+
-		"\2\2\2\31\3\3\2\2\2\32\34\5\6\4\2\33\32\3\2\2\2\33\34\3\2\2\2\34\35\3"+
-		"\2\2\2\35\36\7\2\2\3\36\5\3\2\2\2\37#\7\7\2\2 \"\5\6\4\2! \3\2\2\2\"%"+
-		"\3\2\2\2#!\3\2\2\2#$\3\2\2\2$&\3\2\2\2%#\3\2\2\2&*\7\b\2\2\')\5\6\4\2"+
-		"(\'\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+\7\3\2\2\2,*\3\2\2\2-/\5\16"+
-		"\b\2.-\3\2\2\2./\3\2\2\2/\60\3\2\2\2\60\61\7\2\2\3\61\t\3\2\2\2\62\63"+
-		"\t\2\2\2\63\13\3\2\2\2\64\67\5\n\6\2\65\67\5\20\t\2\66\64\3\2\2\2\66\65"+
-		"\3\2\2\2\67\r\3\2\2\28<\5\f\7\29<\5\22\n\2:<\5\24\13\2;8\3\2\2\2;9\3\2"+
-		"\2\2;:\3\2\2\2<\17\3\2\2\2=>\7\7\2\2>?\5\16\b\2?@\7\b\2\2@\21\3\2\2\2"+
-		"AB\5\f\7\2BE\7\4\2\2CF\5\f\7\2DF\5\22\n\2EC\3\2\2\2ED\3\2\2\2F\23\3\2"+
-		"\2\2GJ\5\f\7\2HJ\5\22\n\2IG\3\2\2\2IH\3\2\2\2JK\3\2\2\2KO\7\3\2\2LP\5"+
-		"\f\7\2MP\5\22\n\2NP\5\24\13\2OL\3\2\2\2OM\3\2\2\2ON\3\2\2\2P\25\3\2\2"+
-		"\2\f\30\33#*.\66;EIO";
+		"\2\2\b.\3\2\2\2\n\65\3\2\2\2\f9\3\2\2\2\16;\3\2\2\2\20=\3\2\2\2\22A\3"+
+		"\2\2\2\24I\3\2\2\2\26\31\5\4\3\2\27\31\5\b\5\2\30\26\3\2\2\2\30\27\3\2"+
+		"\2\2\31\3\3\2\2\2\32\34\5\6\4\2\33\32\3\2\2\2\33\34\3\2\2\2\34\35\3\2"+
+		"\2\2\35\36\7\2\2\3\36\5\3\2\2\2\37#\7\7\2\2 \"\5\6\4\2! \3\2\2\2\"%\3"+
+		"\2\2\2#!\3\2\2\2#$\3\2\2\2$&\3\2\2\2%#\3\2\2\2&*\7\b\2\2\')\5\6\4\2(\'"+
+		"\3\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+\7\3\2\2\2,*\3\2\2\2-/\5\n\6\2"+
+		".-\3\2\2\2./\3\2\2\2/\60\3\2\2\2\60\61\7\2\2\3\61\t\3\2\2\2\62\66\5\f"+
+		"\7\2\63\66\5\22\n\2\64\66\5\24\13\2\65\62\3\2\2\2\65\63\3\2\2\2\65\64"+
+		"\3\2\2\2\66\13\3\2\2\2\67:\5\16\b\28:\5\20\t\29\67\3\2\2\298\3\2\2\2:"+
+		"\r\3\2\2\2;<\t\2\2\2<\17\3\2\2\2=>\7\7\2\2>?\5\n\6\2?@\7\b\2\2@\21\3\2"+
+		"\2\2AB\5\f\7\2BE\7\4\2\2CF\5\f\7\2DF\5\22\n\2EC\3\2\2\2ED\3\2\2\2F\23"+
+		"\3\2\2\2GJ\5\f\7\2HJ\5\22\n\2IG\3\2\2\2IH\3\2\2\2JK\3\2\2\2KO\7\3\2\2"+
+		"LP\5\f\7\2MP\5\22\n\2NP\5\24\13\2OL\3\2\2\2OM\3\2\2\2ON\3\2\2\2P\25\3"+
+		"\2\2\2\f\30\33#*.\659EIO";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
