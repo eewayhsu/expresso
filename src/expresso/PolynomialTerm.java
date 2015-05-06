@@ -67,26 +67,29 @@ public class PolynomialTerm {
   }
 
   /**
-   * This method combines a non-empty list of PolynomialTerms into a simplified list of
+   * This method simplifies a non-empty list of PolynomialTerms into a simplified list of
    * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x] 
    * will be merged into 5*x by this method.  We return a fully simplified list by lexical order.  
    *
    * @param listOfPolynomials is a list of PolynomialTerms we want simplified
    * @return a new list of polynomials where some have been combined, then sorted in lexical order.
    */
-  public static List<PolynomialTerm> combine(ArrayList<PolynomialTerm> listOfPolynomials){
+  public static List<PolynomialTerm> simplify(ArrayList<PolynomialTerm> listOfPolynomials){
       
       Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
       
       for (PolynomialTerm polynomial: listOfPolynomials){
-          if (!newPolynomialMap.containsKey(polynomial.hashCode())){
-              newPolynomialMap.put(polynomial.hashCode(), polynomial);
+          
+          int key = polynomial.hashCode();
+          
+          if (!newPolynomialMap.containsKey(key)){
+              newPolynomialMap.put(key, polynomial);
           } else {
-              PolynomialTerm containedPolynomial = newPolynomialMap.get(polynomial.hashCode());
+              PolynomialTerm containedPolynomial = newPolynomialMap.get(key);
               PolynomialTerm combinedPolynomial = new PolynomialTerm(containedPolynomial.coefficient + polynomial.coefficient, polynomial.variables);
+              newPolynomialMap.put(key, combinedPolynomial);
           }
       }
-      
       
       List<PolynomialTerm> simplifiedPolynomialList = new ArrayList<PolynomialTerm>();
       simplifiedPolynomialList.addAll(newPolynomialMap.values());
