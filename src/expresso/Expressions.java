@@ -13,6 +13,10 @@ public class Expressions {
      * @throws IllegalArgumentException if the expression or variable is invalid
      */
     public static String differentiate(String expression, String variable) {
+        // call simplify
+        // convert simplified string to list of polynomial terms (calling from Expression)
+        // call differentiate on each polynomial term
+        // return new string from new polynomial terms
         throw new RuntimeException("unimplemented");
     }
     
