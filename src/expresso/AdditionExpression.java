@@ -49,20 +49,13 @@ public class AdditionExpression implements Expression {
     }
     
     @Override
-    public Expression simplify() {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate(String variable) {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-    
-    @Override
     public boolean equals(Object obj) {
-        throw new RuntimeException("Unimplemented method");
+        if (obj instanceof AdditionExpression) {
+          AdditionExpression expression = (AdditionExpression) obj;
+          return expression.getLeft().equals(left) & expression.getRight().equals(right);
+        } else {
+          return false;
+        }
     }
     
     @Override

@@ -49,20 +49,13 @@ public class MultiplicationExpression implements Expression {
     }
     
     @Override
-    public Expression simplify() {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate(String variable) {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-    
-    @Override
     public boolean equals(Object obj) {
-        throw new RuntimeException("Unimplemented method");
+        if (obj instanceof MultiplicationExpression) {
+          MultiplicationExpression expression = (MultiplicationExpression) obj;
+          return expression.getLeft().equals(left) & expression.getRight().equals(right);
+        } else {
+          return false;
+        }
     }
     
     @Override
@@ -77,14 +70,16 @@ public class MultiplicationExpression implements Expression {
 
     @Override
     public Expression expand() {
-        Expression leftExpansion = left.expand();
-        Expression rightExpansion = right.expand();
-        if (rightExpansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            return new AdditionExpression(new MultiplicationExpression(leftExpansion, ((AdditionExpression) rightExpansion).getLeft()),
-                    new MultiplicationExpression(leftExpansion, ((AdditionExpression) rightExpansion).getRight()));
-        } else if (leftExpansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            return new AdditionExpression(new MultiplicationExpression(rightExpansion, ((AdditionExpression) leftExpansion).getLeft()),
-                    new MultiplicationExpression(rightExpansion, ((AdditionExpression) leftExpansion).getRight()));
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(left, ((AdditionExpression) right).getLeft());
+            Expression newRight = new MultiplicationExpression(left, ((AdditionExpression) right).getRight());
+            return new AdditionExpression(newLeft.expand(), newRight.expand());
+
+        } else if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(right, ((AdditionExpression) left).getLeft());
+            Expression newRight = new MultiplicationExpression(right, ((AdditionExpression) left).getRight());
+            return new AdditionExpression(newLeft.expand(), newRight.expand());
+
         } else {
             return this;
         }

@@ -38,18 +38,6 @@ public class Variable implements Expression {
     }
     
     @Override
-    public Expression simplify() {
-        checkRep();
-        throw new RuntimeException("Unimplemented method");
-    }
-
-    @Override
-    public Expression differentiate(String variable) {
-        checkRep();
-        return new Constant(1);
-    }
-    
-    @Override
     public boolean equals(Object obj) {
         throw new RuntimeException("Unimplemented method");
     }
