@@ -30,8 +30,8 @@ public class PolynomialTerm {
    * PolynomialTerm can also be constructed explicitly with the Map and Constant
    * term
    */
-  public PolynomialTerm(double constantTerm, Map<String, Integer> variables) {
-    this.coefficient = constantTerm;
+  public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
+    this.coefficient = coefficient;
     this.variables = variables;
     checkRep();
   }
@@ -50,14 +50,19 @@ public class PolynomialTerm {
           MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
           walkTree(multiplyNode.getLeft());
           walkTree(multiplyNode.getRight());
+          break;
       case ExpressionType.VARIABLE:
           Variable variableNode = (Variable) node;
           String variable = variableNode.getName();
           int power = variables.containsKey(variable) ? variables.get(variable) : 1;
           variables.put(variable, power);
+          break;
       case ExpressionType.CONSTANT:
           Constant constantNode = (Constant) node;
           coefficient = coefficient * constantNode.getValue();
+          break;
+      default:
+          break;
     }
   }
 
