@@ -2,6 +2,8 @@ package expresso;
 
 import java.util.*;
 
+import expresso.Expression.ExpressionType;
+
 /**
  * PolynomialTerm is an immutable type representing a term in a polynomial
  * expresison.
@@ -43,21 +45,19 @@ public class PolynomialTerm {
    * rooted are literals, we record the literal in our internal rep
    */ 
   private void walkTree(Expression node) {
-      // TODO, use switch instead?
-      // switch node.getType() --> need to implement this method
       switch (node.getType()) {
-      case ExpressionType.MULTIPLICATION_EXPRESSION:
+      case MULTIPLICATION_EXPRESSION:
           MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
           walkTree(multiplyNode.getLeft());
           walkTree(multiplyNode.getRight());
           break;
-      case ExpressionType.VARIABLE:
+      case VARIABLE:
           Variable variableNode = (Variable) node;
           String variable = variableNode.getName();
           int power = variables.containsKey(variable) ? variables.get(variable) : 1;
           variables.put(variable, power);
           break;
-      case ExpressionType.CONSTANT:
+      case CONSTANT:
           Constant constantNode = (Constant) node;
           coefficient = coefficient * constantNode.getValue();
           break;
