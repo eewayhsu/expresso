@@ -38,8 +38,30 @@ public class PolynomialTerm {
     this.variables = variables;
     checkRep();
   }
-  
-  
+
+  /**
+   * Returns a PolynomialTerm that is a differentiated form of the current term
+   *
+   * @param String variable     The partial derivative
+   * @return A new PolynomialTerm that is differentiated with respect to variable
+   */
+  public PolynomialTerm differentiate(String variable) {
+    double newCoefficient = coefficient;
+    Map<String, Integer> newVariables = new HashMap<String, Integer>(variables);
+    if (newVariables.containsKey(variable)) {
+      int power = newVariables.get(variable);
+      if (power > 1) {
+        newVariables.put(variable, power-1);
+        newCoefficient = newCoefficient * power;
+      } else {
+        newVariables.remove(variable);
+      }
+    } else {
+      newCoefficient = 0;
+    }
+    return new PolynomialTerm(newCoefficient, newVariables);
+  }
+
   /**
    * This method is called in the Expression constructor
    * Starts walking the tree rooted at node, and if any of the descendant nodes

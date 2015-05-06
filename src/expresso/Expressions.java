@@ -3,7 +3,6 @@ package expresso;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * String-based class of the expression system.
  */
