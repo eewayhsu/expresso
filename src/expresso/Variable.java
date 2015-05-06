@@ -33,6 +33,7 @@ public class Variable implements Expression {
      * @return name of variable
      */
     public String getName() {
+        // TODO, sanitize
         return name;
     }
     
