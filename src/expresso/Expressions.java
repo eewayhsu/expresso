@@ -1,7 +1,11 @@
 package expresso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
- * String-based interface to the expression system.
+ * String-based class of the expression system.
  */
 public class Expressions {
     
@@ -13,7 +17,24 @@ public class Expressions {
      * @throws IllegalArgumentException if the expression or variable is invalid
      */
     public static String differentiate(String expression, String variable) {
-        throw new RuntimeException("unimplemented");
+        
+        Expression parsedExpression = Expression.parse(expression);
+        
+        //We could also return a list of not simplfied differentiate here.  
+        List<PolynomialTerm> listOfPolynomials = Expression.toPolynomial(parsedExpression);
+        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
+        
+        String differentiatedExpression = "";
+        
+        for (PolynomialTerm polynomial: simplifiedPolynomialList){
+            differentiatedExpression += polynomial.differentiate(variable).toString() + " + ";
+        }
+        
+        //TODO: implement toString that returns a string such as "3*x"
+        //This removes the last plus sign (cant be done nicer) by replacing last 
+        //or not adding that last one in the first place. 
+        return differentiatedExpression.substring(0, -3);
+        
     }
     
     /**
@@ -27,7 +48,22 @@ public class Expressions {
      * @throws IllegalArgumentException if the expression is invalid
      */
     public static String simplify(String expression) {
-        throw new RuntimeException("unimplemented");
+        
+        Expression parsedExpression = Expression.parse(expression);
+        
+        List<PolynomialTerm> listOfPolynomials = Expression.toPolynomial(parsedExpression);
+        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
+    
+        String simplifiedExpression = "";
+        
+        for (PolynomialTerm polynomial: simplifiedPolynomialList){
+            simplifiedExpression += polynomial + " + ";
+        }
+    
+        //TODO: implement toString that returns a string such as "3*x"
+        //This removes the last plus sign (cant be done nicer) by replacing last 
+        //or not adding that last one in the first place. 
+        return simplifiedExpression.substring(0, -3);        
     }
     
 }
