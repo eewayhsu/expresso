@@ -74,4 +74,14 @@ public class AdditionExpression implements Expression {
         assert left != null;
         assert right != null;
     }
+
+    @Override
+    public Expression expand() {
+        return this;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.ADDITION_EXPRESSION;
+    }
 }

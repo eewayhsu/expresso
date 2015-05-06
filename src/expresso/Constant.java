@@ -60,4 +60,14 @@ public class Constant implements Expression {
     private void checkRep() {
         assert value >= 0;
     }
+
+    @Override
+    public Expression expand() {
+        return this;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.CONSTANT;
+    }
 }
