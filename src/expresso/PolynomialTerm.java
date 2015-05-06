@@ -43,13 +43,13 @@ public class PolynomialTerm {
    */ 
   private boolean walkTree(Expression node) {
     // TODO, use switch instead?
-    // switch node.getType()
-    if (node instanceof MultiplyExpression) {
+    // switch node.getType() --> need to implement this method
+    if (node instanceof MultiplicationExpression) {
       return walkTree(node.getLeft()) && walkTree(node.getRight());
     } else if (node instanceof MultiplyExpression) {
       return false;
     } else if (node instanceof Variable) {
-      String variable = node.toString();
+      String variable = node.getName();
       int power = variables.get(variable) ? variables.get(variable) : 1;
       variables.put(variable, power);
       return true;
