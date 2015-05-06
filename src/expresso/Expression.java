@@ -1,5 +1,8 @@
 package expresso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import expresso.parser.*;
 
 import org.antlr.v4.runtime.*;
@@ -78,7 +81,7 @@ public interface Expression {
      * 
      * @return a simplified polynomial that is algebraically equivalent
      */
-    public static PolynomialTerm[] toPolynomial(Expression expression) {
+    public static List<PolynomialTerm> toPolynomial(Expression expression) {
         Expression expansion = expression.expand();
         return extractPolynomialTerms(expansion);
     }
@@ -89,8 +92,23 @@ public interface Expression {
      * @param expansion expression whose polynomial terms are to be extracted
      * @return array of polynomial terms contained in the expression
      */
-    static PolynomialTerm[] extractPolynomialTerms(Expression expansion) {
-        throw new RuntimeException("unimplemented");
+    static List<PolynomialTerm> extractPolynomialTerms(Expression expansion) {
+        List<PolynomialTerm> listOfPolyTerms = new ArrayList<>();
+        
+        if (expansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            
+            List<Expression> children = new ArrayList<>();
+            children.add(((AdditionExpression) expansion).getLeft());
+            children.add(((AdditionExpression) expansion).getRight());
+
+            for (Expression expression : children) {
+                listOfPolyTerms.addAll(extractPolynomialTerms(expression));
+            }
+            
+        } else {
+            listOfPolyTerms.add(new PolynomialTerm(expansion));
+        }
+        return listOfPolyTerms;
     }
 
     /**
