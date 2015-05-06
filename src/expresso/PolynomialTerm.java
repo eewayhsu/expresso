@@ -63,7 +63,7 @@ public class PolynomialTerm {
   /**
    * This method combines a non-empy list of PolynomialTerms into a single
    * PolynomialTerm by adding their coefficients, for example, [2*x, 3*x] 
-   * will be merged into 5*x by this method
+   * will be merged into 5*x by this method.  We return a fully simplified list by lexical order.  
    *
    * listOfPolys must contain PolynomialTerms that are equal (note that this is
    * a pretty weak precondition)
@@ -79,21 +79,34 @@ public class PolynomialTerm {
 
   public static List<PolynomialTerm> combine(ArrayList<PolynomialTerm> listOfPolynomials){
       
-      Map<Integer, PolynomialTerm> newPolynomialList = new HashMap<Integer, PolynomialTerm>();
+      Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
       
       for (PolynomialTerm polynomial: listOfPolynomials){
-          if (!newPolynomialList.containsKey(polynomial.hashCode())){
-              newPolynomialList.put(polynomial.hashCode(), polynomial);
+          if (!newPolynomialMap.containsKey(polynomial.hashCode())){
+              newPolynomialMap.put(polynomial.hashCode(), polynomial);
           } else {
-              PolynomialTerm containedPolynomial = newPolynomialList.get(polynomial.hashCode());
+              PolynomialTerm containedPolynomial = newPolynomialMap.get(polynomial.hashCode());
               PolynomialTerm combinedPolynomial = new PolynomialTerm(containedPolynomial.coefficient + polynomial.coefficient, polynomial.variables);
           }
       }
       
-      return new ArrayList<PolynomialTerm>(newPolynomialList.values());
+      
+      List<PolynomialTerm> simplifiedPolynomialList = new ArrayList<PolynomialTerm>();
+      simplifiedPolynomialList.addAll(newPolynomialMap.values());
+      
+      Collections.sort(simplifiedPolynomialList, new Comparator<PolynomialTerm>(){
+          public int compare(PolynomialTerm firstPolynomial, PolynomialTerm secondPolynomial)
+          {
+              if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values())))
+                  //This is to allow us to return the largest first
+                  return -1;
+              else 
+                  return 1;
+          }
+      });
+      
+      return simplifiedPolynomialList;
   }
-  
-  
   
   @Override
   public int hashCode() {
