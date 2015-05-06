@@ -30,8 +30,8 @@ public class PolynomialTerm {
    * PolynomialTerm can also be constructed explicitly with the Map and Constant
    * term
    */
-  public PolynomialTerm(double constantTerm, Map<String, Integer> variables) {
-    this.coefficient = constantTerm;
+  public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
+    this.coefficient = coefficient;
     this.variables = variables;
     checkRep();
   }
@@ -43,57 +43,67 @@ public class PolynomialTerm {
    * rooted are literals, we record the literal in our internal rep
    */ 
   private void walkTree(Expression node) {
-    // TODO, use switch instead?
-    // switch node.getType() --> need to implement this method
-    if (node instanceof MultiplicationExpression) {
-        MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
-        walkTree(multiplyNode.getLeft());
-        walkTree(multiplyNode.getRight());
-    } else if (node instanceof Variable) {
-        Variable variableNode = (Variable) node;
-        String variable = variableNode.getName();
-        int power = variables.containsKey(variable) ? variables.get(variable) : 1;
-        variables.put(variable, power);
-    } else if (node instanceof Constant) {
-        Constant constantNode = (Constant) node;
-        coefficient = coefficient * constantNode.getValue();
+      // TODO, use switch instead?
+      // switch node.getType() --> need to implement this method
+      switch (node.getType()) {
+      case ExpressionType.MULTIPLICATION_EXPRESSION:
+          MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
+          walkTree(multiplyNode.getLeft());
+          walkTree(multiplyNode.getRight());
+          break;
+      case ExpressionType.VARIABLE:
+          Variable variableNode = (Variable) node;
+          String variable = variableNode.getName();
+          int power = variables.containsKey(variable) ? variables.get(variable) : 1;
+          variables.put(variable, power);
+          break;
+      case ExpressionType.CONSTANT:
+          Constant constantNode = (Constant) node;
+          coefficient = coefficient * constantNode.getValue();
+          break;
+      default:
+          break;
     }
   }
 
   /**
-   * This method combines a non-empy list of PolynomialTerms into a single
-   * PolynomialTerm by adding their coefficients, for example, [2*x, 3*x] 
-   * will be merged into 5*x by this method
+   * This method combines a non-empty list of PolynomialTerms into a simplified list of
+   * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x] 
+   * will be merged into 5*x by this method.  We return a fully simplified list by lexical order.  
    *
-   * listOfPolys must contain PolynomialTerms that are equal (note that this is
-   * a pretty weak precondition)
+   * @param listOfPolynomials is a list of PolynomialTerms we want simplified
+   * @return a new list of polynomials where some have been combined, then sorted in lexical order.
    */
-  public static PolynomialTerm squish(PolynomialTerm[] listOfPolys) {
-    int newConstantTerm = 1;
-    PolynomialTerm firstTerm = listOfPolys[0];
-    for (PolynomialTerm term : listOfPolys) {
-      newConstantTerm += term.coefficient;
-    }
-    return new PolynomialTerm(newConstantTerm, firstTerm.variables);
-  }
-
   public static List<PolynomialTerm> combine(ArrayList<PolynomialTerm> listOfPolynomials){
       
-      Map<Integer, PolynomialTerm> newPolynomialList = new HashMap<Integer, PolynomialTerm>();
+      Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
       
       for (PolynomialTerm polynomial: listOfPolynomials){
-          if (!newPolynomialList.containsKey(polynomial.hashCode())){
-              newPolynomialList.put(polynomial.hashCode(), polynomial);
+          if (!newPolynomialMap.containsKey(polynomial.hashCode())){
+              newPolynomialMap.put(polynomial.hashCode(), polynomial);
           } else {
-              PolynomialTerm containedPolynomial = newPolynomialList.get(polynomial.hashCode());
+              PolynomialTerm containedPolynomial = newPolynomialMap.get(polynomial.hashCode());
               PolynomialTerm combinedPolynomial = new PolynomialTerm(containedPolynomial.coefficient + polynomial.coefficient, polynomial.variables);
           }
       }
       
-      return new ArrayList<PolynomialTerm>(newPolynomialList.values());
+      
+      List<PolynomialTerm> simplifiedPolynomialList = new ArrayList<PolynomialTerm>();
+      simplifiedPolynomialList.addAll(newPolynomialMap.values());
+      
+      Collections.sort(simplifiedPolynomialList, new Comparator<PolynomialTerm>(){
+          public int compare(PolynomialTerm firstPolynomial, PolynomialTerm secondPolynomial)
+          {
+              if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values())))
+                  //This is to allow us to return the largest first
+                  return -1;
+              else 
+                  return 1;
+          }
+      });
+      
+      return simplifiedPolynomialList;
   }
-  
-  
   
   @Override
   public int hashCode() {
