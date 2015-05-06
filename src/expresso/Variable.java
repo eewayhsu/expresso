@@ -62,4 +62,14 @@ public class Variable implements Expression {
     private void checkRep() {
         name.matches("[a-zA-Z]+");
     }
+
+    @Override
+    public Expression expand() {
+        return this;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.VARIABLE;
+    }
 }

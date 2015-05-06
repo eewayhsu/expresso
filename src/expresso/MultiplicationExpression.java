@@ -74,4 +74,24 @@ public class MultiplicationExpression implements Expression {
         assert left != null;
         assert right != null;
     }
+
+    @Override
+    public Expression expand() {
+        Expression leftExpansion = left.expand();
+        Expression rightExpansion = right.expand();
+        if (rightExpansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            return new AdditionExpression(new MultiplicationExpression(leftExpansion, ((AdditionExpression) rightExpansion).getLeft()),
+                    new MultiplicationExpression(leftExpansion, ((AdditionExpression) rightExpansion).getRight()));
+        } else if (leftExpansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            return new AdditionExpression(new MultiplicationExpression(rightExpansion, ((AdditionExpression) leftExpansion).getLeft()),
+                    new MultiplicationExpression(rightExpansion, ((AdditionExpression) leftExpansion).getRight()));
+        } else {
+            return this;
+        }
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.MULTIPLICATION_EXPRESSION;
+    }
 }
