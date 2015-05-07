@@ -146,33 +146,29 @@ public class PolynomialTerm {
    */ 
   @Override
   public String toString() {
-    String returnString = "";
+    String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
     String multiplyByZero = "0.0";
     
     //Takes care of * 0
-    if (coefficient == 0){
-        return multiplyByZero;
-    }
+    if (coefficient == 0) return multiplyByZero;
     
     //Takes care of identity
-    if (coefficient != 1){
-        returnString = String.valueOf(coefficient);
-    }
+    if (variables.isEmpty()) return String.valueOf(coefficient);
     
     //Adds variables into the string
     Iterator it = variables.entrySet().iterator();
-      while (it.hasNext()) {
-        Map.Entry pair = (Map.Entry)it.next();
-        for (int i = 0; i < (int) pair.getValue(); i++) {
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry)it.next();
+      for (int i = 0; i < (int) pair.getValue(); i++) {
             
-            //TODO: Clean up.  Can also be written without the else
-            if (returnString.isEmpty()){
-                returnString += pair.getKey();
-            } else {
-                returnString += "*"+ pair.getKey();
-            }
-        }
-     } 
+          //TODO: Clean up.  Can also be written without the else
+          if (returnString.isEmpty()){
+              returnString += pair.getKey();
+          } else {
+              returnString += "*"+ pair.getKey();
+          }
+       }
+    } 
     return returnString;
   }
 

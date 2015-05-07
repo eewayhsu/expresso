@@ -64,20 +64,18 @@ public class Expressions {
      */
     private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
-
-        String simplifiedExpression = simplifiedPolynomialList.get(0).toString();
+        String simplifiedString = simplifiedPolynomialList.get(0).toString();
 
         for (int i=1; i<simplifiedPolynomialList.size(); i++) {
-            PolynomialTerm polynomial = simplifiedPolynomialList.get(i);
-            String stringPoly = polynomial.toString();
+            String stringPoly = simplifiedPolynomialList.get(i).toString();
 
             // Skip loop iteration if term is the additive identity
             if (stringPoly == ADDITIVE_IDENTITY) continue;
 
-            simplifiedExpression += "+" + stringPoly;
+            simplifiedString += "+" + stringPoly;
         }
 
-        return simplifiedExpression;
+        return simplifiedString;
     }
     
     /**
