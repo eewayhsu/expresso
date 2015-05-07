@@ -28,13 +28,13 @@ public class Expressions {
         String differentiatedExpression = "";
         
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            differentiatedExpression += polynomial.differentiate(variable).toString() + " + ";
+            differentiatedExpression += polynomial.differentiate(variable).toString() + "+";
         }
         
         //TODO: implement toString that returns a string such as "3*x"
         //This removes the last plus sign (cant be done nicer) by replacing last 
         //or not adding that last one in the first place. 
-        return differentiatedExpression.substring(0, -3);
+        return differentiatedExpression.substring(0, differentiatedExpression.length()-1);
         
     }
     
@@ -56,9 +56,12 @@ public class Expressions {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
     
         String simplifiedExpression = "";
+        String additionIdentity = "0.0";
         
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            simplifiedExpression += polynomial + "+";
+            if (polynomial.toString() != additionIdentity){
+                simplifiedExpression += polynomial.toString() + "+";
+            }
         }
     
         //TODO: implement toString that returns a string such as "3*x"

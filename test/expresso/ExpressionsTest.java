@@ -52,8 +52,14 @@ public class ExpressionsTest {
     
     @Test
     public void testSimplifyAddition() {
-        assertEquals(Expressions.simplify("4.2 + foo"), "4.2+foo");
+        assertEquals(Expressions.simplify("4.2 + foo"), "foo+4.2");
     }
+    
+    @Test
+    public void testSimplifyIdentity() {
+        assertEquals(Expressions.simplify("0 + foo"), "foo");
+    }
+    
     
     @Test
     public void testSimplifyMultiplication() {
@@ -67,7 +73,7 @@ public class ExpressionsTest {
     
     @Test
     public void testSimplifyAdditionMultiplication() {
-        assertEquals(Expressions.simplify("4 + (x*x*x)"), "4.0+x*x*x");
+        assertEquals(Expressions.simplify("4 + (x*x*x)"), "x*x*x+4.0");
     }
     
     @Test
