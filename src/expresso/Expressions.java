@@ -59,7 +59,10 @@ public class Expressions {
         String additionIdentity = "0.0";
         
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            if (polynomial.toString() != additionIdentity){
+            String stringPoly = polynomial.toString();
+            if (stringPoly == additionIdentity && simplifiedPolynomialList.size() == 1){
+                simplifiedExpression += polynomial.toString();
+            }  else if (stringPoly != additionIdentity ){
                 simplifiedExpression += polynomial.toString() + "+";
             }
         }
