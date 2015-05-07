@@ -134,6 +134,19 @@ public class PolynomialTerm {
   }
   
   @Override
+  public String toString() {
+    String returnString = String.valueOf(coefficient);
+    Iterator it = variables.entrySet().iterator();
+      while (it.hasNext()) {
+        Map.Entry pair = (Map.Entry)it.next();
+        for (int i = 0; i < (int) pair.getValue(); i++) {
+          returnString+= "*"+pair.getKey();
+        }
+     } 
+    return returnString;
+  }
+
+  @Override
   public int hashCode() {
     return variables.hashCode();
   }

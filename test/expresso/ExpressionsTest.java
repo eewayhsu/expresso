@@ -62,16 +62,16 @@ public class ExpressionsTest {
     
     @Test
     public void testSimplifyAdditionMultiplicationUnsimplified() {
-        assertEquals(Expressions.simplify("4*(x*y + y*x)"), "8*x*y");
+        assertEquals(Expressions.simplify("4*(x*y + y*x)"), "8.0*x*y");
     }
     
     @Test
     public void testSimplifyAdditionMultiplication() {
-        assertEquals(Expressions.simplify("4 + (x*x*x)"), "4+x*x*x");
+        assertEquals(Expressions.simplify("4 + (x*x*x)"), "4.0+x*x*x");
     }
     
     @Test
     public void testSimplifyComplicated() {
-        assertEquals(Expressions.simplify("4*(x*y + y*x + x*x*x)"), "4*x*x*x+8*x*y");
+        assertEquals(Expressions.simplify("4*(x*y + y*x + x*x*x)"), "4.0*x*x*x+8.0*x*y");
     }
 }

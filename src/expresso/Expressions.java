@@ -58,13 +58,13 @@ public class Expressions {
         String simplifiedExpression = "";
         
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            simplifiedExpression += polynomial + " + ";
+            simplifiedExpression += polynomial + "+";
         }
     
         //TODO: implement toString that returns a string such as "3*x"
         //This removes the last plus sign (cant be done nicer) by replacing last 
         //or not adding that last one in the first place. 
-        return simplifiedExpression.substring(0, -3);        
+        return simplifiedExpression.substring(0, simplifiedExpression.length()-1);
     }
     
     /**
