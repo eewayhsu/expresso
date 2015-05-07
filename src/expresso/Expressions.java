@@ -58,6 +58,7 @@ public class Expressions {
         String simplifiedExpression = "";
         
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
+            System.out.println(polynomial.toString());
             simplifiedExpression += polynomial + " + ";
         }
     
