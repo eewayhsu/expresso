@@ -122,17 +122,60 @@ public class PolynomialTerm {
       Collections.sort(simplifiedPolynomialList, new Comparator<PolynomialTerm>(){
           public int compare(PolynomialTerm firstPolynomial, PolynomialTerm secondPolynomial)
           {
-              if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values())))
-                  //This is to allow us to return the largest first
+              //TODO: this is a specific order while the spec might allow any order?  
+              //Should we just strengthen our spec for combined?
+              
+              if (firstPolynomial.variables.values().isEmpty()){ return 1; }
+              if (secondPolynomial.variables.values().isEmpty()){ return -1; } 
+              
+              //This is to allow us to return the largest first
+              if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values()))){
                   return -1;
-              else 
-                  return 1;
+              } else { 
+                  return 1; 
+              }
           }
       });
       
       return simplifiedPolynomialList;
   }
   
+  /**
+   * This method returns a String of our polynomial.  
+   * It removes instances of 1.0 * as that is the identity. 
+   */ 
+  @Override
+  public String toString() {
+    String returnString = "";
+    String multiplyByZero = "0.0";
+    
+    //Takes care of * 0
+    if (coefficient == 0){
+        return multiplyByZero;
+    }
+    
+    //Takes care of identity
+    if (coefficient != 1){
+        returnString = String.valueOf(coefficient);
+    }
+    
+    //Adds variables into the string
+    Iterator it = variables.entrySet().iterator();
+      while (it.hasNext()) {
+        Map.Entry pair = (Map.Entry)it.next();
+        for (int i = 0; i < (int) pair.getValue(); i++) {
+            
+            //TODO: Clean up.  Can also be written without the else
+            if (returnString.isEmpty()){
+                returnString += pair.getKey();
+            } else {
+                returnString += "*"+ pair.getKey();
+            }
+        }
+     } 
+    return returnString;
+  }
+
   @Override
   public int hashCode() {
     return variables.hashCode();
