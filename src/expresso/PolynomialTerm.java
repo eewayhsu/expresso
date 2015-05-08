@@ -26,6 +26,7 @@ public class PolynomialTerm {
    */
   public PolynomialTerm(Expression expression) {
     walkTree(expression);
+    MultipliedByZero();
     checkRep();
   }
 
@@ -35,8 +36,19 @@ public class PolynomialTerm {
    */
   public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
     this.coefficient = coefficient;
-    this.variables = variables;
+    this.variables = new HashMap<String, Integer>(variables);
+    MultipliedByZero();
     checkRep();
+  }
+  
+  /*
+   * Turns a PolynomialTerm multiplied by zero into zero. 
+   * This flushes the variables, keeping the hashcode constant 
+   */
+  private void MultipliedByZero(){
+      if (this.coefficient == 0){
+         this.variables.clear();; 
+      }
   }
 
   /**
@@ -54,7 +66,7 @@ public class PolynomialTerm {
         newVariables.put(variable, power-1);
         newCoefficient = newCoefficient * power;
       } else {
-        newVariables.remove(variable);
+          newVariables.remove(variable);
       }
     } else {
       newCoefficient = 0;
@@ -106,6 +118,7 @@ public class PolynomialTerm {
       for (PolynomialTerm polynomial: listOfPolynomials){
           
           int key = polynomial.hashCode();
+          System.out.println("hashcode of " + polynomial + " is " + key );
           
           if (!newPolynomialMap.containsKey(key)){
               newPolynomialMap.put(key, polynomial);
@@ -146,33 +159,29 @@ public class PolynomialTerm {
    */ 
   @Override
   public String toString() {
-    String returnString = "";
+    String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
     String multiplyByZero = "0.0";
     
     //Takes care of * 0
-    if (coefficient == 0){
-        return multiplyByZero;
-    }
+    if (coefficient == 0) return multiplyByZero;
     
     //Takes care of identity
-    if (coefficient != 1){
-        returnString = String.valueOf(coefficient);
-    }
+    if (variables.isEmpty()) return String.valueOf(coefficient);
     
     //Adds variables into the string
     Iterator it = variables.entrySet().iterator();
-      while (it.hasNext()) {
-        Map.Entry pair = (Map.Entry)it.next();
-        for (int i = 0; i < (int) pair.getValue(); i++) {
+    while (it.hasNext()) {
+      Map.Entry pair = (Map.Entry)it.next();
+      for (int i = 0; i < (int) pair.getValue(); i++) {
             
-            //TODO: Clean up.  Can also be written without the else
-            if (returnString.isEmpty()){
-                returnString += pair.getKey();
-            } else {
-                returnString += "*"+ pair.getKey();
-            }
-        }
-     } 
+          //TODO: Clean up.  Can also be written without the else
+          if (returnString.isEmpty()){
+              returnString += pair.getKey();
+          } else {
+              returnString += "*"+ pair.getKey();
+          }
+       }
+    } 
     return returnString;
   }
 

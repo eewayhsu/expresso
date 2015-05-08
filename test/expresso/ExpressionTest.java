@@ -87,88 +87,64 @@ public class ExpressionTest {
     
     @Test
     public void testEmptyString() {
-        parse("");
-    }
-    
-    @Test
-    public void testSinglePair() {
-        parse("()");
-    }
-    
-    @Test
-    public void testTwoPair() {
-        parse("()()");
-    }
-    
-    @Test
-    public void testThreeBalancedSequence() {
-        parse("()(((())))(())");
-    }
-    
-    @Test(expected=RuntimeException.class)
-    public void testSingleUnbalanced() {
-        parse("(");
-    }
-    
-    @Test(expected=RuntimeException.class)
-    public void testOneAndHalfUnbalanced() {
-        parse("(()");
+        // TODO should we accept the EmptyString?
+        Expression.parse("");
     }
     
     @Test
     public void testExpressionAddConstants() {
-        parse("3 + 2.4");
+        Expression.parse("3 + 2.4");
     }
     
     @Test
     public void testExpressionAddMultiplyConstantVariable() {
-        parse("3 * x + 2.4");
+        Expression.parse("3 * x + 2.4");
     }
     
     @Test
     public void testExpressionParentheses() {
-        parse("3 * (x + 2.4)");
+        Expression.parse("3 * (x + 2.4)");
     }
     
     @Test
     public void testExpressionNestedParentheses() {
-        parse("((3 + 4) * x * x)");
+        Expression.parse("((3 + 4) * x * x)");
     }
     
     @Test
     public void testExpressionVariablesOnly() {
-        parse("foo + bar+baz");
+        Expression.parse("foo + bar+baz");
     }
     
     @Test
     public void testExpressionMultiply() {
-        parse("(3+5*6)*4*3");
+        Expression.parse("(3+5*6)*4*3");
     }
     
     @Test
     public void testExpressionMultiplyPlus() {
-        parse("(3+5*6)*4*3+3");
+        Expression.parse("(3+5*6)*4*3+3");
     }
     
     
     @Test
     public void testExpressionWithTwo() {
-        parse("1+2+3");
+        Expression.parse("1+2+3");
     }
     
     @Test
     public void testExpressionWithDoubles() {
-        parse("1.0+2+3");
+        Expression.parse("1.0+2+3");
     }
     
     @Test
     public void testVariableExpression() {
-        parse("abc");
+        Expression.parse("abc");
     }
 
         
     public void testExpressionSequenceParentheses() {
-        parse("(2*x    )+    (    y*x    )");
+        Expression.parse("(2*x    )+    (    y*x    )");
     }
     
     @Test
@@ -178,20 +154,20 @@ public class ExpressionTest {
     
     @Test(expected=RuntimeException.class)
     public void testExpressionMissingConstant() {
-        parse("3 *");
+        Expression.parse("3 *");
     }
     
     @Test(expected=RuntimeException.class)
     public void testExpressionUnbalancedParentheses() {
-        parse("( 3");
+        Expression.parse("( 3");
     }
     
     @Test(expected=RuntimeException.class)
     public void testExpressionMissingOperation() {
-        parse("3 x");
+        Expression.parse("3 x");
     }
 
-    private void parse(String string) {
+    private void parseToDebug(String string) {
         CharStream stream = new ANTLRInputStream(string);
 
         // Instantiate lexer

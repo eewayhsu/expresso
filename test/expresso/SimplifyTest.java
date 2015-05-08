@@ -6,9 +6,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * This class contains tests for the Expressions class.
+ * This class contains tests for the simplify static method in the Expressions class.
  */
-public class ExpressionsTest {
+public class SimplifyTest {
     
     /*
      * Test strategy for simplify
@@ -46,8 +46,18 @@ public class ExpressionsTest {
     }
     
     @Test
+    public void testSimplifyAdditiveIdentity() {
+        assertEquals(Expressions.simplify("0.0*x+1.0"), "1.0");
+    }
+
+    @Test
+    public void testSimplifyAdditiveIdentityDouble() {
+        assertEquals(Expressions.simplify("0+0"), "0.0");
+    }
+
+    @Test
     public void testSimplifyVariable() {
-        assertEquals(Expressions.simplify("foo  "), "foo");
+        assertEquals(Expressions.simplify("1*foo  "), "foo");
     }
     
     @Test

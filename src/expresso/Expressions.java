@@ -9,7 +9,9 @@ import expresso.Expression.ExpressionType;
  * String-based class of the expression system.
  */
 public class Expressions {
-    
+    private static String ADDITIVE_IDENTITY = "0.0";
+    private static String MULTIPLICATIVE_IDENTITY = "1.0";
+
     /**
      * Differentiate an expression with respect to a variable.
      * @param expression the expression to differentiate
@@ -24,53 +26,56 @@ public class Expressions {
         //We could also return a list of not simplfied differentiate here.  
         List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
-        
-        String differentiatedExpression = "";
-        
+
+        // Push differentiated terms into new list
+        // We need this because two different PolynomialTerm's when differentiated might 
+        // return the same term, e.g. d/dx(y+1)
+        List<PolynomialTerm> differentiatedPolynomialList = new ArrayList<PolynomialTerm>();
+
         for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            differentiatedExpression += polynomial.differentiate(variable).toString() + "+";
+            differentiatedPolynomialList.add(polynomial.differentiate(variable));
         }
         
-        //TODO: implement toString that returns a string such as "3*x"
-        //This removes the last plus sign (cant be done nicer) by replacing last 
-        //or not adding that last one in the first place. 
-        return differentiatedExpression.substring(0, differentiatedExpression.length()-1);
-        
+        return simplifyWithList(differentiatedPolynomialList);
     }
     
     /**
      * Simplify an expression.
-     * @param expression the expression to simplify
+     * This method wraps {@link simplifyWithList()}
+     *
+     * @throws IllegalArgumentException if the expression is invalid (TODO)
+     */
+    public static String simplify(String expression) {
+        Expression parsedExpression = Expression.parse(expression);
+        List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
+
+        return simplifyWithList(listOfPolynomials);
+    }
+
+    /**
+     * Simplify an expression.
+     * @param listOfPolynomials the list of PolynomialTerm's to simplify
      * @return an expression equal to the input that is a sum of terms without parentheses,
      *         where for all variables var_i in the expression, for all exponents e_i, the
      *         term (var_1^e_1 x var_2^e_2 x ... x var_n^e_n) appears at most once; each
      *         term may be multiplied by a non-zero, non-identity constant factor; and read
      *         left-to-right, the largest exponent in each term is non-increasing
-     * @throws IllegalArgumentException if the expression is invalid
+     * @throws IllegalArgumentException if the expression is invalid (TODO)
      */
-    public static String simplify(String expression) {
-        
-        Expression parsedExpression = Expression.parse(expression);
-        
-        List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
+    private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
-    
-        String simplifiedExpression = "";
-        String additionIdentity = "0.0";
-        
-        for (PolynomialTerm polynomial: simplifiedPolynomialList){
-            String stringPoly = polynomial.toString();
-            if (stringPoly == additionIdentity && simplifiedPolynomialList.size() == 1){
-                simplifiedExpression += polynomial.toString();
-            }  else if (stringPoly != additionIdentity ){
-                simplifiedExpression += polynomial.toString() + "+";
-            }
+        String simplifiedString = simplifiedPolynomialList.get(0).toString();
+
+        for (int i = 1; i < simplifiedPolynomialList.size(); i++) {
+            String stringPoly = simplifiedPolynomialList.get(i).toString();
+
+            // Skip loop iteration if term is the additive identity
+            if (stringPoly == ADDITIVE_IDENTITY) continue;
+
+            simplifiedString += "+" + stringPoly;
         }
-    
-        //TODO: implement toString that returns a string such as "3*x"
-        //This removes the last plus sign (cant be done nicer) by replacing last 
-        //or not adding that last one in the first place. 
-        return simplifiedExpression.substring(0, simplifiedExpression.length()-1);
+
+        return simplifiedString;
     }
     
     /**
