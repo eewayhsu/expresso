@@ -26,6 +26,7 @@ public class PolynomialTerm {
    */
   public PolynomialTerm(Expression expression) {
     walkTree(expression);
+    MultipliedByZero();
     checkRep();
   }
 
@@ -36,7 +37,18 @@ public class PolynomialTerm {
   public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
     this.coefficient = coefficient;
     this.variables = variables;
+    MultipliedByZero();
     checkRep();
+  }
+  
+  /*
+   * Turns a PolynomialTerm multiplied by zero into zero. 
+   * This flushes the variables, keeping the hashcode constant 
+   */
+  private void MultipliedByZero(){
+      if (this.coefficient == 0){
+         this.variables.clear();; 
+      }
   }
 
   /**
@@ -54,7 +66,10 @@ public class PolynomialTerm {
         newVariables.put(variable, power-1);
         newCoefficient = newCoefficient * power;
       } else {
-        newVariables.remove(variable);
+          //System.out.println("oldhashCode " + newVariables.hashCode());
+          newVariables.remove(variable);
+          //System.out.println("newhashCode " + newVariables.hashCode());
+
       }
     } else {
       newCoefficient = 0;
@@ -106,6 +121,7 @@ public class PolynomialTerm {
       for (PolynomialTerm polynomial: listOfPolynomials){
           
           int key = polynomial.hashCode();
+          System.out.println("hashcode of " + polynomial + " is " + key );
           
           if (!newPolynomialMap.containsKey(key)){
               newPolynomialMap.put(key, polynomial);

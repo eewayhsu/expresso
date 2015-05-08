@@ -66,7 +66,7 @@ public class Expressions {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
         String simplifiedString = simplifiedPolynomialList.get(0).toString();
 
-        for (int i=1; i<simplifiedPolynomialList.size(); i++) {
+        for (int i = 1; i < simplifiedPolynomialList.size(); i++) {
             String stringPoly = simplifiedPolynomialList.get(i).toString();
 
             // Skip loop iteration if term is the additive identity
