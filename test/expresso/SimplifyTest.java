@@ -118,6 +118,11 @@ public class SimplifyTest {
     }
     
     @Test
+    public void testSimplifySameLargestDegree() {
+        assertEquals(Expressions.simplify("4*(x*y + y*x + x*x*x + y*y*y)"), "4.0*x*x*x+4.0*y*y*y+8.0*x*y");
+    }
+    
+    @Test
     public void testSimplifyRightToLeftDistribution() {
         assertEquals(Expressions.simplify("(x*y + y*x + x*x*x)*4.0"), "4.0*x*x*x+8.0*x*y");
     }
@@ -135,5 +140,10 @@ public class SimplifyTest {
     @Test // Can't cast to PolynomialTerm
     public void testSimplifyDistributeVariableAndConstant() {
         assertEquals(Expressions.simplify("2.0*x*(x*y + y*x + x*x*x)"), "2.0*x*x*x*x+4.0*x*x*y");
+    }
+    
+    @Test // Can't cast to PolynomialTerm
+    public void testSimplifyNested() {
+        assertEquals(Expressions.simplify("2.0*(x*y + x*(y*x + x*x*x))"), "2.0*x*x*x*x+2.0*x*x*y+2.0*x*y");
     }
 }
