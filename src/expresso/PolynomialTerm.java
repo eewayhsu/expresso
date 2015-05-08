@@ -36,7 +36,7 @@ public class PolynomialTerm {
    */
   public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
     this.coefficient = coefficient;
-    this.variables = variables;
+    this.variables = new HashMap<String, Integer>(variables);
     MultipliedByZero();
     checkRep();
   }
@@ -66,10 +66,7 @@ public class PolynomialTerm {
         newVariables.put(variable, power-1);
         newCoefficient = newCoefficient * power;
       } else {
-          //System.out.println("oldhashCode " + newVariables.hashCode());
           newVariables.remove(variable);
-          //System.out.println("newhashCode " + newVariables.hashCode());
-
       }
     } else {
       newCoefficient = 0;

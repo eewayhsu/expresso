@@ -47,6 +47,11 @@ public class SimplifyTest {
     
     @Test
     public void testSimplifyAdditiveIdentity() {
+        assertEquals(Expressions.simplify("0.0*x+1.0"), "1.0");
+    }
+
+    @Test
+    public void testSimplifyAdditiveIdentityDouble() {
         assertEquals(Expressions.simplify("0+0"), "0.0");
     }
 
