@@ -67,16 +67,32 @@ public class ExpressionTest {
      */
     
     /*
-     * Test strategy for simplify:
+     * Test strategy for structural equality:
      * 
      * Partitions:
-     * - constants only
-     * - variables only
-     * - addition only
-     * - multiplication only
-     * - addition and multiplication only
+     * - same order variables, values
+     * - different order variables, values
+     * 
+     * - same operations
+     * - different operations
+     * 
+     * - parentheses
+     * - no parentheses
+     * 
+     * - different groupings, mathematically equal
+     * 
+     * - integer or decimal (i.e. 1 vs. 1.000)
+     * 
+     * - whitespaces
      * 
      * Test cases:
+     * - "x + y + z" and "x+y+z" (equal)
+     * - "4.0*2.0 + 3.4" and "3.4 + 4.0*   2.0" (not equal, different order of values)
+     * - "x + y + z" and "x*y+z" (not equal, different operations)
+     * - "(x + y + z)" and "x+y+z" (equal)
+     * - "(x) + (y) + (z)" and "x+y+z" (equal)
+     * - "(x*y)*z" and "x*(y*z)" (not equal, different groupings)
+     * - "x+1" and "x+1.00000" (equal)
      */
     private static final boolean DISPLAY_GRAPHICS = true;
     
@@ -88,6 +104,7 @@ public class ExpressionTest {
     @Test
     public void testEmptyString() {
         // TODO should we accept the EmptyString?
+        // kelseyc says no. EmptyString was for the parentheses grammar
         Expression.parse("");
     }
     
@@ -165,6 +182,41 @@ public class ExpressionTest {
     @Test(expected=RuntimeException.class)
     public void testExpressionMissingOperation() {
         Expression.parse("3 x");
+    }
+    
+    @Test
+    public void testEqualityWhiteSpace() {
+        assertEquals(Expression.parse("x + y + z"), Expression.parse("x+y+z"));
+    }
+    
+    @Test
+    public void testEqualityOperationOrder() {
+        assertEquals(Expression.parse("4.0*2.0 + 3.4"), Expression.parse("3.4 + 4.0*   2.0"));
+    }
+    
+    @Test
+    public void testEqualityDifferentOperations() {
+        assertEquals(Expression.parse("x + y + z"), Expression.parse("x*y+z"));
+    }
+    
+    @Test
+    public void testEqualityEqualGrouping() {
+        assertEquals(Expression.parse("(x + y + z)"), Expression.parse("x + y + z"));
+    }
+    
+    @Test
+    public void testEqualityEqualGrouping2() {
+        assertEquals(Expression.parse("(x) + (y) + (z)"), Expression.parse("x + y + z"));
+    }
+    
+    @Test
+    public void testEqualityNotEqualGrouping() {
+        assertEquals(Expression.parse("(x*y)*z"), Expression.parse("x*(y*z)"));
+    }
+    
+    @Test
+    public void testEqualityIntegerDouble() {
+        assertEquals(Expression.parse("x+1"), Expression.parse("x + 1.00000"));
     }
 
     private void parseToDebug(String string) {
