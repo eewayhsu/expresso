@@ -41,14 +41,15 @@ public class PolynomialTerm {
     checkRep();
   }
   
-  /*
+  /**
    * Turns a PolynomialTerm multiplied by zero into zero. 
    * This flushes the variables, keeping the hashcode constant 
+   *
+   * @param none
+   * @return none
    */
   private void MultipliedByZero(){
-      if (this.coefficient == 0){
-         this.variables.clear();; 
-      }
+      if (coefficient == 0) variables.clear();
   }
 
   /**
@@ -75,11 +76,15 @@ public class PolynomialTerm {
   }
 
   /**
-   * This method is called in the Expression constructor
-   * Starts walking the tree rooted at node, and if any of the descendant nodes
-   * rooted are literals, we record the literal in our internal rep
+   * This method is called in the Expression constructor. It is a recursive
+   * procedure. The method starts by walking the tree rooted at node, and if any
+   * of the descendant nodes rooted are literals, records the literal in our 
+   * internal rep
    *
    * Expression must only contain ME descendants
+   *
+   * @param Expression node     The root node of the subtree
+   * @return none
    */ 
   private void walkTree(Expression node) {
       switch (node.getType()) {
@@ -118,7 +123,6 @@ public class PolynomialTerm {
       for (PolynomialTerm polynomial: listOfPolynomials){
           
           int key = polynomial.hashCode();
-          System.out.println("hashcode of " + polynomial + " is " + key );
           
           if (!newPolynomialMap.containsKey(key)){
               newPolynomialMap.put(key, polynomial);
@@ -154,13 +158,18 @@ public class PolynomialTerm {
   }
   
   /**
-   * This method returns a String of our polynomial.  
-   * It removes instances of 1.0 * as that is the identity. 
+   * This method returns a String representation of our polynomial. 
+   * If the coefficient of a non-trivial polynomial term is 1, then the representation
+   * does not include the coefficient, i.e. 1*x*y will be represented as x*y
+   *
+   * @param none
+   * @return the String representation of the PolynomialTerm
    */ 
   @Override
   public String toString() {
     String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
     String multiplyByZero = "0.0";
+    String operation = "";
     
     //Takes care of * 0
     if (coefficient == 0) return multiplyByZero;
@@ -173,13 +182,9 @@ public class PolynomialTerm {
     while (it.hasNext()) {
       Map.Entry pair = (Map.Entry)it.next();
       for (int i = 0; i < (int) pair.getValue(); i++) {
-            
-          //TODO: Clean up.  Can also be written without the else
-          if (returnString.isEmpty()){
-              returnString += pair.getKey();
-          } else {
-              returnString += "*"+ pair.getKey();
-          }
+          if (coefficient != 1) operation = "*";
+
+          returnString += operation + pair.getKey();
        }
     } 
     return returnString;
@@ -200,6 +205,7 @@ public class PolynomialTerm {
   }
 
   private void checkRep() {
-    // TODO
+    if (coefficient == 0) 
+      assert variables.isEmpty();
   }
 }

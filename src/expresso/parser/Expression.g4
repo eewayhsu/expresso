@@ -52,21 +52,15 @@ package expresso.parser;
  * http://www.antlr.org/wiki/display/ANTLR4/Parser+Rules#ParserRules-StartRulesandEOF
  */
 
-// TODO: remove root and warmup after warmup exercise
-root                  : warmup | file;
-
-warmup                : line? EOF;
-line                  : LEFT_PAREN line* RIGHT_PAREN line*;
-
-file                  : expression? EOF;
+root                  : expression? EOF;
 
 expression            : rootExpression | multExpression | addExpression; 
-rootExpression       : literal | parenExpression;
+rootExpression        : literal | parenExpression;
 literal               : VARIABLE | CONSTANT;
 
-parenExpression      : LEFT_PAREN expression RIGHT_PAREN;
-multExpression       : rootExpression MULTIPLY (rootExpression | multExpression);
-addExpression        : (rootExpression | multExpression) PLUS (rootExpression | multExpression | addExpression);
+parenExpression       : LEFT_PAREN expression RIGHT_PAREN;
+multExpression        : rootExpression MULTIPLY (rootExpression | multExpression);
+addExpression         : (rootExpression | multExpression) PLUS (rootExpression | multExpression | addExpression);
 
 PLUS                  : '+';
 MULTIPLY              : '*';
