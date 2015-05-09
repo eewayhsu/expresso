@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 public class Main {
     
     private static final String COMMAND_PREFIX = "!";
+    private static final String DERIVATIVE_PREFIX = "d/d";
+    private static final String SIMPLIFY = "simplify";
+    
+    private static String currentExpression = "";
     
     /**
      * Read expression and command inputs from the console and output results.
@@ -30,10 +34,13 @@ public class Main {
             
             try {
                 final String output;
+                
                 if (input.startsWith(COMMAND_PREFIX)) {
                     output = handleCommand(input.substring(COMMAND_PREFIX.length()));
                 } else {
                     output = handleExpression(input);
+                    // updates current expression if input is valid
+                    currentExpression = output;
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
@@ -43,17 +50,42 @@ public class Main {
     }
     
     /**
-     * TODO
+     * Returns parsed expression with parentheses indicating groupings of binary operations
+     * from left to right.
+     * TODO strengthen specification
+     * 
+     * @param input expression
+     * @return parsed expression
      */
     private static String handleExpression(String input) {
-        throw new RuntimeException("unimplemented");
+        return Expression.parse(input).toString();
     }
     
     /**
-     * TODO
+     * Returns output after executing command on current expression
+     * If substring is "d/d[variable]" the output is the result of differentiating the
+     * expression with respect to [variable]. If substring is "simplify" the output is
+     * the simplification of the current expression.
+     * 
+     * @param substring command to be executed
+     * @return result of executing command
      */
     private static String handleCommand(String substring) {
-        throw new RuntimeException("unimplemented");
+        if (currentExpression.equals("")) {
+            throw new RuntimeException("cannot execute command without an expression");
+        }
+        if (substring.contains(DERIVATIVE_PREFIX)) {
+            String variable = substring.substring(DERIVATIVE_PREFIX.length());
+            if (variable.length() == 0) {
+                throw new RuntimeException("missing variable in derivative command");
+            } else {
+                currentExpression = Expressions.differentiate(currentExpression, variable);
+                return currentExpression;
+            }
+        } else if (substring.equals(SIMPLIFY)) {
+            return Expressions.simplify(currentExpression);
+        } else {
+            throw new RuntimeException("unknown command");
+        }
     }
-    
 }

@@ -1,5 +1,7 @@
 package expresso;
 
+import expresso.Expression.ExpressionType;
+
 /**
  * MultiplicationExpression is an immutable type representing a multiplication expression.
  */
@@ -28,6 +30,7 @@ public class MultiplicationExpression implements Expression {
     public MultiplicationExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
     
     /**
@@ -92,5 +95,28 @@ public class MultiplicationExpression implements Expression {
     @Override
     public ExpressionType getType() {
         return ExpressionType.MULTIPLICATION_EXPRESSION;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(left.toString());
+            output.append(")");
+        } else {
+            output.append(left.toString());
+        }
+        output.append("*");
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(right.toString());
+            output.append(")");
+        } else {
+            output.append(right.toString());
+        }
+        return output.toString();
     }
 }
