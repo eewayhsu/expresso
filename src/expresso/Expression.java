@@ -1,12 +1,8 @@
 package expresso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import expresso.parser.*;
 
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -90,4 +86,7 @@ public interface Expression {
      * @return right expression
      */
     public Expression getRight();
+    
+    @Override
+    public String toString();
 }

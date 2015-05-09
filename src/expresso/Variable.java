@@ -77,4 +77,9 @@ public class Variable implements Expression {
     public Expression getRight() {
         return this;
     }
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -42,14 +42,13 @@ public class PolynomialTerm {
         checkRep();
     }
 
-    /*
+    /**
      * Turns a PolynomialTerm multiplied by zero into zero. This flushes the
      * variables, keeping the hashcode constant
      */
     private void MultipliedByZero() {
         if (this.coefficient == 0) {
             this.variables.clear();
-            ;
         }
     }
 
@@ -57,15 +56,12 @@ public class PolynomialTerm {
      * Returns a PolynomialTerm that is a differentiated form of the current
      * term
      *
-     * @param String
-     *            variable The partial derivative
-     * @return A new PolynomialTerm that is differentiated with respect to
-     *         variable
+     * @param String variable     The partial derivative
+     * @return A new PolynomialTerm that is differentiated with respect to variable
      */
     public PolynomialTerm differentiate(String variable) {
         double newCoefficient = coefficient;
-        Map<String, Integer> newVariables = new HashMap<String, Integer>(
-                variables);
+        Map<String, Integer> newVariables = new HashMap<String, Integer>(variables);
         if (newVariables.containsKey(variable)) {
             int power = newVariables.get(variable);
             if (power > 1) {
@@ -81,12 +77,16 @@ public class PolynomialTerm {
     }
 
     /**
-     * This method is called in the Expression constructor Starts walking the
-     * tree rooted at node, and if any of the descendant nodes rooted are
-     * literals, we record the literal in our internal rep
+     * This method is called in the Expression constructor. It is a recursive
+     * procedure. The method starts by walking the tree rooted at node, and if any
+     * of the descendant nodes rooted are literals, records the literal in our 
+     * internal rep
      *
      * Expression must only contain ME descendants
-     */
+     *
+     * @param Expression node     The root node of the subtree
+     * @return none
+     */ 
     private void walkTree(Expression node) {
         switch (node.getType()) {
         case MULTIPLICATION_EXPRESSION:
@@ -110,34 +110,28 @@ public class PolynomialTerm {
         }
     }
 
+
     /**
-     * This method simplifies a non-empty list of PolynomialTerms into a
-     * simplified list of PolynomialTerms by adding their coefficients, for
-     * example, [2*x, 3*x, 4*x*x] will be merged into [5*x, 4*x*x] by this
-     * method. The list is returned in lexical order.
+     * This method simplifies a non-empty list of PolynomialTerms into a simplified list of
+     * PolynomialTerms by adding their coefficients, for example, [2*x, 3*x, 4*x*x] 
+     * will be merged into [5*x, 4*x*x] by this method.  The list is returned in lexical order.  
      *
-     * @param listOfPolynomials
-     *            is a list of PolynomialTerms we want simplified
-     * @return a new list of polynomials where some have been combined, then
-     *         sorted in lexical order.
+     * @param listOfPolynomials is a list of PolynomialTerms we want simplified
+     * @return a new list of polynomials where some have been combined, then sorted in lexical order.
      */
-    public static List<PolynomialTerm> simplify(
-            List<PolynomialTerm> listOfPolynomials) {
+    public static List<PolynomialTerm> simplify(List<PolynomialTerm> listOfPolynomials){
 
         Map<Integer, PolynomialTerm> newPolynomialMap = new HashMap<Integer, PolynomialTerm>();
 
-        for (PolynomialTerm polynomial : listOfPolynomials) {
+        for (PolynomialTerm polynomial: listOfPolynomials){
 
             int key = polynomial.hashCode();
-            System.out.println("hashcode of " + polynomial + " is " + key);
 
-            if (!newPolynomialMap.containsKey(key)) {
+            if (!newPolynomialMap.containsKey(key)){
                 newPolynomialMap.put(key, polynomial);
             } else {
                 PolynomialTerm containedPolynomial = newPolynomialMap.get(key);
-                PolynomialTerm combinedPolynomial = new PolynomialTerm(
-                        containedPolynomial.coefficient
-                                + polynomial.coefficient, polynomial.variables);
+                PolynomialTerm combinedPolynomial = new PolynomialTerm(containedPolynomial.coefficient + polynomial.coefficient, polynomial.variables);
                 newPolynomialMap.put(key, combinedPolynomial);
             }
         }
@@ -145,66 +139,57 @@ public class PolynomialTerm {
         List<PolynomialTerm> simplifiedPolynomialList = new ArrayList<PolynomialTerm>();
         simplifiedPolynomialList.addAll(newPolynomialMap.values());
 
-        Collections.sort(simplifiedPolynomialList,
-                new Comparator<PolynomialTerm>() {
-                    public int compare(PolynomialTerm firstPolynomial,
-                            PolynomialTerm secondPolynomial) {
-                        // TODO: this is a specific order while the spec might
-                        // allow any order?
-                        // Should we just strengthen our spec for combined?
+        Collections.sort(simplifiedPolynomialList, new Comparator<PolynomialTerm>(){
+            public int compare(PolynomialTerm firstPolynomial, PolynomialTerm secondPolynomial)
+            {
+                //TODO: this is a specific order while the spec might allow any order?  
+                //Should we just strengthen our spec for combined?
 
-                        if (firstPolynomial.variables.values().isEmpty()) {
-                            return 1;
-                        }
-                        if (secondPolynomial.variables.values().isEmpty()) {
-                            return -1;
-                        }
+                if (firstPolynomial.variables.values().isEmpty()){ return 1; }
+                if (secondPolynomial.variables.values().isEmpty()){ return -1; } 
 
-                        // This is to allow us to return the largest first
-                        if (Collections.max(firstPolynomial.variables.values()) >= (Collections
-                                .max(secondPolynomial.variables.values()))) {
-                            return -1;
-                        } else {
-                            return 1;
-                        }
-                    }
-                });
+                //This is to allow us to return the largest first
+                if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values()))){
+                    return -1;
+                } else { 
+                    return 1; 
+                }
+            }
+        });
 
         return simplifiedPolynomialList;
     }
 
     /**
-     * This method returns a String of our polynomial. It removes instances of
-     * 1.0 * as that is the identity.
-     */
+     * This method returns a String representation of our polynomial. 
+     * If the coefficient of a non-trivial polynomial term is 1, then the representation
+     * does not include the coefficient, i.e. 1*x*y will be represented as x*y
+     *
+     * @param none
+     * @return the String representation of the PolynomialTerm
+     */ 
     @Override
     public String toString() {
-        String returnString = (coefficient == 1) ? "" : String
-                .valueOf(coefficient);
+        String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
         String multiplyByZero = "0.0";
+        String operation = "";
 
-        // Takes care of * 0
-        if (coefficient == 0)
-            return multiplyByZero;
+        //Takes care of * 0
+        if (coefficient == 0) return multiplyByZero;
 
-        // Takes care of identity
-        if (variables.isEmpty())
-            return String.valueOf(coefficient);
+        //Takes care of identity
+        if (variables.isEmpty()) return String.valueOf(coefficient);
 
-        // Adds variables into the string
+        //Adds variables into the string
         Iterator it = variables.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
+            Map.Entry pair = (Map.Entry)it.next();
             for (int i = 0; i < (int) pair.getValue(); i++) {
+                if (coefficient != 1) operation = "*";
 
-                // TODO: Clean up. Can also be written without the else
-                if (returnString.isEmpty()) {
-                    returnString += pair.getKey();
-                } else {
-                    returnString += "*" + pair.getKey();
-                }
+                returnString += operation + pair.getKey();
             }
-        }
+        } 
         return returnString;
     }
 
@@ -223,6 +208,7 @@ public class PolynomialTerm {
     }
 
     private void checkRep() {
-        // TODO
+        if (coefficient == 0) 
+            assert variables.isEmpty();
     }
 }

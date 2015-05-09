@@ -76,4 +76,9 @@ public class Constant implements Expression {
     public Expression getRight() {
         return this;
     }
+    
+    @Override
+    public String toString() {
+        return Double.toString(value);
+    }
 }

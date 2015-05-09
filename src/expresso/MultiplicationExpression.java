@@ -84,14 +84,18 @@ public class MultiplicationExpression implements Expression {
      */
     @Override
     public Expression expand() {
-        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(left, right.getLeft());
-            Expression newRight = new MultiplicationExpression(left, right.getRight());
+        // Using the Master theorem, this procedure is exponential
+        Expression rightExpand = right.expand();
+        Expression leftExpand = left.expand();
+
+        if (rightExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(leftExpand, rightExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(leftExpand, rightExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
-        } else if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(right, left.getLeft());
-            Expression newRight = new MultiplicationExpression(right, left.getRight());
+        } else if (leftExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(rightExpand, leftExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(rightExpand, leftExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else {
@@ -102,5 +106,28 @@ public class MultiplicationExpression implements Expression {
     @Override
     public ExpressionType getType() {
         return ExpressionType.MULTIPLICATION_EXPRESSION;
+    }
+    
+    @Override
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(left.toString());
+            output.append(")");
+        } else {
+            output.append(left.toString());
+        }
+        output.append("*");
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(right.toString());
+            output.append(")");
+        } else {
+            output.append(right.toString());
+        }
+        return output.toString();
     }
 }
