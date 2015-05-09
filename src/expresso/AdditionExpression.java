@@ -50,9 +50,19 @@ public class AdditionExpression implements Expression {
         return right;
     }
 
+    @Override
+    public Expression expand() {
+        //An expanded expression is the addition of expressions is an AdditionExpression
+        return this;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.ADDITION_EXPRESSION;
+    }
+    
     /**
      * We ensure structural equality in Expression (meaning order is considered_
-     * Equality is checked with observational equality using the getLeft and getRight observers
      */
     @Override
     public boolean equals(Object obj) {
@@ -65,12 +75,11 @@ public class AdditionExpression implements Expression {
         }
     }
 
-    /**
-     * We return the addition of coprimes multiplied 
-     * by the hashcode of the left and right expressions
-     */
+
     @Override
     public int hashCode() {
+         //We return the addition of coprimes multiplied 
+         //by the hashcode of the left and right expressions
         return 5 * left.hashCode() + 79 * right.hashCode();
     }
 
@@ -80,19 +89,5 @@ public class AdditionExpression implements Expression {
     private void checkRep() {
         assert left != null;
         assert right != null;
-    }
-
-    /**
-     * An expanded expression is the addition of expressions 
-     * which is an additionExpression
-     */
-    @Override
-    public Expression expand() {
-        return this;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.ADDITION_EXPRESSION;
     }
 }

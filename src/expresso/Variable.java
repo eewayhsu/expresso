@@ -34,10 +34,22 @@ public class Variable implements Expression {
      * @return name of variable
      */
     public String getName() {
-        // TODO, sanitize
         return name;
     }
+    
+    @Override
+    public Expression expand() {
+        return this;
+    }
 
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.VARIABLE;
+    }
+
+    /**
+     * We ensure structural equality in Expression (meaning order is considered)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Variable) {
@@ -53,17 +65,10 @@ public class Variable implements Expression {
         return name.hashCode();
     }
 
+    /**
+     * We ensure the rep invariant is maintained
+     */
     private void checkRep() {
         name.matches("[a-zA-Z]+");
-    }
-
-    @Override
-    public Expression expand() {
-        return this;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.VARIABLE;
     }
 }

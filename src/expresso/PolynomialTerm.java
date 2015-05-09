@@ -5,25 +5,44 @@ import java.util.*;
 import expresso.Expression.ExpressionType;
 
 /**
- * PolynomialTerm is an immutable type representing a term in a polynomial
- * expression.
+ * PolynomialTerm is an immutable type representing 
+ * a term in a polynomial expression.
  *
  * Two instances of PolynomialTerm are equal iff they contain the same variables
  * that are raised to the same power. For example:
  *
- * 1) x*y = y*x 2) 2*x*y = y*x 3) x*y*x != y*x
+ * 1) x*y = y*x 
+ * 2) 2*x*y = y*x 
+ * 3) x*y*x != y*x
  * 
  */
 public class PolynomialTerm {
+    
+    /*
+     * Abstraction Function: 
+     * coefficient -> the coefficient for the polynomial term as a double, 1. when identity
+     * variables -> a hashMap representing the variables [a-zA-z]+ multiplied within the polynomialTerm
+     * 
+     * Representation Invariant:
+     * coefficient >= 0 (We cannot have negative numbers)
+     * variables != null (We can have an empty map when we have a constant expression)
+     * variables.key == [a-zA-z]+
+     * 
+     * Safety from Rep Exposure:
+     * We never return coefficient and variables, 
+     * they are touched only within PolynomialTerm 
+     * and thus are safe from rep exposure.
+     */
 
     private double coefficient = 1.;
     private Map<String, Integer> variables = new HashMap<String, Integer>();
 
     /**
-     * An instance of PolynomialTerm is constructed with an instance of
-     * Expression
-     *
-     * Expression must only contain ME descendants
+     * An instance of PolynomialTerm is constructed with an instance of Expression
+     * The given expression must be of only nested MEs.  
+     * 
+     * @param expression Expression must only contain ME descendants
+     * @return an instance of a PolynomialTerm representing the imputed expression
      */
     public PolynomialTerm(Expression expression) {
         walkTree(expression);
@@ -32,8 +51,11 @@ public class PolynomialTerm {
     }
 
     /**
-     * PolynomialTerm can also be constructed explicitly with the Map and
-     * Constant term
+     * PolynomialTerm can also be constructed explicitly with the Map and Constant term
+     * 
+     * @param coefficient a non-negative double constant multiplying the given variables
+     * @param variables a map of variables in string (must be [a-zA-z]+) and the power they are raised to
+     * @return a polynomialTerm representing the inputs
      */
     public PolynomialTerm(double coefficient, Map<String, Integer> variables) {
         this.coefficient = coefficient;
@@ -49,18 +71,14 @@ public class PolynomialTerm {
     private void MultipliedByZero() {
         if (this.coefficient == 0) {
             this.variables.clear();
-            ;
         }
     }
 
     /**
-     * Returns a PolynomialTerm that is a differentiated form of the current
-     * term
+     * Returns a PolynomialTerm that is a differentiated form of the current term
      *
-     * @param String
-     *            variable The partial derivative
-     * @return A new PolynomialTerm that is differentiated with respect to
-     *         variable
+     * @param String variable the partial derivative
+     * @return A new PolynomialTerm that is differentiated with respect to variable
      */
     public PolynomialTerm differentiate(String variable) {
         double newCoefficient = coefficient;
@@ -84,8 +102,8 @@ public class PolynomialTerm {
      * This method is called in the Expression constructor Starts walking the
      * tree rooted at node, and if any of the descendant nodes rooted are
      * literals, we record the literal in our internal rep
-     *
-     * Expression must only contain ME descendants
+     * 
+     * @param node an expression node where Expression must only contain ME descendants
      */
     private void walkTree(Expression node) {
         switch (node.getType()) {
@@ -112,14 +130,15 @@ public class PolynomialTerm {
 
     /**
      * This method simplifies a non-empty list of PolynomialTerms into a
-     * simplified list of PolynomialTerms by adding their coefficients, for
-     * example, [2*x, 3*x, 4*x*x] will be merged into [5*x, 4*x*x] by this
-     * method. The list is returned in lexical order.
+     * simplified list of PolynomialTerms by adding their coefficients.
+     * For example, [2*x, 3*x, 4*x*x, 5, 2] will be merged into [4*x*x, 5*x, 7]
+     * 
+     * The list is returned in lexical order.  When two variables have the same 
+     * exponential value, the one with the earliest appearance in the list is chosen first.
+     * For example, [2*x, 2*y, 3*z, 4*y] will be merged into [2*x, 6*y, 3*z]
      *
-     * @param listOfPolynomials
-     *            is a list of PolynomialTerms we want simplified
-     * @return a new list of polynomials where some have been combined, then
-     *         sorted in lexical order.
+     * @param listOfPolynomials is a list of PolynomialTerms we want simplified
+     * @return a new list of polynomials where some have been combined, then sorted in lexical order.
      */
     public static List<PolynomialTerm> simplify(
             List<PolynomialTerm> listOfPolynomials) {
@@ -129,7 +148,6 @@ public class PolynomialTerm {
         for (PolynomialTerm polynomial : listOfPolynomials) {
 
             int key = polynomial.hashCode();
-            System.out.println("hashcode of " + polynomial + " is " + key);
 
             if (!newPolynomialMap.containsKey(key)) {
                 newPolynomialMap.put(key, polynomial);
@@ -149,15 +167,12 @@ public class PolynomialTerm {
                 new Comparator<PolynomialTerm>() {
                     public int compare(PolynomialTerm firstPolynomial,
                             PolynomialTerm secondPolynomial) {
-                        // TODO: this is a specific order while the spec might
-                        // allow any order?
-                        // Should we just strengthen our spec for combined?
+                        if (secondPolynomial.variables.values().isEmpty()) {
+                            return -1;
+                        }
 
                         if (firstPolynomial.variables.values().isEmpty()) {
                             return 1;
-                        }
-                        if (secondPolynomial.variables.values().isEmpty()) {
-                            return -1;
                         }
 
                         // This is to allow us to return the largest first
@@ -174,8 +189,8 @@ public class PolynomialTerm {
     }
 
     /**
-     * This method returns a String of our polynomial. It removes instances of
-     * 1.0 * as that is the identity.
+     * This method returns a String of our polynomial. 
+     * It removes instances of 1.0 * as that is the identity.
      */
     @Override
     public String toString() {
@@ -197,7 +212,6 @@ public class PolynomialTerm {
             Map.Entry pair = (Map.Entry) it.next();
             for (int i = 0; i < (int) pair.getValue(); i++) {
 
-                // TODO: Clean up. Can also be written without the else
                 if (returnString.isEmpty()) {
                     returnString += pair.getKey();
                 } else {
@@ -223,6 +237,9 @@ public class PolynomialTerm {
     }
 
     private void checkRep() {
-        // TODO
+        assert coefficient >= 0;
+        for (String key: variables.keySet()){
+            assert key.matches("[a-zA-z]+");
+        }                
     }
 }

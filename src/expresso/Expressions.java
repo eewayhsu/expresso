@@ -10,19 +10,18 @@ import expresso.Expression.ExpressionType;
  */
 public class Expressions {
     private static String ADDITIVE_IDENTITY = "0.0";
-    private static String MULTIPLICATIVE_IDENTITY = "1.0";
 
     /**
-     * Differentiate an expression with respect to a variable.
+     * Differentiate an expression with respect to a given variable. 
+     * All constants are represented in form of [0-9]+\.[0-9]+
+     * All expressions are represented in lexical order (largest power first)
+     * All unnecessary spaces are removed from the returned expression
+     * All identities are removed (such as unnecessary +0.0 or 1.0*) 
      * 
-     * @param expression
-     *            the expression to differentiate
-     * @param variable
-     *            the variable to differentiate by
-     * @return expression's derivative with respect to variable; will be a valid
-     *         expression
-     * @throws IllegalArgumentException
-     *             if the expression or variable is invalid
+     * @param expression the expression to differentiate
+     * @param variable the variable to differentiate by
+     * @return expression's derivative with respect to variable; will be a valid simplified expression
+     * @throws IllegalArgumentException if the expression or variable is invalid
      */
     public static String differentiate(String expression, String variable) {
 
@@ -49,9 +48,8 @@ public class Expressions {
 
     /**
      * Simplify an expression. This method wraps {@link simplifyWithList()}
-     *
-     * @throws IllegalArgumentException
-     *             if the expression is invalid (TODO)
+     * 
+     * @throws IllegalArgumentException if the expression is invalid (TODO)
      */
     public static String simplify(String expression) {
         Expression parsedExpression = Expression.parse(expression);
@@ -62,17 +60,22 @@ public class Expressions {
 
     /**
      * Simplify an expression.
+     * All constants are represented in form of [0-9]+\.[0-9]+
+     * All expressions are represented in lexical order (largest power first)
+     * All unnecessary spaces are removed from the returned expression
+     * All identities are removed (such as unnecessary +0.0 or 1.0*) 
+     * Multiplied variables which are mathematically equivalent, but not structurally equivalent
+     * are combined and represented as the first term (e.g. x*y + y*x = 2*x*y)
      * 
-     * @param listOfPolynomials
-     *            the list of PolynomialTerm's to simplify
-     * @return an expression equal to the input that is a sum of terms without
+     * @param listOfPolynomials the list of PolynomialTerm's to simplify
+     * @return An expression equal to the input that is a sum of terms without
      *         parentheses, where for all variables var_i in the expression, for
      *         all exponents e_i, the term (var_1^e_1 x var_2^e_2 x ... x
      *         var_n^e_n) appears at most once; each term may be multiplied by a
      *         non-zero, non-identity constant factor; and read left-to-right,
      *         the largest exponent in each term is non-increasing
-     * @throws IllegalArgumentException
-     *             if the expression is invalid (TODO)
+     *         
+     * @throws IllegalArgumentException if the expression is invalid (TODO)
      */
     private static String simplifyWithList(
             List<PolynomialTerm> listOfPolynomials) {
@@ -94,10 +97,11 @@ public class Expressions {
     }
 
     /**
-     * Returns a polynomial that is algebraically equivalent. TODO: strengthen
-     * specification later
+     * Returns a list of PolynomialTerms that is 
+     * algebraically equivalent to those in the given expression.  
+     * This method wraps {@link extractPolynomialTerms()}
      * 
-     * @return a polynomial that is algebraically equivalent
+     * @return a list of PolynomialTerms that is algebraically equivalent to those in expression
      */
     private static List<PolynomialTerm> toPolynomial(Expression expression) {
         Expression expansion = expression.expand();
@@ -105,13 +109,11 @@ public class Expressions {
     }
 
     /**
-     * Walks through each node of the expression and extracts polynomial terms
-     * into an array.
+     * Walks through each node of the expression 
+     * and extracts polynomial terms into an array.
      * 
-     * @param expansion
-     *            fully-expanded expression whose polynomial terms are to be
-     *            extracted
-     * @return array of polynomial terms contained in the expression
+     * @param expansion fully-expanded expression whose polynomial terms are to be extracted
+     * @return a list of polynomial terms contained in the expression
      */
     private static List<PolynomialTerm> extractPolynomialTerms(
             Expression expansion) {
