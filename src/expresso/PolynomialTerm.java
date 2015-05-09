@@ -171,8 +171,8 @@ public class PolynomialTerm {
     @Override
     public String toString() {
         String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
+        String operation = (coefficient == 1) ? "" : "*";
         String multiplyByZero = "0.0";
-        String operation = "";
 
         //Takes care of * 0
         if (coefficient == 0) return multiplyByZero;
@@ -185,9 +185,8 @@ public class PolynomialTerm {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             for (int i = 0; i < (int) pair.getValue(); i++) {
-                if (coefficient != 1) operation = "*";
-
                 returnString += operation + pair.getKey();
+                operation = "*";
             }
         } 
         return returnString;
