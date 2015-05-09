@@ -70,14 +70,18 @@ public class MultiplicationExpression implements Expression {
 
     @Override
     public Expression expand() {
-        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(left, ((AdditionExpression) right).getLeft());
-            Expression newRight = new MultiplicationExpression(left, ((AdditionExpression) right).getRight());
+        // Using the Master theorem, this procedure is exponential
+        Expression rightExpand = right.expand();
+        Expression leftExpand = left.expand();
+
+        if (rightExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(leftExpand, ((AdditionExpression) rightExpand).getLeft());
+            Expression newRight = new MultiplicationExpression(leftExpand, ((AdditionExpression) rightExpand).getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
-        } else if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(right, ((AdditionExpression) left).getLeft());
-            Expression newRight = new MultiplicationExpression(right, ((AdditionExpression) left).getRight());
+        } else if (leftExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(rightExpand, ((AdditionExpression) leftExpand).getLeft());
+            Expression newRight = new MultiplicationExpression(rightExpand, ((AdditionExpression) leftExpand).getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else {
