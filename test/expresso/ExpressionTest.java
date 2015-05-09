@@ -191,12 +191,12 @@ public class ExpressionTest {
     
     @Test
     public void testEqualityOperationOrder() {
-        assertEquals(Expression.parse("4.0*2.0 + 3.4"), Expression.parse("3.4 + 4.0*   2.0"));
+        assertFalse(Expression.parse("4.0*2.0 + 3.4").equals(Expression.parse("3.4 + 4.0*   2.0")));
     }
     
     @Test
     public void testEqualityDifferentOperations() {
-        assertEquals(Expression.parse("x + y + z"), Expression.parse("x*y+z"));
+        assertFalse(Expression.parse("x + y + z").equals(Expression.parse("x*y+z")));
     }
     
     @Test
@@ -211,7 +211,7 @@ public class ExpressionTest {
     
     @Test
     public void testEqualityNotEqualGrouping() {
-        assertEquals(Expression.parse("(x*y)*z"), Expression.parse("x*(y*z)"));
+        assertFalse(Expression.parse("(x*y)*z").equals(Expression.parse("x*(y*z)")));
     }
     
     @Test
