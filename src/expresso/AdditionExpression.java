@@ -30,22 +30,15 @@ public class AdditionExpression implements Expression {
     public AdditionExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
 
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+    @Override
     public Expression getLeft() {
         return left;
     }
 
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+    @Override
     public Expression getRight() {
         return right;
     }

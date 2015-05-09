@@ -76,4 +76,18 @@ public interface Expression {
      * @return corresponding ExpressionType
      */
     public ExpressionType getType();
+    
+    /**
+     * Returns the left expression
+     * 
+     * @return left expression
+     */
+    public Expression getLeft();
+    
+    /**
+     * Returns the right expression
+     * 
+     * @return right expression
+     */
+    public Expression getRight();
 }

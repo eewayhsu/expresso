@@ -32,22 +32,15 @@ public class MultiplicationExpression implements Expression {
     public MultiplicationExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
 
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+    @Override
     public Expression getLeft() {
         return left;
     }
 
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+    @Override
     public Expression getRight() {
         return right;
     }
@@ -92,17 +85,13 @@ public class MultiplicationExpression implements Expression {
     @Override
     public Expression expand() {
         if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(left,
-                    ((AdditionExpression) right).getLeft());
-            Expression newRight = new MultiplicationExpression(left,
-                    ((AdditionExpression) right).getRight());
+            Expression newLeft = new MultiplicationExpression(left, right.getLeft());
+            Expression newRight = new MultiplicationExpression(left, right.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(right,
-                    ((AdditionExpression) left).getLeft());
-            Expression newRight = new MultiplicationExpression(right,
-                    ((AdditionExpression) left).getRight());
+            Expression newLeft = new MultiplicationExpression(right, left.getLeft());
+            Expression newRight = new MultiplicationExpression(right, left.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else {
