@@ -87,8 +87,7 @@ public class Expressions {
             String stringPoly = simplifiedPolynomialList.get(i).toString();
 
             // Skip loop iteration if term is the additive identity
-            if (stringPoly == ADDITIVE_IDENTITY)
-                continue;
+            if (stringPoly == ADDITIVE_IDENTITY) continue;
 
             simplifiedString += "+" + stringPoly;
         }

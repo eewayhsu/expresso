@@ -36,8 +36,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      *
      * This method is fired whenever the walker exits a literal node
      *
-     * @param ctx
-     *            root_expression context
+     * @param ctx root_expression context
      */
     public void exitLiteral(LiteralContext ctx) {
         String token = ctx.getText();
@@ -62,8 +61,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * 
      * This method is fired whenever the walker exits a mult_expression node
      *
-     * @param ctx
-     *            mult_expression context
+     * @param ctx mult_expression context
      */
     public void exitMultExpression(MultExpressionContext ctx) {
         Expression rightExpression = stack.pop();
@@ -85,8 +83,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * 
      * This method is fired whenever the walker exits an add_expression node
      *
-     * @param ctx
-     *            add_expression context
+     * @param ctx add_expression context
      */
     public void exitAddExpression(AddExpressionContext ctx) {
         Expression rightExpression = stack.pop();
