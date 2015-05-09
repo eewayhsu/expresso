@@ -28,6 +28,7 @@ public class AdditionExpression implements Expression {
     public AdditionExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
     
     /**
@@ -76,5 +77,28 @@ public class AdditionExpression implements Expression {
     @Override
     public ExpressionType getType() {
         return ExpressionType.ADDITION_EXPRESSION;
+    }
+    
+    @Override 
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(left.toString());
+            output.append(")");
+        } else {
+            output.append(left.toString());
+        }
+        output.append(" + ");
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(right.toString());
+            output.append(")");
+        } else {
+            output.append(right.toString());
+        }
+        return output.toString();
     }
 }

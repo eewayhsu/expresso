@@ -24,6 +24,7 @@ public class Constant implements Expression {
      */
     public Constant(double value) {
         this.value = value;
+        checkRep();
     }
     
     /**
@@ -57,5 +58,10 @@ public class Constant implements Expression {
     @Override
     public ExpressionType getType() {
         return ExpressionType.CONSTANT;
+    }
+    
+    @Override
+    public String toString() {
+        return Double.toString(value);
     }
 }
