@@ -7,26 +7,26 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 /**
- * Expression represents a mathematical expression.  This is a immutable recursive abstract datatype. 
+ * Expression represents a mathematical expression. 
+ * This is a immutable recursive abstract datatype.
  */
 public interface Expression {
-    
+
     // Datatype definition
-    //   Expression = Constant(value:double)
-    //                  + Variable(value:String)
-    //                  + MultiplicationExpression(left:Expression, right:Expression)
-    //                  + AdditionExpression(left:Expression, right:Expression)
-    
+    // Expression = Constant(value:double)
+    //  + Variable(value:String)
+    //  + MultiplicationExpression(left:Expression, right:Expression)
+    //  + AdditionExpression(left:Expression, right:Expression)
+
     public enum ExpressionType {
         VARIABLE, CONSTANT, ADDITION_EXPRESSION, MULTIPLICATION_EXPRESSION;
     }
-    
+
     /**
-     * Parse an expression.  
-     * TODO: actually throw illegal argument exception
+     * Parse an expression. TODO: actually throw illegal argument exception
      *
-     * @param String input              Expression to parse
-     * @return Expression expression    AST for the input
+     * @param String input Expression to parse
+     * @return Expression expression AST for the input
      * @throws IllegalArgumentException If the expression is invalid
      */
     public static Expression parse(String input) {
@@ -47,27 +47,41 @@ public interface Expression {
 
         ExpressionListenerExpressionCreator listener = new ExpressionListenerExpressionCreator();
         walker.walk(listener, expressionTree);
-        
+
         return listener.getExpression();
 
     }
-    
+
     // Instance methods
-    
+
     /**
-     * Returns an algebraically equivalent expression that consists of a sum of products.
-     * Expands by distributing terms first from left to right, then from right to left.
+     * Returns an algebraically equivalent expression that consists of a sum of
+     * products. Expands by distributing terms first from left to right, then from right to left.
      * 
      * @return an algebraically equivalent expression that consists of a sum of products
      */
     public Expression expand();
-    
+
     /**
      * Returns corresponding ExpressionType
      * 
      * @return corresponding ExpressionType
      */
     public ExpressionType getType();
+    
+    /**
+     * Returns the left expression
+     * 
+     * @return left expression
+     */
+    public Expression getLeft();
+    
+    /**
+     * Returns the right expression
+     * 
+     * @return right expression
+     */
+    public Expression getRight();
     
     /**
      * Defines structural equality for two Expression objects.
@@ -81,7 +95,7 @@ public interface Expression {
      *  4) x*y+z is not equal to x*(y+z)
      * 
      * @param Object obj  The object to test equality with
-     * @return boolean    True if obj and the current instance are equal
+     * @return boolean True if obj and the current instance are equal
      */
     @Override
     public boolean equals(Object obj);

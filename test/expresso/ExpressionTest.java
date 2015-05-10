@@ -16,25 +16,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-/*
+/**
  * This class contains tests for the language of balanced parentheses.
  */
 public class ExpressionTest {
-    /*
-     *  Test strategy for expression parser (parentheses only):
-     *  
-     *  Partitions:
-     *  - balanced or unbalanced pairs
-     *  - sequence of 0, 1, 2+ pairs
-     * 
-     *  Test cases:
-     *  - empty string
-     *  - () a single balanced pair
-     *  - ()() two balanced pairs
-     *  - ()(((())))(()) three balanced sequences
-     *  - ( a single unbalanced pair
-     *  - (() one and a half pairs
-     */
     
     /*
      * Test strategy for expression parser:
@@ -67,16 +52,32 @@ public class ExpressionTest {
      */
     
     /*
-     * Test strategy for simplify:
+     * Test strategy for structural equality:
      * 
      * Partitions:
-     * - constants only
-     * - variables only
-     * - addition only
-     * - multiplication only
-     * - addition and multiplication only
+     * - same order variables, values
+     * - different order variables, values
+     * 
+     * - same operations
+     * - different operations
+     * 
+     * - parentheses
+     * - no parentheses
+     * 
+     * - different groupings, mathematically equal
+     * 
+     * - integer or decimal (i.e. 1 vs. 1.000)
+     * 
+     * - whitespaces
      * 
      * Test cases:
+     * - "x + y + z" and "x+y+z" (equal)
+     * - "4.0*2.0 + 3.4" and "3.4 + 4.0*   2.0" (not equal, different order of values)
+     * - "x + y + z" and "x*y+z" (not equal, different operations)
+     * - "(x + y + z)" and "x+y+z" (equal)
+     * - "(x) + (y) + (z)" and "x+y+z" (equal)
+     * - "(x*y)*z" and "x*(y*z)" (not equal, different groupings)
+     * - "x+1" and "x+1.00000" (equal)
      */
     private static final boolean DISPLAY_GRAPHICS = true;
     
@@ -85,11 +86,7 @@ public class ExpressionTest {
         assert false; // make sure assertions are enabled with VM argument: -ea
     }
     
-    @Test
-    public void testEmptyString() {
-        // TODO should we accept the EmptyString?
-        Expression.parse("");
-    }
+    // Tests for Expression parse
     
     @Test
     public void testExpressionAddConstants() {
@@ -103,7 +100,7 @@ public class ExpressionTest {
     
     @Test
     public void testExpressionParentheses() {
-        Expression.parse("3 * (x + 2.4)");
+        Expression.parse("3 * (x + 2.4030)");
     }
     
     @Test
@@ -124,17 +121,6 @@ public class ExpressionTest {
     @Test
     public void testExpressionMultiplyPlus() {
         Expression.parse("(3+5*6)*4*3+3");
-    }
-    
-    
-    @Test
-    public void testExpressionWithTwo() {
-        Expression.parse("1+2+3");
-    }
-    
-    @Test
-    public void testExpressionWithDoubles() {
-        Expression.parse("1.0+2+3");
     }
     
     @Test
@@ -165,6 +151,43 @@ public class ExpressionTest {
     @Test(expected=RuntimeException.class)
     public void testExpressionMissingOperation() {
         Expression.parse("3 x");
+    }
+    
+    // Tests for structural equality
+    
+    @Test
+    public void testEqualityWhiteSpace() {
+        assertEquals(Expression.parse("x + y + z"), Expression.parse("x+y+z"));
+    }
+    
+    @Test
+    public void testEqualityOperationOrder() {
+        assertFalse(Expression.parse("4.0*2.0 + 3.4").equals(Expression.parse("3.4 + 4.0*   2.0")));
+    }
+    
+    @Test
+    public void testEqualityDifferentOperations() {
+        assertFalse(Expression.parse("x + y + z").equals(Expression.parse("x*y+z")));
+    }
+    
+    @Test
+    public void testEqualityEqualGrouping() {
+        assertEquals(Expression.parse("(x + y + z)"), Expression.parse("x + y + z"));
+    }
+    
+    @Test
+    public void testEqualityEqualGrouping2() {
+        assertEquals(Expression.parse("(x) + (y) + (z)"), Expression.parse("x + y + z"));
+    }
+    
+    @Test
+    public void testEqualityNotEqualGrouping() {
+        assertFalse(Expression.parse("(x*y)*z").equals(Expression.parse("x*(y*z)")));
+    }
+    
+    @Test
+    public void testEqualityIntegerDouble() {
+        assertEquals(Expression.parse("x+1"), Expression.parse("x + 1.00000"));
     }
 
     private void parseToDebug(String string) {

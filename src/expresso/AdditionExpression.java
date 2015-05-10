@@ -1,82 +1,88 @@
 package expresso;
 
 /**
- * AdditionExpression is an immutable type representing an addition expression.
+ * AdditionExpression is an immutable type implementing expression representing an addition expression.
  */
 public class AdditionExpression implements Expression {
-    
+
     private final Expression left;
     private final Expression right;
     
-    /* Abstraction function
-     *      left -> the augend (expression prior to '+') of a mathematical expression 
-     *      right -> the addend (expression post '+') of a mathematical expression
-     *      
-     * Rep invariant
-     *      left and right not null
-     *      
-     * Safety from rep exposure
-     *      left and right are both immutable, so there is no risk of rep exposure.
+    private static final int FIRST_PRIME_NUMBER = 5;
+    private static final int SECOND_PRIME_NUMBER = 37;
+
+    /*
+     * Abstraction Function: 
+     * left -> the augend (expression prior to '+') of a mathematical expression 
+     * right -> the addend (expression post '+') of a mathematical expression
+     * 
+     * Representation Invariant:
+     * left and right not null
+     * 
+     * Safety from Rep Exposure:
+     * left and right are both immutable data types.  
+     * They are final and thus don't risk rep exposure. 
      */
-    
+
     /**
      * Creates an addition expression with given left and right expressions.
      * 
-     * @param left  left expression
-     * @param right right expression
+     * @param left the left expression of the addExpression
+     * @param right the right expression of the addExpression
      */
     public AdditionExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
         checkRep();
     }
-    
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+
+    @Override
     public Expression getLeft() {
         return left;
     }
-    
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+
+    @Override
     public Expression getRight() {
         return right;
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof AdditionExpression) {
-          AdditionExpression expression = (AdditionExpression) obj;
-          return expression.getLeft().equals(left) & expression.getRight().equals(right);
-        } else {
-          return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        return 37;
-    }
-    
-    private void checkRep() {
-        assert left != null;
-        assert right != null;
     }
 
     @Override
     public Expression expand() {
+        //An expanded expression is the addition of expressions is an AdditionExpression
         return this;
     }
 
     @Override
     public ExpressionType getType() {
         return ExpressionType.ADDITION_EXPRESSION;
+    }
+    
+    /**
+     * We ensure structural equality in Expression (meaning order is considered_
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AdditionExpression) {
+            AdditionExpression expression = (AdditionExpression) obj;
+            return expression.getLeft().equals(left)
+                    && expression.getRight().equals(right);
+        } else {
+            return false;
+        }
+    }
+
+
+    @Override
+    public int hashCode() {
+        return FIRST_PRIME_NUMBER * left.hashCode() + SECOND_PRIME_NUMBER * right.hashCode();
+    }
+
+    /**
+     * We ensure the rep invariant is maintained
+     */
+    private void checkRep() {
+        assert left != null;
+        assert right != null;
     }
     
     @Override 

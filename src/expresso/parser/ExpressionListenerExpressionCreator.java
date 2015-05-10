@@ -10,20 +10,19 @@ import expresso.parser.ExpressionParser.*;
  * An instance of ExpressionListenerExpressionCreator is passed into a parse
  * tree's walker method, and the listener methods are fired every time the walk
  * visits a node of a specific type. Only a subset of nodes have listeners
- * attached. 
+ * attached.
  *
- * Upon concluding the walk, a tree of Expression nodes is created, and can be 
+ * Upon concluding the walk, a tree of Expression nodes is created, and can be
  * accessed by calling getExpression() on the instance
  */
 public class ExpressionListenerExpressionCreator extends ExpressionBaseListener {
-    
+
     private final Stack<Expression> stack = new Stack<Expression>();
-    
+
     /**
      * Tries to assert that the Expression tree is complete
-     * This is not a bijective condition; it only ensures that there are no
-     * dangling nodes, i.e. that there is only one node left that has no parent,
-     * namely, the root node.
+     * This is not a bijective condition; it only ensures that there are no dangling nodes, 
+     * i.e. that there is only one node left that has no parent, namely, the root node.
      *
      * This method is fired whenever the walker exits the root node
      *
@@ -34,7 +33,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     public void exitRoot(RootContext ctx) {
         if (stack.size() != 1) throw new RuntimeException("Parse tree is awkward!");
     }
-    
+
     /**
      * If the node is a literal, push it into the stack; this passes the literal
      * into its ancestor Expression's constructor. By design, the ancestor
@@ -55,16 +54,16 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
             stack.push(constant);
         }
     }
-    
+
     /**
      * If the node is a mult_expression, push it into the stack; this passes it
      * into its ancestor Expression's constructor. By design, the ancestor
      * Expression is either a MultiplicationExpression or an AdditionExpression.
      *
      * Also creates a MultiplicationExpression using the top two elements in the
-     * stack; this assigns the Expression's closest two descendants as its children
-     * The descendant expressions can be MultiplicationExpressions, Variables, or 
-     * Constants.
+     * stack; this assigns the Expression's closest two descendants as its
+     * children The descendant expressions can be MultiplicationExpressions,
+     * Variables, or Constants.
      * 
      * This method is fired whenever the walker exits a multExpression node
      *
@@ -77,16 +76,16 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
         Expression multiplicationExpression = new MultiplicationExpression(leftExpression, rightExpression);
         stack.push(multiplicationExpression);
     }
-    
+
     /**
      * If the node is a add_expresison, push it into the stack; this passes it
      * into its ancestor Expression's constructor. By design, the ancestor
      * Expression is either a MultiplicationExpression or an AdditionExpression.
      *
-     * Also creates an AdditionExpression using the top two elements in the stack;
-     * this assigns the Expression's closest two descendants as its children.
-     * The descendants can be AdditionExpressions, MultiplicationExpressions, 
-     * Variables, or Constants.
+     * Also creates an AdditionExpression using the top two elements in the
+     * stack; this assigns the Expression's closest two descendants as its
+     * children. The descendants can be AdditionExpressions,
+     * MultiplicationExpressions, Variables, or Constants.
      * 
      * This method is fired whenever the walker exits an addExpression node
      *
@@ -99,7 +98,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
         Expression additionExpression = new AdditionExpression(leftExpression, rightExpression);
         stack.push(additionExpression);
     }
-    
+
     /**
      * Returns Expression type represented by given ParseTree
      * 

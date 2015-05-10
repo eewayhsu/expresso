@@ -1,30 +1,35 @@
 package expresso;
 
-import expresso.Expression.ExpressionType;
-
 /**
- * MultiplicationExpression is an immutable type representing a multiplication expression.
+ * MultiplicationExpression is an immutable type representing a multiplication
+ * expression.
  */
 public class MultiplicationExpression implements Expression {
-    
+
     private final Expression left;
     private final Expression right;
     
-    /* Abstraction function
-     *      left -> the multiplicand (expression prior to '*') of a mathematical expression 
-     *      right -> the multiplier (expression post '*') of a mathematical expression
-     *      
-     * Rep invariant
-     *      left and right not null
-     *      
-     * Safety from rep exposure
-     *      left and right are both immutable, so there is no risk of rep exposure.
-     */
-    
-    /**
-     * Creates a multiplication expression with given left and right expressions.
+    private static final int FIRST_PRIME_NUMBER = 5;
+    private static final int SECOND_PRIME_NUMBER = 37;
+
+    /*
+     * Abstraction Function:
+     * left -> the multiplicand (expression prior to '*') of a mathematical expression 
+     * right -> the multiplier (expression post '*') of a mathematical expression
      * 
-     * @param left  left expression
+     * Rep Invariant: 
+     * left and right not null
+     * 
+     * Safety from Rep Exposure:
+     * left and right are both immutable data types.  
+     * They are final and thus don't risk rep exposure. 
+     */
+
+    /**
+     * Creates a multiplication expression with given left and right
+     * expressions.
+     * 
+     * @param left left expression
      * @param right right expression
      */
     public MultiplicationExpression(Expression left, Expression right) {
@@ -32,45 +37,17 @@ public class MultiplicationExpression implements Expression {
         this.right = right;
         checkRep();
     }
-    
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+
+    @Override
     public Expression getLeft() {
         return left;
     }
-    
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+
+    @Override
     public Expression getRight() {
         return right;
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MultiplicationExpression) {
-          MultiplicationExpression expression = (MultiplicationExpression) obj;
-          return expression.getLeft().equals(left) & expression.getRight().equals(right);
-        } else {
-          return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        return 37;
-    }
-    
-    private void checkRep() {
-        assert left != null;
-        assert right != null;
-    }
-
     @Override
     public Expression expand() {
         // Using the Master theorem, this procedure is exponential
@@ -78,13 +55,13 @@ public class MultiplicationExpression implements Expression {
         Expression leftExpand = left.expand();
 
         if (rightExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(leftExpand, ((AdditionExpression) rightExpand).getLeft());
-            Expression newRight = new MultiplicationExpression(leftExpand, ((AdditionExpression) rightExpand).getRight());
+            Expression newLeft = new MultiplicationExpression(leftExpand, rightExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(leftExpand, rightExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else if (leftExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(rightExpand, ((AdditionExpression) leftExpand).getLeft());
-            Expression newRight = new MultiplicationExpression(rightExpand, ((AdditionExpression) leftExpand).getRight());
+            Expression newLeft = new MultiplicationExpression(rightExpand, leftExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(rightExpand, leftExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else {
@@ -96,7 +73,34 @@ public class MultiplicationExpression implements Expression {
     public ExpressionType getType() {
         return ExpressionType.MULTIPLICATION_EXPRESSION;
     }
-    
+        
+    /**
+     * We ensure structural equality in Expression (meaning order is considered)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MultiplicationExpression) {
+            MultiplicationExpression expression = (MultiplicationExpression) obj;
+            return expression.getLeft().equals(left)
+                    && expression.getRight().equals(right);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return FIRST_PRIME_NUMBER * left.hashCode() + SECOND_PRIME_NUMBER * right.hashCode();
+    }
+
+    /**
+     * We ensure the rep invariant is maintained
+     */
+    private void checkRep() {
+        assert left != null;
+        assert right != null;
+    }
+
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();
