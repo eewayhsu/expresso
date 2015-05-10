@@ -40,18 +40,20 @@ public class Main {
             }
 
             try {
+                final String trimmedInput = input.trim();
                 final String output;
                 
-                if (input.startsWith(COMMAND_PREFIX)) {
-                    output = handleCommand(input.substring(COMMAND_PREFIX.length()));
+                if (trimmedInput.startsWith(COMMAND_PREFIX)) {
+                    output = handleCommand(trimmedInput.substring(COMMAND_PREFIX.length()));
                 } else {
-                    output = handleExpression(input);
+                    String expression = handleExpression(trimmedInput);
                     // updates current expression if input is valid
-                    currentExpression = output;
+                    currentExpression = expression;
+                    output = trimmedInput.replaceAll("\\s+", "");
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
-                System.out.println(re.getClass().getName() + ": " + re.getMessage());
+                System.out.println("ParseError" + ": " + re.getMessage());
             }
         }
     }
@@ -86,12 +88,14 @@ public class Main {
      */
     private static String handleCommand(String substring) {
         if (currentExpression.equals("")) {
-            throw new RuntimeException("cannot execute command without an expression");
+            return "ParseError: cannot execute command without an expression. No current expression.";
         }
         if (substring.contains(DERIVATIVE_PREFIX)) {
             String variable = substring.substring(DERIVATIVE_PREFIX.length());
             if (variable.length() == 0) {
-                throw new RuntimeException("missing variable in derivative command");
+                return "ParseError: missing variable in derivative command";
+            } else if (!(variable.matches("[a-zA-Z+]"))) {
+                return "ParseError: must differentiate with respect to a valid variable";
             } else {
                 currentExpression = Expressions.differentiate(currentExpression, variable);
                 return currentExpression;
@@ -99,7 +103,7 @@ public class Main {
         } else if (substring.equals(SIMPLIFY)) {
             return Expressions.simplify(currentExpression);
         } else {
-            throw new RuntimeException("unknown command");
+            return "ParseError: unknown command\nCurrentExpression: " + currentExpression;
         }
     }
 }
