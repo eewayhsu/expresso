@@ -30,22 +30,15 @@ public class AdditionExpression implements Expression {
     public AdditionExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
 
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+    @Override
     public Expression getLeft() {
         return left;
     }
 
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+    @Override
     public Expression getRight() {
         return right;
     }
@@ -89,5 +82,28 @@ public class AdditionExpression implements Expression {
     private void checkRep() {
         assert left != null;
         assert right != null;
+    }
+    
+    @Override 
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(left.toString());
+            output.append(")");
+        } else {
+            output.append(left.toString());
+        }
+        output.append(" + ");
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(right.toString());
+            output.append(")");
+        } else {
+            output.append(right.toString());
+        }
+        return output.toString();
     }
 }

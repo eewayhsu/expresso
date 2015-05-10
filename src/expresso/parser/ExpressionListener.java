@@ -21,36 +21,6 @@ public interface ExpressionListener extends ParseTreeListener {
 	 */
 	void exitRoot(ExpressionParser.RootContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#warmup}.
-	 * @param ctx the parse tree
-	 */
-	void enterWarmup(ExpressionParser.WarmupContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#warmup}.
-	 * @param ctx the parse tree
-	 */
-	void exitWarmup(ExpressionParser.WarmupContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#line}.
-	 * @param ctx the parse tree
-	 */
-	void enterLine(ExpressionParser.LineContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#line}.
-	 * @param ctx the parse tree
-	 */
-	void exitLine(ExpressionParser.LineContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ExpressionParser#file}.
-	 * @param ctx the parse tree
-	 */
-	void enterFile(ExpressionParser.FileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ExpressionParser#file}.
-	 * @param ctx the parse tree
-	 */
-	void exitFile(ExpressionParser.FileContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ExpressionParser#expression}.
 	 * @param ctx the parse tree
 	 */

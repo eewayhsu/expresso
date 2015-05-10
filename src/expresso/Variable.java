@@ -26,6 +26,7 @@ public class Variable implements Expression {
      */
     public Variable(String name) {
         this.name = name;
+        checkRep();
     }
 
     /**
@@ -47,6 +48,16 @@ public class Variable implements Expression {
         return ExpressionType.VARIABLE;
     }
 
+    @Override
+    public Expression getLeft() {
+        return this;
+    }
+
+    @Override
+    public Expression getRight() {
+        return this;
+    }
+    
     /**
      * We ensure structural equality in Expression (meaning order is considered)
      */

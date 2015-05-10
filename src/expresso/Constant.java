@@ -26,6 +26,7 @@ public class Constant implements Expression {
      */
     public Constant(double value) {
         this.value = value;
+        checkRep();
     }
 
     /**
@@ -67,5 +68,20 @@ public class Constant implements Expression {
 
     private void checkRep() {
         assert value >= 0;
+    }
+
+    @Override
+    public Expression getLeft() {
+        return this;
+    }
+
+    @Override
+    public Expression getRight() {
+        return this;
+    }
+    
+    @Override
+    public String toString() {
+        return Double.toString(value);
     }
 }

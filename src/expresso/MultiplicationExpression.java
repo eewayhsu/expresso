@@ -32,40 +32,33 @@ public class MultiplicationExpression implements Expression {
     public MultiplicationExpression(Expression left, Expression right) {
         this.left = left;
         this.right = right;
+        checkRep();
     }
 
-    /**
-     * Returns left expression
-     * 
-     * @return left expression
-     */
+    @Override
     public Expression getLeft() {
         return left;
     }
 
-    /**
-     * Returns right expression
-     * 
-     * @return right expression
-     */
+    @Override
     public Expression getRight() {
         return right;
     }
     
     @Override
     public Expression expand() {
-        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(left,
-                    ((AdditionExpression) right).getLeft());
-            Expression newRight = new MultiplicationExpression(left,
-                    ((AdditionExpression) right).getRight());
+        // Using the Master theorem, this procedure is exponential
+        Expression rightExpand = right.expand();
+        Expression leftExpand = left.expand();
+
+        if (rightExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(leftExpand, rightExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(leftExpand, rightExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
-        } else if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
-            Expression newLeft = new MultiplicationExpression(right,
-                    ((AdditionExpression) left).getLeft());
-            Expression newRight = new MultiplicationExpression(right,
-                    ((AdditionExpression) left).getRight());
+        } else if (leftExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+            Expression newLeft = new MultiplicationExpression(rightExpand, leftExpand.getLeft());
+            Expression newRight = new MultiplicationExpression(rightExpand, leftExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
 
         } else {
@@ -77,8 +70,7 @@ public class MultiplicationExpression implements Expression {
     public ExpressionType getType() {
         return ExpressionType.MULTIPLICATION_EXPRESSION;
     }
-    
-    
+        
     /**
      * We ensure structural equality in Expression (meaning order is considered)
      */
@@ -106,5 +98,28 @@ public class MultiplicationExpression implements Expression {
     private void checkRep() {
         assert left != null;
         assert right != null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(left.toString());
+            output.append(")");
+        } else {
+            output.append(left.toString());
+        }
+        output.append("*");
+        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
+                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+            output.append("(");
+            output.append(right.toString());
+            output.append(")");
+        } else {
+            output.append(right.toString());
+        }
+        return output.toString();
     }
 }

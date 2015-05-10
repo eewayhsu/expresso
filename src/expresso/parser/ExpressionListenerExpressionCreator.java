@@ -20,13 +20,18 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     private final Stack<Expression> stack = new Stack<Expression>();
 
     /**
-     * Tries to assert that the Expression tree is complete This is not a
-     * bijective condition; it only ensures that there are no dangling nodes,
-     * i.e. that there is only one node left that has no parent, namely, the
-     * root node.
+     * Tries to assert that the Expression tree is complete
+     * This is not a bijective condition; it only ensures that there are no dangling nodes, 
+     * i.e. that there is only one node left that has no parent, namely, the root node.
+     *
+     * This method is fired whenever the walker exits the root node
+     *
+     * @param ctx root context
+     * @return none
+     * @throws RuntimeException if the Expression tree is incomplete
      */
     public void exitRoot(RootContext ctx) {
-        assert stack.size() == 1;
+        if (stack.size() != 1) throw new RuntimeException("Parse tree is awkward!");
     }
 
     /**
@@ -37,6 +42,8 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * This method is fired whenever the walker exits a literal node
      *
      * @param ctx root_expression context
+     * @param ctx literal context
+     * @return none
      */
     public void exitLiteral(LiteralContext ctx) {
         String token = ctx.getText();
@@ -59,9 +66,10 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * children The descendant expressions can be MultiplicationExpressions,
      * Variables, or Constants.
      * 
-     * This method is fired whenever the walker exits a mult_expression node
+     * This method is fired whenever the walker exits a multExpression node
      *
-     * @param ctx mult_expression context
+     * @param ctx multExpression context
+     * @return none
      */
     public void exitMultExpression(MultExpressionContext ctx) {
         Expression rightExpression = stack.pop();
@@ -81,9 +89,10 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * children. The descendants can be AdditionExpressions,
      * MultiplicationExpressions, Variables, or Constants.
      * 
-     * This method is fired whenever the walker exits an add_expression node
+     * This method is fired whenever the walker exits an addExpression node
      *
-     * @param ctx add_expression context
+     * @param ctx addExpression context
+     * @return none
      */
     public void exitAddExpression(AddExpressionContext ctx) {
         Expression rightExpression = stack.pop();
@@ -96,6 +105,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     /**
      * Returns Expression type represented by given ParseTree
      * 
+     * @param none
      * @return expression
      */
     public Expression getExpression() {
