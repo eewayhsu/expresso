@@ -19,14 +19,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
 
     private final Stack<Expression> stack = new Stack<Expression>();
 
-    /**
-<<<<<<< HEAD
-     * Tries to assert that the Expression tree is complete This is not a
-     * bijective condition; it only ensures that there are no dangling nodes,
-     * i.e. that there is only one node left that has no parent, namely, the
-     * root node.
-=======
-     * Tries to assert that the Expression tree is complete
+     /** Tries to assert that the Expression tree is complete
      * This is not a bijective condition; it only ensures that there are no
      * dangling nodes, i.e. that there is only one node left that has no parent,
      * namely, the root node.
@@ -36,7 +29,6 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * @param ctx root context
      * @return none
      * @throws RuntimeException if the Expression tree is incomplete
->>>>>>> a1b9ec0566ec847f7ea86a3352f1093b95323d4e
      */
     public void exitRoot(RootContext ctx) {
         if (stack.size() != 1) throw new RuntimeException("Parse tree is awkward!");
@@ -49,13 +41,8 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      *
      * This method is fired whenever the walker exits a literal node
      *
-<<<<<<< HEAD
-     * @param ctx
-     *            root_expression context
-=======
      * @param ctx literal context
      * @return none
->>>>>>> a1b9ec0566ec847f7ea86a3352f1093b95323d4e
      */
     public void exitLiteral(LiteralContext ctx) {
         String token = ctx.getText();
@@ -80,19 +67,13 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * 
      * This method is fired whenever the walker exits a multExpression node
      *
-<<<<<<< HEAD
-     * @param ctx
-     *            mult_expression context
-=======
      * @param ctx multExpression context
      * @return none
->>>>>>> a1b9ec0566ec847f7ea86a3352f1093b95323d4e
      */
     public void exitMultExpression(MultExpressionContext ctx) {
         Expression rightExpression = stack.pop();
         Expression leftExpression = stack.pop();
-        Expression multiplicationExpression = new MultiplicationExpression(
-                leftExpression, rightExpression);
+        Expression multiplicationExpression = new MultiplicationExpression(leftExpression, rightExpression);
         stack.push(multiplicationExpression);
     }
 
@@ -108,19 +89,13 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * 
      * This method is fired whenever the walker exits an addExpression node
      *
-<<<<<<< HEAD
-     * @param ctx
-     *            add_expression context
-=======
      * @param ctx addExpression context
      * @return none
->>>>>>> a1b9ec0566ec847f7ea86a3352f1093b95323d4e
      */
     public void exitAddExpression(AddExpressionContext ctx) {
         Expression rightExpression = stack.pop();
         Expression leftExpression = stack.pop();
-        Expression additionExpression = new AdditionExpression(leftExpression,
-                rightExpression);
+        Expression additionExpression = new AdditionExpression(leftExpression, rightExpression);
         stack.push(additionExpression);
     }
 

@@ -11,8 +11,9 @@ import expresso.Expression.ExpressionType;
  * Two instances of PolynomialTerm are equal iff they contain the same variables
  * that are raised to the same power. For example:
  *
- * 1) x*y = y*x 2) 2*x*y = y*x 3) x*y*x != y*x
- * 
+ * 1) x*y = y*x 
+ * 2) 2*x*y = y*x 
+ * 3) x*y*x != y*x
  */
 public class PolynomialTerm {
 
@@ -145,8 +146,8 @@ public class PolynomialTerm {
                 //TODO: this is a specific order while the spec might allow any order?  
                 //Should we just strengthen our spec for combined?
 
-                if (firstPolynomial.variables.values().isEmpty()){ return 1; }
-                if (secondPolynomial.variables.values().isEmpty()){ return -1; } 
+                if (firstPolynomial.variables.values().isEmpty()) return 1;
+                if (secondPolynomial.variables.values().isEmpty()) return -1;
 
                 //This is to allow us to return the largest first
                 if (Collections.max(firstPolynomial.variables.values()) >= (Collections.max(secondPolynomial.variables.values()))){
