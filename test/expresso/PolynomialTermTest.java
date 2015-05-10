@@ -10,11 +10,23 @@ import org.junit.Test;
 
 /**
  * This class contains tests for the PolynomialTerm class
+ * 
+ * PolynomialTerm supports the following methods...
+ *  differentiate()
+ *  simplify()
+ *  equals()
+ *  hashCode()
+ *  toString()
  */
 public class PolynomialTermTest {
     
     /*
-     * Testing strategy for equals method
+     * Testing strategy for PolynomialTerm:
+     *  To test PolynomialTerm, we will ensure that equality is correctly implemented,
+     *  meaning we will be checking for mathematical, not structural equality.  
+     *  We will ensure all supported functions work as specified.    
+     *      
+     * Testing strategy for equals method:
      * 
      * Partitions:
      * - same variable, different exponent
@@ -29,10 +41,8 @@ public class PolynomialTermTest {
      * - x and y
      * - 1*x and 2*x
      * - 0*x*x*x and 0
-     */
-    
-    /*
-     * Testing strategy for toString method
+     *
+     * Testing strategy for toString method:
      * 
      * Partitions:
      * - identity cases

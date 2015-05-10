@@ -11,7 +11,7 @@ import org.junit.Test;
 public class DifferentiateTest {
     
     /*
-     * Test strategy for differentiate
+     * Test strategy for differentiate:
      * 
      * Partitions:
      * - constant, variable

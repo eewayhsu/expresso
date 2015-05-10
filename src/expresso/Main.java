@@ -40,7 +40,7 @@ public class Main {
             if (input.isEmpty()) {
                 return;
             }
-
+            
             try {
                 final String trimmedInput = input.trim();
                 final String output;
