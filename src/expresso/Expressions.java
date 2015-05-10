@@ -62,7 +62,7 @@ public class Expressions {
      * Simplify an expression.
      * 
      * @param listOfPolynomials
-     *            the list of PolynomialTerm's to simplify
+     *            the non-empty list of PolynomialTerm's to simplify
      * @return an expression equal to the input that is a sum of terms without
      *         parentheses, where for all variables var_i in the expression, for
      *         all exponents e_i, the term (var_1^e_1 x var_2^e_2 x ... x
@@ -74,7 +74,8 @@ public class Expressions {
      */
     private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
-        String simplifiedString = simplifiedPolynomialList.get(0).toString();
+        StringBuffer simplifiedString = new StringBuffer();
+        simplifiedString.append(simplifiedPolynomialList.get(0).toString());
 
         for (int i = 1; i < simplifiedPolynomialList.size(); i++) {
             String stringPoly = simplifiedPolynomialList.get(i).toString();
@@ -83,10 +84,10 @@ public class Expressions {
             if (stringPoly == ADDITIVE_IDENTITY)
                 continue;
 
-            simplifiedString += "+" + stringPoly;
+            simplifiedString.append("+" + stringPoly);
         }
 
-        return simplifiedString;
+        return simplifiedString.toString();
     }
 
     /**

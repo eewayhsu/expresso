@@ -86,13 +86,6 @@ public class ExpressionTest {
         assert false; // make sure assertions are enabled with VM argument: -ea
     }
     
-//    @Test
-//    public void testEmptyString() {
-//        // TODO should we accept the EmptyString?
-//        // kelseyc says no. EmptyString was for the parentheses grammar
-//        Expression.parse("");
-//    }
-    
     // Tests for Expression parse
     
     @Test

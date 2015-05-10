@@ -7,6 +7,9 @@ public class AdditionExpression implements Expression {
 
     private final Expression left;
     private final Expression right;
+    
+    private static final int FIRST_PRIME_NUMBER = 5;
+    private static final int SECOND_PRIME_NUMBER = 37;
 
     /*
      * Abstraction Function: 
@@ -64,7 +67,7 @@ public class AdditionExpression implements Expression {
      */
     @Override
     public int hashCode() {
-        return 5 * left.hashCode() + 79 * right.hashCode();
+        return FIRST_PRIME_NUMBER * left.hashCode() + SECOND_PRIME_NUMBER * right.hashCode();
     }
 
     /**
