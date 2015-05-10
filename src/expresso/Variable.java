@@ -35,29 +35,9 @@ public class Variable implements Expression {
      * @return name of variable
      */
     public String getName() {
-        // TODO, sanitize
         return name;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Variable) {
-            Variable variable = (Variable) obj;
-            return variable.getName().equals(name);
-        } else {
-            return false;
-        }    
-    }
-
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
-
-    private void checkRep() {
-        name.matches("[a-zA-Z]+");
-    }
-
+    
     @Override
     public Expression expand() {
         return this;
@@ -78,8 +58,28 @@ public class Variable implements Expression {
         return this;
     }
     
+    /**
+     * We ensure structural equality in Expression (meaning order is considered)
+     */
     @Override
-    public String toString() {
-        return name;
+    public boolean equals(Object obj) {
+        if (obj instanceof Variable) {
+            Variable variable = (Variable) obj;
+            return variable.getName().equals(name);
+        } else {
+            return false;
+        }    
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    /**
+     * We ensure the rep invariant is maintained
+     */
+    private void checkRep() {
+        name.matches("[a-zA-Z]+");
     }
 }

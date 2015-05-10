@@ -44,44 +44,7 @@ public class MultiplicationExpression implements Expression {
     public Expression getRight() {
         return right;
     }
-
-    /**
-     * We ensure structural equality in Expression (meaning order is considered_
-     * Equality is checked with observational equality using the getLeft and getRight observers
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MultiplicationExpression) {
-            MultiplicationExpression expression = (MultiplicationExpression) obj;
-            return expression.getLeft().equals(left)
-                    && expression.getRight().equals(right);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * We return the addition of coprimes multiplied 
-     * by the hashcode of the left and right expressions
-     */
-    @Override
-    public int hashCode() {
-        return 5 * left.hashCode() + 79 * right.hashCode();
-    }
-
-    /**
-     * We ensure the rep invariant is maintained
-     */
-    private void checkRep() {
-        assert left != null;
-        assert right != null;
-    }
-
     
-    /**
-     * An expanded expression is the addition of expressions 
-     * Here we create a mathematically equivalent AdditionExpression
-     */
     @Override
     public Expression expand() {
         // Using the Master theorem, this procedure is exponential
@@ -107,7 +70,36 @@ public class MultiplicationExpression implements Expression {
     public ExpressionType getType() {
         return ExpressionType.MULTIPLICATION_EXPRESSION;
     }
-    
+        
+    /**
+     * We ensure structural equality in Expression (meaning order is considered)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof MultiplicationExpression) {
+            MultiplicationExpression expression = (MultiplicationExpression) obj;
+            return expression.getLeft().equals(left)
+                    && expression.getRight().equals(right);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        //We return the addition of coprimes multiplied 
+        //by the hashcode of the left and right expressions
+        return 5 * left.hashCode() + 79 * right.hashCode();
+    }
+
+    /**
+     * We ensure the rep invariant is maintained
+     */
+    private void checkRep() {
+        assert left != null;
+        assert right != null;
+    }
+
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();

@@ -39,6 +39,19 @@ public class Constant implements Expression {
     }
 
     @Override
+    public Expression expand() {
+        return this;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return ExpressionType.CONSTANT;
+    }
+    
+    /**
+     * We ensure structural equality in Expression (meaning order is considered)
+     */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof Constant) {
             Constant expression = (Constant) obj;
@@ -55,16 +68,6 @@ public class Constant implements Expression {
 
     private void checkRep() {
         assert value >= 0;
-    }
-
-    @Override
-    public Expression expand() {
-        return this;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.CONSTANT;
     }
 
     @Override
