@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 /**
  * PolynomialTerm is an immutable type representing 
  * a term in a polynomial expression.
+ * PolynomialTerms are non-negative.
  *
  * Two instances of PolynomialTerm are equal iff they contain the same variables
  * that are raised to the same power.  This is mathematical, not structural equality. 
@@ -29,8 +30,10 @@ public class PolynomialTerm {
     
     /*
      * Abstraction Function: 
-     * coefficient -> the coefficient for the polynomial term as a double, 1. when identity
+     * coefficient -> the coefficient for the polynomial term as a double
      * variables -> a hashMap representing the variables [a-zA-z]+ multiplied within the polynomialTerm
+     * variables.key -> The string representation of a variable (e.g., x, foo...)
+     * variables.value -> the exponent of the variable represented by the string in the key
      * 
      * Representation Invariant:
      * coefficient >= 0 (We cannot have negative numbers)
@@ -75,7 +78,8 @@ public class PolynomialTerm {
 
     /**
      * Turns a PolynomialTerm multiplied by zero into zero. This flushes the
-     * variables, keeping the hashcode constant
+     * variables, ensuring the hashcode of all polynomials multiplied by 0, 
+     * equaling 0 are the same.
      */
     private void MultipliedByZero() {
         if (this.coefficient == 0) {
