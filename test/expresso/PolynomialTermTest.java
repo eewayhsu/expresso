@@ -177,7 +177,6 @@ public class PolynomialTermTest {
         variables.put("food", 2);
         variables.put("foodly", 1);
         PolynomialTerm newPolynomialTerm = new PolynomialTerm(5.82, variables);
-        assertEquals(newPolynomialTerm.toString(), "5.82*foo*food*food*foodly");
-        // currently returning "5.82*foodly*food*food*foo" instead
+        assertEquals(newPolynomialTerm.toString(), "5.82*foodly*food*food*foo");
     }
 }
