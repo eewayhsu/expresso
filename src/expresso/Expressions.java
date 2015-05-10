@@ -27,15 +27,13 @@ public class Expressions {
 
         Expression parsedExpression = Expression.parse(expression);
 
-        // We could also return a list of not simplfied differentiate here.
+        // We could also return a list of not simplified differentiate here.
         List<PolynomialTerm> listOfPolynomials = toPolynomial(parsedExpression);
-        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm
-                .simplify(listOfPolynomials);
+        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
 
         // Push differentiated terms into new list
         // We need this because two different PolynomialTerm's when
-        // differentiated might
-        // return the same term, e.g. d/dx(y+1)
+        // differentiated might return the same term, e.g. d/dx(y+1)
         List<PolynomialTerm> differentiatedPolynomialList = new ArrayList<PolynomialTerm>();
 
         for (PolynomialTerm polynomial : simplifiedPolynomialList) {
@@ -67,7 +65,7 @@ public class Expressions {
      * Multiplied variables which are mathematically equivalent, but not structurally equivalent
      * are combined and represented as the first term (e.g. x*y + y*x = 2*x*y)
      * 
-     * @param listOfPolynomials the list of PolynomialTerm's to simplify
+     * @param listOfPolynomials a non-empty list of PolynomialTerm's to simplify
      * @return An expression equal to the input that is a sum of terms without
      *         parentheses, where for all variables var_i in the expression, for
      *         all exponents e_i, the term (var_1^e_1 x var_2^e_2 x ... x
@@ -77,11 +75,10 @@ public class Expressions {
      *         
      * @throws IllegalArgumentException if the expression is invalid (TODO)
      */
-    private static String simplifyWithList(
-            List<PolynomialTerm> listOfPolynomials) {
-        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm
-                .simplify(listOfPolynomials);
-        String simplifiedString = simplifiedPolynomialList.get(0).toString();
+    private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
+        List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
+        StringBuffer simplifiedString = new StringBuffer();
+        simplifiedString.append(simplifiedPolynomialList.get(0).toString());
 
         for (int i = 1; i < simplifiedPolynomialList.size(); i++) {
             String stringPoly = simplifiedPolynomialList.get(i).toString();
@@ -89,10 +86,10 @@ public class Expressions {
             // Skip loop iteration if term is the additive identity
             if (stringPoly == ADDITIVE_IDENTITY) continue;
 
-            simplifiedString += "+" + stringPoly;
+            simplifiedString.append("+" + stringPoly);
         }
 
-        return simplifiedString;
+        return simplifiedString.toString();
     }
 
     /**
