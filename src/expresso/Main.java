@@ -25,6 +25,8 @@ public class Main {
      *  
      * An empty input terminates the program.
      * 
+     * TODO specs are outdated
+     * 
      * @param args unused
      * @throws IOException if there is an error reading the input
      */
@@ -40,18 +42,20 @@ public class Main {
             }
 
             try {
+                final String trimmedInput = input.trim();
                 final String output;
                 
-                if (input.startsWith(COMMAND_PREFIX)) {
-                    output = handleCommand(input.substring(COMMAND_PREFIX.length()));
+                if (trimmedInput.startsWith(COMMAND_PREFIX)) {
+                    output = handleCommand(trimmedInput.substring(COMMAND_PREFIX.length()));
                 } else {
-                    output = handleExpression(input);
+                    String expression = handleExpression(trimmedInput);
                     // updates current expression if input is valid
-                    currentExpression = output;
+                    currentExpression = expression;
+                    output = trimmedInput.replaceAll("\\s+", "");
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
-                System.out.println(re.getClass().getName() + ": " + re.getMessage());
+                System.out.println("ParseError: Invalid expression");
             }
         }
     }
@@ -67,6 +71,8 @@ public class Main {
      * 1) x*y*x+y becomes (x*(y*x)) + y
      * 2) 4*35+90 becomes (4.0*35.0) + 90.0
      * 3) 4+5*9 becomes 4.0 + (5.0*9.0)
+     * 
+     * TODO: specs are outdated
      * 
      * @param input expression
      * @return parsed expression
@@ -86,12 +92,14 @@ public class Main {
      */
     private static String handleCommand(String substring) {
         if (currentExpression.equals("")) {
-            throw new RuntimeException("cannot execute command without an expression");
+            return "ParseError: no stored current expression";
         }
         if (substring.contains(DERIVATIVE_PREFIX)) {
             String variable = substring.substring(DERIVATIVE_PREFIX.length());
             if (variable.length() == 0) {
-                throw new RuntimeException("missing variable in derivative command");
+                return "ParseError: missing variable in derivative command";
+            } else if (!(variable.matches("[a-zA-Z]+"))) {
+                return "ParseError: must differentiate with respect to a valid variable";
             } else {
                 currentExpression = Expressions.differentiate(currentExpression, variable);
                 return currentExpression;
@@ -99,7 +107,8 @@ public class Main {
         } else if (substring.equals(SIMPLIFY)) {
             return Expressions.simplify(currentExpression);
         } else {
-            throw new RuntimeException("unknown command");
+            return "ParseError: unknown command \"" + substring +"\"" + "\nCurrentExpression: " + currentExpression;
+            // TODO modify response to invalid command
         }
     }
 }
