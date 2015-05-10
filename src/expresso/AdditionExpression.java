@@ -37,16 +37,6 @@ public class AdditionExpression implements Expression {
     }
 
     @Override
-    public Expression getLeft() {
-        return left;
-    }
-
-    @Override
-    public Expression getRight() {
-        return right;
-    }
-
-    @Override
     public Expression expand() {
         //An expanded expression is the addition of expressions is an AdditionExpression
         return this;
@@ -55,6 +45,16 @@ public class AdditionExpression implements Expression {
     @Override
     public ExpressionType getType() {
         return ExpressionType.ADDITION_EXPRESSION;
+    }
+    
+    @Override
+    public Expression getLeft() {
+        return left;
+    }
+
+    @Override
+    public Expression getRight() {
+        return right;
     }
     
     /**
