@@ -17,6 +17,12 @@ public class Main {
     
     /**
      * Read expression and command inputs from the console and output results.
+     * Acceptable commands are "!simplify", which simplifies the current expression, and
+     * "!d/d[variable]", which differentiates the current expression with respect to
+     * [variable]. Each new valid input expression updates the current expression.
+     * Each valid call to differentiate also updates the current expression to be the
+     * differentiated expression.
+     *  
      * An empty input terminates the program.
      * 
      * @param args
