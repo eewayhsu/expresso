@@ -138,17 +138,17 @@ public class ExpressionTest {
         Expression.parse("4 + 3 * x + 2 * x * x + 1 * x * x * (((x)))");
     }
     
-    @Test(expected=RuntimeException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testExpressionMissingConstant() {
         Expression.parse("3 *");
     }
     
-    @Test(expected=RuntimeException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testExpressionUnbalancedParentheses() {
         Expression.parse("( 3");
     }
     
-    @Test(expected=RuntimeException.class)
+    @Test(expected=IllegalArgumentException.class)
     public void testExpressionMissingOperation() {
         Expression.parse("3 x");
     }

@@ -30,7 +30,7 @@ public interface Expression {
     }
 
     /**
-     * Parse an expression. TODO: actually throw illegal argument exception
+     * Parse an expression. 
      *
      * @param String input Expression to parse
      * @return Expression expression AST for the input
@@ -49,14 +49,17 @@ public interface Expression {
         ExpressionParser parser = new ExpressionParser(tokens);
         parser.reportErrorsAsExceptions();
 
-        ParseTree expressionTree = parser.root();
-        ParseTreeWalker walker = new ParseTreeWalker();
+        try {
+          ParseTree expressionTree = parser.root();
+          ParseTreeWalker walker = new ParseTreeWalker();
+          ExpressionListenerExpressionCreator listener = new ExpressionListenerExpressionCreator();
+          walker.walk(listener, expressionTree);
 
-        ExpressionListenerExpressionCreator listener = new ExpressionListenerExpressionCreator();
-        walker.walk(listener, expressionTree);
+          return listener.getExpression();
 
-        return listener.getExpression();
-
+        } catch (RuntimeException e) {
+          throw new IllegalArgumentException("Input is invalid");
+        }
     }
 
     // Instance methods
