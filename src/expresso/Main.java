@@ -57,9 +57,16 @@ public class Main {
     }
 
     /**
-     * Returns parsed expression with parentheses indicating groupings of binary operations from left to right.
+     * Returns parsed expression with parentheses indicating groupings of binary operations from left to right. 
      * This represents the parse tree, adding parentheses at each splitting node lower than the root node. 
-     * (e.g. a + b + c is also represented as a + (b + c)).
+     * Addition operations are separated by one space. 
+     * Multiplication operations are not separated by whitespace. 
+     * Constants are represented as doubles.
+     * 
+     * For example,
+     * 1) x*y*x+y becomes (x*(y*x)) + y
+     * 2) 4*35+90 becomes (4.0*35.0) + 90.0
+     * 3) 4+5*9 becomes 4.0 + (5.0*9.0)
      * 
      * @param input expression
      * @return parsed expression

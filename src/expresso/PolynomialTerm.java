@@ -205,6 +205,7 @@ public class PolynomialTerm {
      * This method returns a String representation of our polynomial. 
      * If the coefficient of a non-trivial polynomial term is 1, then the representation
      * does not include the coefficient, i.e. 1*x*y will be represented as x*y
+     * Coefficients are represented as doubles (i.e. 5.0*x)
      *
      * @return the String representation of the PolynomialTerm
      */ 

@@ -15,7 +15,7 @@ public class Variable implements Expression {
      * name represents the name of the variable
      * 
      * Rep Invariant:
-     * name is a string of lowercase and/or upppercase alphabet letters. 
+     * name is a string of lowercase and/or uppercase alphabet letters. 
      * length of name is at least 1.
      * 
      * Safety from Rep Exposure:
@@ -77,6 +77,11 @@ public class Variable implements Expression {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return name;
     }
 
     /**
