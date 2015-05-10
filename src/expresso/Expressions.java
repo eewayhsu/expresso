@@ -52,7 +52,7 @@ public class Expressions {
     /**
      * Simplify an expression. This method wraps {@link simplifyWithList()}
      * 
-     * @throws IllegalArgumentException if the expression is invalid (TODO)
+     * @throws IllegalArgumentException if the expression is invalid
      */
     public static String simplify(String expression) {
         Expression parsedExpression = Expression.parse(expression);
@@ -78,7 +78,7 @@ public class Expressions {
      *         non-zero, non-identity constant factor; and read left-to-right,
      *         the largest exponent in each term is non-increasing
      *         
-     * @throws IllegalArgumentException if the expression is invalid (TODO)
+     * @throws IllegalArgumentException if the expression is invalid
      */
     private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
@@ -116,19 +116,14 @@ public class Expressions {
      * @param expansion fully-expanded expression whose polynomial terms are to be extracted
      * @return a list of polynomial terms contained in the expression
      */
-    private static List<PolynomialTerm> extractPolynomialTerms(
-            Expression expansion) {
-        List<PolynomialTerm> listOfPolyTerms = new ArrayList<>();
+    private static List<PolynomialTerm> extractPolynomialTerms(Expression expansion) {
+        List<PolynomialTerm> listOfPolyTerms = new ArrayList<PolynomialTerm>();
 
         if (expansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
 
-            List<Expression> children = new ArrayList<>();
-            children.add(((AdditionExpression) expansion).getLeft());
-            children.add(((AdditionExpression) expansion).getRight());
-
-            for (Expression expression : children) {
-                listOfPolyTerms.addAll(extractPolynomialTerms(expression));
-            }
+            // Adds terms from both left and right children
+            listOfPolyTerms.addAll(extractPolynomialTerms(expansion.getLeft()));
+            listOfPolyTerms.addAll(extractPolynomialTerms(expansion.getRight()));
 
         } else {
             listOfPolyTerms.add(new PolynomialTerm(expansion));
