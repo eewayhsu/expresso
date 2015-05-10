@@ -130,7 +130,7 @@ public class PolynomialTermTest {
     }
 
     /**
-     * Test that multiplicative identity's string rep is 0.0
+     * Test that multiplicative identity's string rep is 1.0
      */
     @Test
     public void testMultiplicativeIdentityStringRep() {

@@ -83,6 +83,23 @@ public interface Expression {
      */
     public Expression getRight();
     
+    /**
+     * Defines structural equality for two Expression objects.
+     * Expression A and Expression B are equal if and only if their parse trees are equal.
+     * If the order of operations is ambiguous, the parser automatically treats the 
+     * leftmost literal as its left child, i.e.
+     *
+     *  1) x*y*z is equal to x*(y*z)
+     *  2) x*y*z is not equal to (x*y)*z
+     *  3) x*y+z is equal to (x*y)+z
+     *  4) x*y+z is not equal to x*(y+z)
+     * 
+     * @param Object obj  The object to test equality with
+     * @return boolean True if obj and the current instance are equal
+     */
+    @Override
+    public boolean equals(Object obj);
+
     @Override
     public String toString();
 }
