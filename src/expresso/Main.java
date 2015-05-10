@@ -57,8 +57,8 @@ public class Main {
     }
 
     /**
-     * Returns parsed expression with parentheses 
-     * indicating groupings of binary operations from left to right.
+     * Returns parsed expression with parentheses indicating groupings of binary operations from left to right.
+     * This represents the parse tree, adding parentheses at each splitting node lower than the root node. 
      * (e.g. a + b + c is also represented as a + (b + c)).
      * 
      * @param input expression
