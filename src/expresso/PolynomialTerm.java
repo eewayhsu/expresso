@@ -225,7 +225,7 @@ public class PolynomialTerm {
         Iterator<Entry<String, Integer>> it = variables.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
-            for (int i = 0; i < (int) pair.getValue(); i++) {
+            for (int i = 0; i < pair.getValue(); i++) {
                 returnString += operation + pair.getKey();
                 operation = "*";
             }
