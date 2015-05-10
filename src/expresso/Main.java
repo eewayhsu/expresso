@@ -98,7 +98,7 @@ public class Main {
             String variable = substring.substring(DERIVATIVE_PREFIX.length());
             if (variable.length() == 0) {
                 return "ParseError: missing variable in derivative command";
-            } else if (!(variable.matches("[a-zA-Z+]"))) {
+            } else if (!(variable.matches("[a-zA-Z]+"))) {
                 return "ParseError: must differentiate with respect to a valid variable";
             } else {
                 currentExpression = Expressions.differentiate(currentExpression, variable);
