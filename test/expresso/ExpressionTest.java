@@ -16,25 +16,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-/*
+/**
  * This class contains tests for the language of balanced parentheses.
  */
 public class ExpressionTest {
-    /*
-     *  Test strategy for expression parser (parentheses only):
-     *  
-     *  Partitions:
-     *  - balanced or unbalanced pairs
-     *  - sequence of 0, 1, 2+ pairs
-     * 
-     *  Test cases:
-     *  - empty string
-     *  - () a single balanced pair
-     *  - ()() two balanced pairs
-     *  - ()(((())))(()) three balanced sequences
-     *  - ( a single unbalanced pair
-     *  - (() one and a half pairs
-     */
     
     /*
      * Test strategy for expression parser:
@@ -101,12 +86,14 @@ public class ExpressionTest {
         assert false; // make sure assertions are enabled with VM argument: -ea
     }
     
-    @Test
-    public void testEmptyString() {
-        // TODO should we accept the EmptyString?
-        // kelseyc says no. EmptyString was for the parentheses grammar
-        Expression.parse("");
-    }
+//    @Test
+//    public void testEmptyString() {
+//        // TODO should we accept the EmptyString?
+//        // kelseyc says no. EmptyString was for the parentheses grammar
+//        Expression.parse("");
+//    }
+    
+    // Tests for Expression parse
     
     @Test
     public void testExpressionAddConstants() {
@@ -120,7 +107,7 @@ public class ExpressionTest {
     
     @Test
     public void testExpressionParentheses() {
-        Expression.parse("3 * (x + 2.4)");
+        Expression.parse("3 * (x + 2.4030)");
     }
     
     @Test
@@ -141,17 +128,6 @@ public class ExpressionTest {
     @Test
     public void testExpressionMultiplyPlus() {
         Expression.parse("(3+5*6)*4*3+3");
-    }
-    
-    
-    @Test
-    public void testExpressionWithTwo() {
-        Expression.parse("1+2+3");
-    }
-    
-    @Test
-    public void testExpressionWithDoubles() {
-        Expression.parse("1.0+2+3");
     }
     
     @Test
@@ -183,6 +159,8 @@ public class ExpressionTest {
     public void testExpressionMissingOperation() {
         Expression.parse("3 x");
     }
+    
+    // Tests for structural equality
     
     @Test
     public void testEqualityWhiteSpace() {
