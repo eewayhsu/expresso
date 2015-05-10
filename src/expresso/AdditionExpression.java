@@ -2,6 +2,8 @@ package expresso;
 
 /**
  * AdditionExpression is an immutable type implementing expression representing an addition expression.
+ * 
+ * AdditionExpression supports the methods of Expression
  */
 public class AdditionExpression implements Expression {
 

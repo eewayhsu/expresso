@@ -2,6 +2,9 @@ package expresso;
 
 /**
  * Constant is an immutable type implementing expression representing a constant.
+ * 
+ * Constant supports the following methods in addition to those of Expression
+ * getValue()
  */
 public class Constant implements Expression {
 
