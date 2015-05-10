@@ -10,7 +10,7 @@ import org.junit.Test;
 public class SimplifyTest {
     
     /*
-     * Test strategy for simplify
+     * Test strategy for simplify:
      * 
      * Partitions:
      *  - constant only

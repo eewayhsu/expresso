@@ -38,7 +38,7 @@ public class Main {
             if (input.isEmpty()) {
                 return;
             }
-
+            
             try {
                 final String output;
                 

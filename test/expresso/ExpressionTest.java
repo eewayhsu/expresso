@@ -18,6 +18,16 @@ import static org.junit.Assert.assertFalse;
 
 /**
  * This class contains tests for the language of balanced parentheses.
+ * 
+ * Expression supports the following methods...
+ *  parse(String)
+ *  expand()
+ *  getType()
+ *  getLeft()
+ *  getRight()
+ *  equals()
+ *  hashCode()
+ *  toString()
  */
 public class ExpressionTest {
     
