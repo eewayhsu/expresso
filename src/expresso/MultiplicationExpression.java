@@ -93,14 +93,6 @@ public class MultiplicationExpression implements Expression {
         return FIRST_PRIME_NUMBER * left.hashCode() + SECOND_PRIME_NUMBER * right.hashCode();
     }
 
-    /**
-     * We ensure the rep invariant is maintained
-     */
-    private void checkRep() {
-        assert left != null;
-        assert right != null;
-    }
-
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();
@@ -122,5 +114,13 @@ public class MultiplicationExpression implements Expression {
             output.append(right.toString());
         }
         return output.toString();
+    }
+    
+    /**
+     * We ensure the rep invariant is maintained
+     */
+    private void checkRep() {
+        assert left != null;
+        assert right != null;
     }
 }

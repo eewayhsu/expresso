@@ -66,10 +66,6 @@ public class Constant implements Expression {
         return Double.toString(value).hashCode();
     }
 
-    private void checkRep() {
-        assert value >= 0;
-    }
-
     @Override
     public Expression getLeft() {
         return this;
@@ -83,5 +79,9 @@ public class Constant implements Expression {
     @Override
     public String toString() {
         return Double.toString(value);
+    }   
+
+    private void checkRep() {
+        assert value >= 0;
     }
 }

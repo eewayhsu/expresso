@@ -20,8 +20,10 @@ public class PolynomialTerm {
     
     /*
      * Abstraction Function: 
-     * coefficient -> the coefficient for the polynomial term as a double, 1. when identity
+     * coefficient -> the coefficient for the polynomial term as a double
      * variables -> a hashMap representing the variables [a-zA-z]+ multiplied within the polynomialTerm
+     * variables.key -> The string representation of a variable (e.g., x, foo...)
+     * variables.value -> the exponent of the variable represented by the string in the key
      * 
      * Representation Invariant:
      * coefficient >= 0 (We cannot have negative numbers)
@@ -193,6 +195,7 @@ public class PolynomialTerm {
      * This method returns a String representation of our polynomial. 
      * If the coefficient of a non-trivial polynomial term is 1, then the representation
      * does not include the coefficient, i.e. 1*x*y will be represented as x*y
+     * Coefficients are represented as doubles (i.e. 5.0*x)
      *
      * @param none
      * @return the String representation of the PolynomialTerm

@@ -25,10 +25,8 @@ public class Main {
      *  
      * An empty input terminates the program.
      * 
-     * @param args
-     *            unused
-     * @throws IOException
-     *             if there is an error reading the input
+     * @param args unused
+     * @throws IOException if there is an error reading the input
      */
     public static void main(String[] args) throws IOException {
         final BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -63,8 +61,13 @@ public class Main {
 
     /**
      * Returns parsed expression with parentheses indicating groupings of binary operations
-     * from left to right.
-     * TODO strengthen specification
+     * from left to right. Addition operations are separated by one space. Multiplication
+     * operations are not separated by whitespace. Constants are represented as doubles.
+     * 
+     * For example,
+     * 1) x*y*x+y becomes (x*(y*x)) + y
+     * 2) 4*35+90 becomes (4.0*35.0) + 90.0
+     * 3) 4+5*9 becomes 4.0 + (5.0*9.0)
      * 
      * @param input expression
      * @return parsed expression

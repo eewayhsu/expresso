@@ -71,7 +71,6 @@ public class AdditionExpression implements Expression {
         }
     }
 
-
     @Override
     public int hashCode() {
         return FIRST_PRIME_NUMBER * left.hashCode() + SECOND_PRIME_NUMBER * right.hashCode();
