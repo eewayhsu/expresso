@@ -1,27 +1,39 @@
 package expresso;
 
-import java.util.*;
-
-import expresso.Expression.ExpressionType;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * PolynomialTerm is an immutable type representing 
  * a term in a polynomial expression.
+ * PolynomialTerms are non-negative.
  *
  * Two instances of PolynomialTerm are equal iff they contain the same variables
- * that are raised to the same power. For example:
- *
+ * that are raised to the same power.  This is mathematical, not structural equality. 
+ * 
+ * For example:
  * 1) x*y = y*x 
  * 2) 2*x*y = y*x 
  * 3) x*y*x != y*x
  * 
+ * PolynomialTerm supports the following methods...
+ * differentiate(Expression)
+ * simplify(Expression)
  */
 public class PolynomialTerm {
     
     /*
      * Abstraction Function: 
-     * coefficient -> the coefficient for the polynomial term as a double, 1. when identity
+     * coefficient -> the coefficient for the polynomial term as a double
      * variables -> a hashMap representing the variables [a-zA-z]+ multiplied within the polynomialTerm
+     * variables.key -> The string representation of a variable (e.g., x, foo...)
+     * variables.value -> the exponent of the variable represented by the string in the key
      * 
      * Representation Invariant:
      * coefficient >= 0 (We cannot have negative numbers)
@@ -66,7 +78,8 @@ public class PolynomialTerm {
 
     /**
      * Turns a PolynomialTerm multiplied by zero into zero. This flushes the
-     * variables, keeping the hashcode constant
+     * variables, ensuring the hashcode of all polynomials multiplied by 0, 
+     * equaling 0 are the same.
      */
     private void MultipliedByZero() {
         if (this.coefficient == 0) {
@@ -106,7 +119,6 @@ public class PolynomialTerm {
      * Expression must only contain ME descendants
      *
      * @param Expression node The root node of the subtree, containing only ME descendants
-     * @return none
      */ 
     private void walkTree(Expression node) {
         switch (node.getType()) {
@@ -194,7 +206,6 @@ public class PolynomialTerm {
      * If the coefficient of a non-trivial polynomial term is 1, then the representation
      * does not include the coefficient, i.e. 1*x*y will be represented as x*y
      *
-     * @param none
      * @return the String representation of the PolynomialTerm
      */ 
     
@@ -211,9 +222,9 @@ public class PolynomialTerm {
         if (variables.isEmpty()) return String.valueOf(coefficient);
 
         //Adds variables into the string
-        Iterator it = variables.entrySet().iterator();
+        Iterator<Entry<String, Integer>> it = variables.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
             for (int i = 0; i < (int) pair.getValue(); i++) {
                 returnString += operation + pair.getKey();
                 operation = "*";

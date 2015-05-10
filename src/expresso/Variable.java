@@ -2,6 +2,9 @@ package expresso;
 
 /**
  * Variable is an immutable type representing a variable.
+ * 
+ * Variable supports the following methods in addition to those of Expression
+ * getName()
  */
 public class Variable implements Expression {
 

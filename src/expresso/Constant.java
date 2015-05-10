@@ -2,6 +2,9 @@ package expresso;
 
 /**
  * Constant is an immutable type implementing expression representing a constant.
+ * 
+ * Constant supports the following methods in addition to those of Expression
+ * getValue()
  */
 public class Constant implements Expression {
 
@@ -48,6 +51,16 @@ public class Constant implements Expression {
         return ExpressionType.CONSTANT;
     }
     
+    @Override
+    public Expression getLeft() {
+        return this;
+    }
+
+    @Override
+    public Expression getRight() {
+        return this;
+    }
+    
     /**
      * We ensure structural equality in Expression (meaning order is considered)
      */
@@ -70,16 +83,6 @@ public class Constant implements Expression {
         assert value >= 0;
     }
 
-    @Override
-    public Expression getLeft() {
-        return this;
-    }
-
-    @Override
-    public Expression getRight() {
-        return this;
-    }
-    
     @Override
     public String toString() {
         return Double.toString(value);

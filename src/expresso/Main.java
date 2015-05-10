@@ -25,14 +25,11 @@ public class Main {
      *  
      * An empty input terminates the program.
      * 
-     * @param args
-     *            unused
-     * @throws IOException
-     *             if there is an error reading the input
+     * @param args unused
+     * @throws IOException if there is an error reading the input
      */
     public static void main(String[] args) throws IOException {
-        final BufferedReader in = new BufferedReader(new InputStreamReader(
-                System.in));
+        final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
             System.out.print("> ");
@@ -46,8 +43,7 @@ public class Main {
                 final String output;
                 
                 if (input.startsWith(COMMAND_PREFIX)) {
-                    output = handleCommand(input.substring(COMMAND_PREFIX
-                            .length()));
+                    output = handleCommand(input.substring(COMMAND_PREFIX.length()));
                 } else {
                     output = handleExpression(input);
                     // updates current expression if input is valid
@@ -55,16 +51,15 @@ public class Main {
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
-                System.out.println(re.getClass().getName() + ": "
-                        + re.getMessage());
+                System.out.println(re.getClass().getName() + ": " + re.getMessage());
             }
         }
     }
 
     /**
-     * Returns parsed expression with parentheses indicating groupings of binary operations
-     * from left to right.
-     * TODO strengthen specification
+     * Returns parsed expression with parentheses indicating groupings of binary operations from left to right.
+     * This represents the parse tree, adding parentheses at each splitting node lower than the root node. 
+     * (e.g. a + b + c is also represented as a + (b + c)).
      * 
      * @param input expression
      * @return parsed expression
