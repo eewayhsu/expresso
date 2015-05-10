@@ -6,7 +6,12 @@ import java.util.List;
 import expresso.Expression.ExpressionType;
 
 /**
- * String-based class of the expression system.
+ * An immutable string-based class of the expression system.
+ * 
+ * Expressions support the following methods...
+ *  differentiate(String, String)
+ *  simplify(String)
+ * 
  */
 public class Expressions {
     private static String ADDITIVE_IDENTITY = "0.0";

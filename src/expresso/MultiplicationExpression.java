@@ -1,8 +1,9 @@
 package expresso;
 
 /**
- * MultiplicationExpression is an immutable type representing a multiplication
- * expression.
+ * MultiplicationExpression is an immutable type representing a multiplication expression.
+ * 
+ * MultiplicationExpression supports the methods of Expression
  */
 public class MultiplicationExpression implements Expression {
 

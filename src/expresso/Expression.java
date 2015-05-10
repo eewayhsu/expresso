@@ -9,6 +9,13 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 /**
  * Expression represents a mathematical expression. 
  * This is a immutable recursive abstract datatype.
+ * 
+ * Expression supports the following methods...
+ * parse(String)
+ * expand()
+ * getType()
+ * getLeft()
+ * getRight()
  */
 public interface Expression {
 
