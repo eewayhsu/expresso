@@ -42,7 +42,6 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * This method is fired whenever the walker exits a literal node
      *
      * @param ctx literal context
-     * @return none
      */
     public void exitLiteral(LiteralContext ctx) {
         String token = ctx.getText();
@@ -68,7 +67,6 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * This method is fired whenever the walker exits a multExpression node
      *
      * @param ctx multExpression context
-     * @return none
      */
     public void exitMultExpression(MultExpressionContext ctx) {
         Expression rightExpression = stack.pop();
@@ -90,7 +88,6 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
      * This method is fired whenever the walker exits an addExpression node
      *
      * @param ctx addExpression context
-     * @return none
      */
     public void exitAddExpression(AddExpressionContext ctx) {
         Expression rightExpression = stack.pop();
@@ -102,8 +99,7 @@ public class ExpressionListenerExpressionCreator extends ExpressionBaseListener 
     /**
      * Returns Expression type represented by given ParseTree
      * 
-     * @param none
-     * @return expression
+     * @return expression expression represented by ParseTree
      */
     public Expression getExpression() {
         return stack.get(0);

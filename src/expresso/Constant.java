@@ -45,11 +45,6 @@ public class Constant implements Expression {
     public Expression expand() {
         return this;
     }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.CONSTANT;
-    }
     
     @Override
     public Expression getLeft() {
@@ -59,6 +54,21 @@ public class Constant implements Expression {
     @Override
     public Expression getRight() {
         return this;
+    }
+    
+    @Override
+    public boolean isDistributable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isParameterizable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isLiteral() {
+        return true;
     }
     
     /**

@@ -25,10 +25,6 @@ public interface Expression {
     //  + MultiplicationExpression(left:Expression, right:Expression)
     //  + AdditionExpression(left:Expression, right:Expression)
 
-    public enum ExpressionType {
-        VARIABLE, CONSTANT, ADDITION_EXPRESSION, MULTIPLICATION_EXPRESSION;
-    }
-
     /**
      * Parse an expression. 
      *
@@ -71,13 +67,6 @@ public interface Expression {
      * @return an algebraically equivalent expression that consists of a sum of products
      */
     public Expression expand();
-
-    /**
-     * Returns corresponding ExpressionType
-     * 
-     * @return corresponding ExpressionType
-     */
-    public ExpressionType getType();
     
     /**
      * Returns the left expression
@@ -92,6 +81,24 @@ public interface Expression {
      * @return right expression
      */
     public Expression getRight();
+    
+    /**
+     * TODO
+     * @return
+     */
+    public boolean isDistributable();
+    
+    /**
+     * TODO
+     * @return
+     */
+    public boolean isParameterizable();
+    
+    /**
+     * TODO
+     * @return
+     */
+    public boolean isLiteral();
     
     /**
      * Defines structural equality for two Expression objects.

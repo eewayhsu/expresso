@@ -55,26 +55,38 @@ public class MultiplicationExpression implements Expression {
         Expression rightExpand = right.expand();
         Expression leftExpand = left.expand();
 
-        if (rightExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+        // if rightExpand has properties of an addition expression
+        if (!(rightExpand.isDistributable()) && !(rightExpand.isLiteral()) && !(rightExpand.isParameterizable())) {
             Expression newLeft = new MultiplicationExpression(leftExpand, rightExpand.getLeft());
             Expression newRight = new MultiplicationExpression(leftExpand, rightExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
+        }
 
-        } else if (leftExpand.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+        // if leftExpand has properties of an addition expression
+        if (!(leftExpand.isDistributable()) && !(leftExpand.isLiteral()) && !(leftExpand.isParameterizable())) {
             Expression newLeft = new MultiplicationExpression(rightExpand, leftExpand.getLeft());
             Expression newRight = new MultiplicationExpression(rightExpand, leftExpand.getRight());
             return new AdditionExpression(newLeft.expand(), newRight.expand());
-
-        } else {
-            return this;
         }
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.MULTIPLICATION_EXPRESSION;
-    }
         
+        return this;
+    }
+    
+    @Override
+    public boolean isDistributable() {
+        return true;
+    }
+    
+    @Override
+    public boolean isParameterizable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isLiteral() {
+        return false;
+    }
+    
     /**
      * We ensure structural equality in Expression (meaning order is considered)
      */
@@ -97,8 +109,7 @@ public class MultiplicationExpression implements Expression {
     @Override
     public String toString() {
         StringBuffer output = new StringBuffer();
-        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
-                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+        if (!(left.isLiteral())) {
             output.append("(");
             output.append(left.toString());
             output.append(")");
@@ -106,8 +117,7 @@ public class MultiplicationExpression implements Expression {
             output.append(left.toString());
         }
         output.append("*");
-        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
-                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+        if (!(right.isLiteral())) {
             output.append("(");
             output.append(right.toString());
             output.append(")");

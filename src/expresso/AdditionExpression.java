@@ -43,11 +43,6 @@ public class AdditionExpression implements Expression {
         //An expanded expression is the addition of expressions is an AdditionExpression
         return this;
     }
-
-    @Override
-    public ExpressionType getType() {
-        return ExpressionType.ADDITION_EXPRESSION;
-    }
     
     @Override
     public Expression getLeft() {
@@ -57,6 +52,21 @@ public class AdditionExpression implements Expression {
     @Override
     public Expression getRight() {
         return right;
+    }
+    
+    @Override
+    public boolean isDistributable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isParameterizable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isLiteral() {
+        return false;
     }
     
     /**
@@ -89,8 +99,7 @@ public class AdditionExpression implements Expression {
     @Override 
     public String toString() {
         StringBuffer output = new StringBuffer();
-        if (left.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
-                left.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+        if (!(left.isLiteral())) {
             output.append("(");
             output.append(left.toString());
             output.append(")");
@@ -98,8 +107,7 @@ public class AdditionExpression implements Expression {
             output.append(left.toString());
         }
         output.append(" + ");
-        if (right.getType().equals(ExpressionType.ADDITION_EXPRESSION) |
-                right.getType().equals(ExpressionType.MULTIPLICATION_EXPRESSION)) {
+        if (!(right.isLiteral())) {
             output.append("(");
             output.append(right.toString());
             output.append(")");
