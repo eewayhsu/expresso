@@ -96,7 +96,7 @@ public interface Expression {
     
     /**
      * An Expression is parameterizable iff its abstraction is a differentiatable parameter
-     * according to the Expresso specification. In other words, it must be a valid symbol in
+     * according to the Expresso specification. In other words, it must be a valid variable in
      * the symbolic differentiation clause of the spec
      * 
      * @return true if the Expression is Parameterizable, false otherwise

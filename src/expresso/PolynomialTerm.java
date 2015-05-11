@@ -131,8 +131,7 @@ public class PolynomialTerm {
 
         // If node has properties of a variable
         if (node.isLiteral() && node.isParameterizable()) {
-            Variable variableNode = (Variable) node; // TODO we shouldn't be casting
-            String variable = variableNode.getName();
+            String variable = node.toString();
             int power = variables.containsKey(variable) ? variables
                     .get(variable) + 1 : 1;
             variables.put(variable, power);
@@ -141,8 +140,7 @@ public class PolynomialTerm {
 
         // If node has properties of a constant
         if (node.isLiteral() && !(node.isParameterizable())) {
-            Constant constantNode = (Constant) node; // TODO we shouldn't be casting
-            coefficient = coefficient * constantNode.getValue();
+            coefficient = coefficient * Double.parseDouble(node.toString());
             return;
         }
 

@@ -32,15 +32,6 @@ public class Variable implements Expression {
         checkRep();
     }
 
-    /**
-     * Returns name of variable
-     * 
-     * @return name of variable
-     */
-    public String getName() {
-        return name;
-    }
-    
     @Override
     public Expression expand() {
         return this;
@@ -77,8 +68,7 @@ public class Variable implements Expression {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Variable) {
-            Variable variable = (Variable) obj;
-            return variable.getName().equals(name);
+            return ((Variable) obj).name.equals(name);
         } else {
             return false;
         }    
