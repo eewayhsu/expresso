@@ -3,8 +3,6 @@ package expresso;
 import java.util.ArrayList;
 import java.util.List;
 
-import expresso.Expression.ExpressionType;
-
 /**
  * An immutable string-based class of the expression system.
  * 
@@ -119,7 +117,8 @@ public class Expressions {
     private static List<PolynomialTerm> extractPolynomialTerms(Expression expansion) {
         List<PolynomialTerm> listOfPolyTerms = new ArrayList<PolynomialTerm>();
 
-        if (expansion.getType().equals(ExpressionType.ADDITION_EXPRESSION)) {
+        // if expansion has properties of an addition expression
+        if (!(expansion.isDistributable()) && !(expansion.isLiteral()) && !(expansion.isParameterizable())) {
 
             // Adds terms from both left and right children
             listOfPolyTerms.addAll(extractPolynomialTerms(expansion.getLeft()));

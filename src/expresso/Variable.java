@@ -47,11 +47,6 @@ public class Variable implements Expression {
     }
 
     @Override
-    public ExpressionType getType() {
-        return ExpressionType.VARIABLE;
-    }
-
-    @Override
     public Expression getLeft() {
         return this;
     }
@@ -59,6 +54,21 @@ public class Variable implements Expression {
     @Override
     public Expression getRight() {
         return this;
+    }
+    
+    @Override
+    public boolean isDistributable() {
+        return false;
+    }
+    
+    @Override
+    public boolean isParameterizable() {
+        return true;
+    }
+    
+    @Override
+    public boolean isLiteral() {
+        return true;
     }
     
     /**
