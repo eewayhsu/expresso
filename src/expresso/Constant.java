@@ -32,15 +32,6 @@ public class Constant implements Expression {
         checkRep();
     }
 
-    /**
-     * Returns value of the constant
-     * 
-     * @return value of the constant
-     */
-    public double getValue() {
-        return value;
-    }
-
     @Override
     public Expression expand() {
         return this;
@@ -77,8 +68,7 @@ public class Constant implements Expression {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Constant) {
-            Constant expression = (Constant) obj;
-            return expression.getValue() == value;
+            return ((Constant) obj).value == value;
         } else {
             return false;
         }
