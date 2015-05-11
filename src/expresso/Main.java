@@ -17,16 +17,20 @@ public class Main {
     
     /**
      * Read expression and command inputs from the console and output results.
-     * Acceptable commands are "!simplify", which simplifies the current expression, and
-     * "!d/d[variable]", which differentiates the current expression with respect to
-     * [variable]. Each new valid input expression updates the current expression.
-     * Each valid call to differentiate also updates the current expression to be the
-     * differentiated expression.
+     * 
+     * Acceptable commands include...
      *  
-     * An empty input terminates the program.
-     * 
-     * TODO specs are outdated
-     * 
+     *  An empty return, which terminates the program.
+     *  
+     *  Each new valid input expression updates the current expression.
+     *  "!simplify", which simplifies the current expression.  There must be a current stored expression.  
+     *  "!d/d[variable]", which differentiates the current expression with respect to [variable].  Variable cannot be a constant.  
+     *  "!", which throws a "ParseError: unknown command """, but then prints the current stored expression.
+     *  
+     *  With no current stored expression, the above 3 inputs return "ParseError: no stored current expression"
+     *  Each valid call to differentiate (not simplify) also updates the current expression to be the differentiated expression.
+     *  Input "!d/d" alerts the user they are missing a variable to differentiate by.
+     *  
      * @param args unused
      * @throws IOException if there is an error reading the input
      */
@@ -61,19 +65,17 @@ public class Main {
     }
 
     /**
-     * Returns parsed expression with parentheses indicating groupings of binary operations from left to right. 
-     * This represents the parse tree, adding parentheses at each splitting node lower than the root node. 
-     * Addition operations are separated by one space. 
-     * Multiplication operations are not separated by whitespace. 
-     * Constants are represented as doubles.
+     * If input is parsed as a valid expression, 
+     * we return the parsed expression as inputed, but with all whitespaces removed.  
+     * In cases where the input cannot be parsed as a valid expression, 
+     * we return an RuntimeException error.  
      * 
      * For example,
-     * 1) x*y*x+y becomes (x*(y*x)) + y
-     * 2) 4*35+90 becomes (4.0*35.0) + 90.0
-     * 3) 4+5*9 becomes 4.0 + (5.0*9.0)
-     * 
-     * TODO: specs are outdated
-     * 
+     * 1) x*y*       x+y    becomes     x*y*x+y
+     * 2) 4*35+90           becomes     4*35+90
+     * 3) 4.0+5*9.          becomes     4.0+5*9.
+     * 4) 4((               becomes     RuntimeException
+     *     
      * @param input expression
      * @return parsed expression
      */
@@ -108,7 +110,7 @@ public class Main {
             return Expressions.simplify(currentExpression);
         } else {
             return "ParseError: unknown command \"" + substring +"\"" + "\nCurrentExpression: " + currentExpression;
-            // TODO modify response to invalid command
+            // TODO: modify response to invalid command once clarified by TAs
         }
     }
 }
