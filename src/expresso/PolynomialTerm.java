@@ -121,26 +121,32 @@ public class PolynomialTerm {
      * @param Expression node The root node of the subtree, containing only ME descendants
      */ 
     private void walkTree(Expression node) {
-        // if node has properties of a multiplication expression
+
+        // If node has properties of a multiplication expression
         if (node.isDistributable() && !(node.isLiteral()) && !(node.isParameterizable())) {
-            MultiplicationExpression multiplyNode = (MultiplicationExpression) node;
-            walkTree(multiplyNode.getLeft());
-            walkTree(multiplyNode.getRight());
+            walkTree(node.getLeft());
+            walkTree(node.getRight());
             return;
         }
+
+        // If node has properties of a variable
         if (node.isLiteral() && node.isParameterizable()) {
-            Variable variableNode = (Variable) node;
+            Variable variableNode = (Variable) node; // TODO we shouldn't be casting
             String variable = variableNode.getName();
             int power = variables.containsKey(variable) ? variables
                     .get(variable) + 1 : 1;
             variables.put(variable, power);
             return;
         }
+
+        // If node has properties of a constant
         if (node.isLiteral() && !(node.isParameterizable())) {
-            Constant constantNode = (Constant) node;
+            Constant constantNode = (Constant) node; // TODO we shouldn't be casting
             coefficient = coefficient * constantNode.getValue();
             return;
         }
+
+        // Default
         throw new RuntimeException("Can't cast to PolynomialTerm");
     }
 
