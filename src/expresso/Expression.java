@@ -83,20 +83,32 @@ public interface Expression {
     public Expression getRight();
     
     /**
-     * TODO
-     * @return
+     * An Expression is distributable iff either child of the Expression can be distributed
+     * over its operation into the children of the other child, while maintaining the algebraic 
+     * integrity of the Expression.
+     *
+     * For example, an Expression E = (3)*(4+5) with operation (*) and children (3) and (4+5)
+     * can distribute (3) over (*) into the children of (4+5) such that E = (3*4)+(3*5)
+     *
+     * @return true if the Expression is Distributable, false otherwise
      */
     public boolean isDistributable();
     
     /**
-     * TODO
-     * @return
+     * An Expression is parameterizable iff its abstraction is a differentiatable parameter
+     * according to the Expresso specification. In other words, it must be a valid symbol in
+     * the symbolic differentiation clause of the spec
+     * 
+     * @return true if the Expression is Parameterizable, false otherwise
      */
     public boolean isParameterizable();
     
     /**
-     * TODO
-     * @return
+     * An Expression is a literal iff it is an atomic expression, that is, if it is an algebraic
+     * expression with no deeper formulaic structure. Concretely, an Expression is a literal if 
+     * it is a base case to the recursive ADT. 
+     *
+     * @return true if the Expression is a literal, false otherwise
      */
     public boolean isLiteral();
     
