@@ -75,7 +75,7 @@ public class Main {
      * 2) 4*35+90           becomes     4*35+90
      * 3) 4.0+5*9.          becomes     4.0+5*9.
      * 4) 4((               becomes     RuntimeException
-     *      * 
+     *     
      * @param input expression
      * @return parsed expression
      */
