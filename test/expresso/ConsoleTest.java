@@ -90,10 +90,17 @@ public class ConsoleTest {
      *      
      *      
      * Original Testing Strategy -- Deemed too frustrating
-     *  To test the console interface, we will run two threads.
-     *  One thread will be implementing main, allowing the continuous read of the inputStream.
-     *  The other thread will write to the inputStream in main and read from the outputStream. 
-     *  When reading from the outputStream, it will assert the correct responses are returned. 
+     *  Initially, we wanted to test the console interface this way:
+     *   1) We would run Main on a new thread
+     *   2) We would pipe an inputStream to stdin, in which we would write our unit tests.
+     *   3) We would pipe stdout to an outputStream, from which we would read from.
+     *   4) When reading from the outputStream, will assert the correct responses are returned.
+     *  However, this ended up in complications because JUnit also printed to stdout 
+     *  simultaneously while the tests were being run, resulting in race conditions.
+     *
+     *  We also considered using a process builder so that Main would run on a separate process
+     *  from JUnit, thereby isolating the process environment of Main (and by extension, its IO
+     *  descriptors) but determined that this was too much work for very little reward.
      * 
      * Second Testing Strategy -- TA stated manual testing was sufficient
      *  Create a public method in Main which can handle handleExpressions.  This way
