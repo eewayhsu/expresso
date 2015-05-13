@@ -13,9 +13,9 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * Expression supports the following methods...
  * parse(String)
  * expand()
- * getType()
  * getLeft()
  * getRight()
+ * getValue()
  */
 public interface Expression {
 
@@ -113,6 +113,13 @@ public interface Expression {
     public boolean isLiteral();
     
     /**
+     * Returns the string representation of the Expression
+     * 
+     * @return string representation of the Expression
+     */
+    public String getValue();
+    
+    /**
      * Defines structural equality for two Expression objects.
      * Expression A and Expression B are equal if and only if their parse trees are equal.
      * If the order of operations is ambiguous, the parser automatically treats the 
@@ -128,7 +135,4 @@ public interface Expression {
      */
     @Override
     public boolean equals(Object obj);
-
-    @Override
-    public String toString();
 }

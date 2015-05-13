@@ -78,16 +78,16 @@ public class Variable implements Expression {
     public int hashCode() {
         return name.hashCode();
     }
-    
-    @Override
-    public String toString() {
-        return name;
-    }
 
     /**
      * We ensure the rep invariant is maintained
      */
     private void checkRep() {
         name.matches("[a-zA-Z]+");
+    }
+
+    @Override
+    public String getValue() {
+        return name;
     }
 }
