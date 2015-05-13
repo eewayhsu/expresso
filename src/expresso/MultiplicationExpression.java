@@ -107,22 +107,22 @@ public class MultiplicationExpression implements Expression {
     }
 
     @Override
-    public String toString() {
+    public String getValue() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");
-            output.append(left.toString());
+            output.append(left.getValue());
             output.append(")");
         } else {
-            output.append(left.toString());
+            output.append(left.getValue());
         }
         output.append("*");
         if (!(right.isLiteral())) {
             output.append("(");
-            output.append(right.toString());
+            output.append(right.getValue());
             output.append(")");
         } else {
-            output.append(right.toString());
+            output.append(right.getValue());
         }
         return output.toString();
     }

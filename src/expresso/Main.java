@@ -59,6 +59,7 @@ public class Main {
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
+                re.printStackTrace();
                 System.out.println("ParseError: Invalid expression");
             }
         }

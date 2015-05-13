@@ -131,7 +131,7 @@ public class PolynomialTerm {
 
         // If node has properties of a variable
         if (node.isLiteral() && node.isParameterizable()) {
-            String variable = node.toString();
+            String variable = node.getValue();
             int power = variables.containsKey(variable) ? variables
                     .get(variable) + 1 : 1;
             variables.put(variable, power);
@@ -140,7 +140,7 @@ public class PolynomialTerm {
 
         // If node has properties of a constant
         if (node.isLiteral() && !(node.isParameterizable())) {
-            coefficient = coefficient * Double.parseDouble(node.toString());
+            coefficient = coefficient * Double.parseDouble(node.getValue());
             return;
         }
 
@@ -215,8 +215,7 @@ public class PolynomialTerm {
      * @return the String representation of the PolynomialTerm
      */ 
     
-    @Override
-    public String toString() {
+    public String getValue() {
         String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
         String operation = (coefficient == 1) ? "" : "*";
         String multiplyByZero = "0.0";
