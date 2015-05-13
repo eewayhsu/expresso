@@ -113,9 +113,9 @@ public interface Expression {
     public boolean isLiteral();
     
     /**
-     * Returns the value of the Expression
+     * Returns the string representation of the Expression
      * 
-     * @return value of the Expression
+     * @return string representation of the Expression
      */
     public String getValue();
     
@@ -135,7 +135,4 @@ public interface Expression {
      */
     @Override
     public boolean equals(Object obj);
-
-    @Override
-    public String toString();
 }

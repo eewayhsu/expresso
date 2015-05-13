@@ -77,11 +77,6 @@ public class Constant implements Expression {
     @Override
     public int hashCode() {
         return Double.toString(value).hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return Double.toString(value);
     }   
 
     private void checkRep() {

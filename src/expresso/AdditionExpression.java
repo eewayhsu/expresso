@@ -97,7 +97,7 @@ public class AdditionExpression implements Expression {
     }
     
     @Override 
-    public String toString() {
+    public String getValue() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");
@@ -115,10 +115,5 @@ public class AdditionExpression implements Expression {
             output.append(right.toString());
         }
         return output.toString();
-    }
-
-    @Override
-    public String getValue() {
-        return "+";
     }
 }

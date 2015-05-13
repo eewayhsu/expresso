@@ -213,9 +213,7 @@ public class PolynomialTerm {
      *
      * @return the String representation of the PolynomialTerm
      */ 
-    
-    @Override
-    public String toString() {
+    public String getValue() {
         String returnString = (coefficient == 1) ? "" : String.valueOf(coefficient);
         String operation = (coefficient == 1) ? "" : "*";
         String multiplyByZero = "0.0";

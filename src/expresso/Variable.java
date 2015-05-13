@@ -78,11 +78,6 @@ public class Variable implements Expression {
     public int hashCode() {
         return name.hashCode();
     }
-    
-    @Override
-    public String toString() {
-        return name;
-    }
 
     /**
      * We ensure the rep invariant is maintained

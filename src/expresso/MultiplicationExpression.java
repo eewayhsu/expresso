@@ -107,7 +107,7 @@ public class MultiplicationExpression implements Expression {
     }
 
     @Override
-    public String toString() {
+    public String getValue() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");
@@ -133,10 +133,5 @@ public class MultiplicationExpression implements Expression {
     private void checkRep() {
         assert left != null;
         assert right != null;
-    }
-
-    @Override
-    public String getValue() {
-        return "*";
     }
 }
