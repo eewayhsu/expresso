@@ -81,10 +81,10 @@ public class Expressions {
     private static String simplifyWithList(List<PolynomialTerm> listOfPolynomials) {
         List<PolynomialTerm> simplifiedPolynomialList = PolynomialTerm.simplify(listOfPolynomials);
         StringBuffer simplifiedString = new StringBuffer();
-        simplifiedString.append(simplifiedPolynomialList.get(0).getValue());
+        simplifiedString.append(simplifiedPolynomialList.get(0).toString());
 
         for (int i = 1; i < simplifiedPolynomialList.size(); i++) {
-            String stringPoly = simplifiedPolynomialList.get(i).getValue();
+            String stringPoly = simplifiedPolynomialList.get(i).toString();
 
             // Skip loop iteration if term is the additive identity
             if (stringPoly == ADDITIVE_IDENTITY) continue;
