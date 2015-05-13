@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * Expression supports the following methods...
  * parse(String)
  * expand()
+ * getType()
  * getLeft()
  * getRight()
  */
@@ -128,10 +129,6 @@ public interface Expression {
     @Override
     public boolean equals(Object obj);
 
-    /**
-     * Returns string representation of the Expression
-     * 
-     * @return string representation of the Expression
-     */
-    public String getValue();
+    @Override
+    public String toString();
 }

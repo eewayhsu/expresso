@@ -41,7 +41,7 @@ public class AdditionExpression implements Expression {
     @Override
     public Expression expand() {
         //An expanded expression is the addition of expressions is an AdditionExpression
-        return new AdditionExpression(left.expand(), right.expand());
+        return this;
     }
     
     @Override
@@ -97,7 +97,7 @@ public class AdditionExpression implements Expression {
     }
     
     @Override 
-    public String getValue() {
+    public String toString() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");

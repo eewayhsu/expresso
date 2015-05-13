@@ -80,7 +80,7 @@ public class Variable implements Expression {
     }
     
     @Override
-    public String getValue() {
+    public String toString() {
         return name;
     }
 
