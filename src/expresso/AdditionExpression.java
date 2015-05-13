@@ -41,7 +41,7 @@ public class AdditionExpression implements Expression {
     @Override
     public Expression expand() {
         //An expanded expression is the addition of expressions is an AdditionExpression
-        return this;
+        return new AdditionExpression(left.expand(), right.expand());
     }
     
     @Override

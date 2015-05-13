@@ -63,6 +63,7 @@ public class MultiplicationExpression implements Expression {
         }
 
         // if leftExpand has properties of an addition expression
+        //Sorry ChongU, thanks for the help but we ended up messing something up and decided not to change this.  
         if (!(leftExpand.isDistributable()) && !(leftExpand.isLiteral()) && !(leftExpand.isParameterizable())) {
             Expression newLeft = new MultiplicationExpression(rightExpand, leftExpand.getLeft());
             Expression newRight = new MultiplicationExpression(rightExpand, leftExpand.getRight());
