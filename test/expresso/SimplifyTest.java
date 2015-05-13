@@ -53,6 +53,7 @@ public class SimplifyTest {
      *  - foo*foo
      *  - 4*(x*y + y*x)
      *  - 4 + (x*x*x)
+     *  - x+x*(4+y)
      *  - 4*(x*y + y*x + x*x*x)
      *  - 4*(x*y + y*x + x*x*x + y*y*y)
      *  - (x*y + y*x + x*x*x)*4.0
@@ -129,6 +130,16 @@ public class SimplifyTest {
     @Test
     public void testSimplifyDistributeVariable() {
         assertEquals(Expressions.simplify("x*(x*y + y*x + x*x*x)"), "x*x*x*x+2.0*x*x*y");
+    }
+    
+    @Test
+    public void testSimplifyAdd() {
+        assertEquals(Expressions.simplify("x+x*(4+y)"), "5.0*x+x*y");
+    }
+    
+    @Test
+    public void testSimplifyAddAnother() {
+        System.out.println(Expressions.simplify("x + x + x *(x + x) + x + (x * x + x) * x"));
     }
     
     @Test // Can't cast to PolynomialTerm
