@@ -107,7 +107,7 @@ public class MultiplicationExpression implements Expression {
     }
 
     @Override
-    public String getValue() {
+    public String toString() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");
