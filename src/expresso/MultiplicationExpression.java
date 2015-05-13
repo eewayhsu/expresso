@@ -134,4 +134,9 @@ public class MultiplicationExpression implements Expression {
         assert left != null;
         assert right != null;
     }
+
+    @Override
+    public String getValue() {
+        return "*";
+    }
 }

@@ -131,16 +131,15 @@ public class PolynomialTerm {
 
         // If node has properties of a variable
         if (node.isLiteral() && node.isParameterizable()) {
-            String variable = node.toString();
-            int power = variables.containsKey(variable) ? variables
-                    .get(variable) + 1 : 1;
+            String variable = node.getValue();
+            int power = variables.containsKey(variable) ? variables.get(variable) + 1 : 1;
             variables.put(variable, power);
             return;
         }
 
         // If node has properties of a constant
         if (node.isLiteral() && !(node.isParameterizable())) {
-            coefficient = coefficient * Double.parseDouble(node.toString());
+            coefficient = coefficient * Double.parseDouble(node.getValue());
             return;
         }
 

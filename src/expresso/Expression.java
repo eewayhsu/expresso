@@ -113,6 +113,13 @@ public interface Expression {
     public boolean isLiteral();
     
     /**
+     * Returns the value of the Expression
+     * 
+     * @return value of the Expression
+     */
+    public String getValue();
+    
+    /**
      * Defines structural equality for two Expression objects.
      * Expression A and Expression B are equal if and only if their parse trees are equal.
      * If the order of operations is ambiguous, the parser automatically treats the 

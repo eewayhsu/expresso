@@ -116,4 +116,9 @@ public class AdditionExpression implements Expression {
         }
         return output.toString();
     }
+
+    @Override
+    public String getValue() {
+        return "+";
+    }
 }

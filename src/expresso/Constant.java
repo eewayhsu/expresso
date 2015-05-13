@@ -87,4 +87,9 @@ public class Constant implements Expression {
     private void checkRep() {
         assert value >= 0;
     }
+
+    @Override
+    public String getValue() {
+        return Double.toString(value);
+    }
 }

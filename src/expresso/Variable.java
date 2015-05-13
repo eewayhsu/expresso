@@ -90,4 +90,9 @@ public class Variable implements Expression {
     private void checkRep() {
         name.matches("[a-zA-Z]+");
     }
+
+    @Override
+    public String getValue() {
+        return name;
+    }
 }
