@@ -13,9 +13,9 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
  * Expression supports the following methods...
  * parse(String)
  * expand()
- * getType()
  * getLeft()
  * getRight()
+ * getValue()
  */
 public interface Expression {
 
