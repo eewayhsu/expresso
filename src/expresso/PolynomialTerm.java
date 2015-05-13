@@ -111,10 +111,10 @@ public class PolynomialTerm {
     }
 
     /**
-     * This method is called in the Expression constructor. It is a recursive
-     * procedure. The method starts by walking the tree rooted at node, and if any
-     * of the descendant nodes rooted are literals, records the literal in our 
-     * internal rep
+     * This method is called in the PolynomialTerm constructor taking in an expression. 
+     * It is a recursive procedure. The method starts by walking the tree rooted at node, 
+     * and if any of the descendant nodes rooted are literals, 
+     * records the literal in our internal representation
      *
      * Expression must only contain ME descendants
      *
