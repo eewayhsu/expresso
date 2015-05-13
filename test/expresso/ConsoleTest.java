@@ -10,6 +10,11 @@ public class ConsoleTest {
     /*
      * Test strategy for Console Interface:
      * 
+     * Our tests below test our public main function, which in turn
+     * is capturing the functionality of handleExpression and handleCommand.  
+     * We decided not to do JUnit tests because we wanted to maintain the
+     * method signatures and keep them private. 
+     * 
      * Testing for the console interface will be done with mainly manual testing.  
      * Below is the documented testing strategy.  Extensive cases are tested.  
      * 

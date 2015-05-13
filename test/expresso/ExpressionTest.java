@@ -1,20 +1,23 @@
 package expresso;
 
-import expresso.parser.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+
 import javax.swing.JDialog;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.RuleContext;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.ParseTree;
-
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import expresso.parser.ExpressionLexer;
+import expresso.parser.ExpressionParser;
 
 /**
  * This class contains tests for the language of balanced parentheses.
@@ -200,6 +203,7 @@ public class ExpressionTest {
         assertEquals(Expression.parse("x+1"), Expression.parse("x + 1.00000"));
     }
 
+    //Shows visual tree
     private void parseToDebug(String string) {
         CharStream stream = new ANTLRInputStream(string);
 

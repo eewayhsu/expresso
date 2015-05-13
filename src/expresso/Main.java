@@ -110,7 +110,7 @@ public class Main {
             return Expressions.simplify(currentExpression);
         } else {
             return "ParseError: unknown command \"" + substring +"\"" + "\nCurrentExpression: " + currentExpression;
-            // TODO: modify response to invalid command once clarified by TAs
+            //modify response to invalid if this is not allowed once clarified by TAs
         }
     }
 }
