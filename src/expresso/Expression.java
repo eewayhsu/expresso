@@ -129,6 +129,10 @@ public interface Expression {
     @Override
     public boolean equals(Object obj);
 
-    @Override
-    public String toString();
+    /**
+     * Returns string representation of expression
+     * 
+     * @return string representation of expression
+     */
+    public String getValue();
 }

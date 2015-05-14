@@ -80,7 +80,7 @@ public class Constant implements Expression {
     }
 
     @Override
-    public String toString() {
+    public String getValue() {
         return Double.toString(value);
     }   
 
