@@ -30,7 +30,7 @@ import expresso.parser.ExpressionParser;
  *  getRight()
  *  equals()
  *  hashCode()
- *  getValue()
+ *  toString()
  */
 public class ExpressionTest {
     

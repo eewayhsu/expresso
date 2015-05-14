@@ -97,22 +97,22 @@ public class AdditionExpression implements Expression {
     }
     
     @Override 
-    public String getValue() {
+    public String toString() {
         StringBuffer output = new StringBuffer();
         if (!(left.isLiteral())) {
             output.append("(");
-            output.append(left.getValue());
+            output.append(left.toString());
             output.append(")");
         } else {
-            output.append(left.getValue());
+            output.append(left.toString());
         }
-        output.append("+");
+        output.append(" + ");
         if (!(right.isLiteral())) {
             output.append("(");
-            output.append(right.getValue());
+            output.append(right.toString());
             output.append(")");
         } else {
-            output.append(right.getValue());
+            output.append(right.toString());
         }
         return output.toString();
     }

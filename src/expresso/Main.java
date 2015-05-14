@@ -59,7 +59,6 @@ public class Main {
                 }
                 System.out.println(output);
             } catch (RuntimeException re) {
-                System.out.println(currentExpression);
                 System.out.println("ParseError: Invalid expression");
             }
         }
@@ -81,7 +80,7 @@ public class Main {
      * @return parsed expression
      */
     private static String handleExpression(String input) {
-        return Expression.parse(input).getValue();
+        return Expression.parse(input).toString();
     }
 
     /**
