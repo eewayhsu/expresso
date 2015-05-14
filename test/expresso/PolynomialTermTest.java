@@ -16,7 +16,7 @@ import org.junit.Test;
  *  simplify()
  *  equals()
  *  hashCode()
- *  getValue()
+ *  toString()
  */
 public class PolynomialTermTest {
     
@@ -129,14 +129,14 @@ public class PolynomialTermTest {
         assertEquals(AdditiveIdentity, newPolynomialTerm);
     }
 
-    // Tests for getValue method
+    // Tests for toString method
     
     /**
      * Test that additive identity's string rep is 0.0
      */
     @Test
     public void testAdditiveIdentityStringRep() {
-        assertEquals(AdditiveIdentity.getValue(), "0.0");
+        assertEquals(AdditiveIdentity.toString(), "0.0");
     }
 
     /**
@@ -144,7 +144,7 @@ public class PolynomialTermTest {
      */
     @Test
     public void testMultiplicativeIdentityStringRep() {
-        assertEquals(MultiplicativeIdentity.getValue(), "1.0");
+        assertEquals(MultiplicativeIdentity.toString(), "1.0");
     }
 
     /**
@@ -154,7 +154,7 @@ public class PolynomialTermTest {
     public void testCoefficientOneStringRep() {
         variables.put("x", 1);
         PolynomialTerm newPolynomialTerm = new PolynomialTerm(1.000, variables);
-        assertEquals(newPolynomialTerm.getValue(), "x");
+        assertEquals(newPolynomialTerm.toString(), "x");
     }
     
     /**
@@ -164,7 +164,7 @@ public class PolynomialTermTest {
     public void testCoefficientZeroStringRep() {
         variables.put("x", 1);
         PolynomialTerm newPolynomialTerm = new PolynomialTerm(0.00, variables);
-        assertEquals(newPolynomialTerm.getValue(), "0.0");
+        assertEquals(newPolynomialTerm.toString(), "0.0");
     }
     
     /**
@@ -174,7 +174,7 @@ public class PolynomialTermTest {
     public void testSingleVariableString() {
         variables.put("foo", 1);
         PolynomialTerm newPolynomialTerm = new PolynomialTerm(4.25, variables);
-        assertEquals(newPolynomialTerm.getValue(), "4.25*foo");
+        assertEquals(newPolynomialTerm.toString(), "4.25*foo");
     }
     
     /**
@@ -187,6 +187,6 @@ public class PolynomialTermTest {
         variables.put("food", 2);
         variables.put("foodly", 1);
         PolynomialTerm newPolynomialTerm = new PolynomialTerm(5.82, variables);
-        assertEquals(newPolynomialTerm.getValue(), "5.82*foodly*food*food*foo");
+        assertEquals(newPolynomialTerm.toString(), "5.82*foodly*food*food*foo");
     }
 }
